@@ -55,4 +55,9 @@ public class Wall {
     public boolean collides(Rectangle playerHitBox){
         return playerHitBox.overlaps(boundsRight)||playerHitBox.overlaps(boundsLeft);
     }
+
+    public void dispose(){
+        rightWall.dispose();
+        leftWall.dispose();
+    }
 }

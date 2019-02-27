@@ -20,16 +20,14 @@ public class MenuState extends State {
     public void dispose() {
         background.dispose();
         playbutton.dispose();
+        System.out.println("Menu State Disposed");
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
             gsm.set(new PlayState(gsm));
-            dispose();
         }
-
-
     }
 
     @Override

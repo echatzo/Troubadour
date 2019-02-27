@@ -48,7 +48,8 @@ public class PlayState extends State {
         player.update(dt);
         cam.position.y= player.getPosition().y + 180;
 
-        for(Wall wall : walls){
+        for(int i = 0; i < walls.size; i++){
+            Wall wall = walls.get(i);
             if(cam.position.y-(cam.viewportHeight/2) > wall.getPosrightWall().y + wall.getrightWall().getWidth()){
                 wall.reposition(wall.getPosrightWall().y + ((Wall.WALL_THICK + WALL_SPACING)*WALL_COUNT));
             }
@@ -77,6 +78,11 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        player.dispose();
+        for(Wall wall : walls){
+            wall.dispose();
+        }
+        System.out.println("Play State Disposed");
     }
 }

@@ -52,6 +52,10 @@ public class PlayState extends State {
             if(cam.position.y-(cam.viewportHeight/2) > wall.getPosrightWall().y + wall.getrightWall().getWidth()){
                 wall.reposition(wall.getPosrightWall().y + ((Wall.WALL_THICK + WALL_SPACING)*WALL_COUNT));
             }
+
+            if (wall.collides(player.getBounds())){
+                gsm.set(new PlayState(gsm));
+            }
         }
         cam.update();
     }

@@ -3,6 +3,7 @@ package com.troubadour.game.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.troubadour.game.Troubadour;
 
@@ -13,6 +14,7 @@ public class Player {
     private Vector3 position;
     private Vector3 velocity;
     private Texture texture;
+    private Rectangle bounds;
 
     private Texture player;
     private Animation playerAnimation;
@@ -22,8 +24,7 @@ public class Player {
         velocity = new Vector3(0, 0, 0);
         texture = new Texture("troubadouranimation.png");
         playerAnimation = new Animation(new TextureRegion(texture), 3, 0.2f);
-
-
+        bounds = new Rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 
     }
 
@@ -31,13 +32,15 @@ public class Player {
         playerAnimation.update(dt);
         velocity.scl(dt);
         position.add(0, MOVEMENT*dt, 0);
-        velocity.scl(1/dt);
+
         if(position.x<0){
             position.x=0;
         }
         if(position.x> (Troubadour.WIDTH /2)-(PLAYER_WIDTH)){
             position.x=(Troubadour.WIDTH /2)-(PLAYER_WIDTH);
         }
+
+        bounds.setPosition(position.x, position.y);
 
     }
 
@@ -55,5 +58,9 @@ public class Player {
     }
     public void dispose(){
         texture.dispose();
+    }
+
+    public Rectangle getBounds(){
+        return bounds;
     }
 }

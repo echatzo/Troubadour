@@ -3,8 +3,10 @@ package com.troubadour.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
+import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
 
@@ -17,6 +19,8 @@ public class PlayState extends State {
     private Player player;
     private Texture background;
     private Texture enemy;
+    private Animation enemyAnimation;
+
 
     private Array<Wall> walls;
 
@@ -25,8 +29,8 @@ public class PlayState extends State {
         player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 30);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
-        enemy = new Texture("enemy.png");
-
+        enemy = new Texture("enemyAnimation.png");
+        enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         walls = new Array<Wall>();
 
         for(int i = 1; i <= WALL_COUNT; i ++){
@@ -46,6 +50,7 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         player.update(dt);
+        enemyAnimation.update(dt);
         cam.position.y= player.getPosition().y + 180;
 
         for(int i = 0; i < walls.size; i++){
@@ -72,7 +77,7 @@ public class PlayState extends State {
             sb.draw(wall.getleftWall(), wall.getPosleftWall().x, wall.getPosleftWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
             sb.draw(wall.getrightWall(), wall.getPosrightWall().x, wall.getPosrightWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
         }
-        sb.draw(enemy, 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
+        sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
         sb.end();
     }
 

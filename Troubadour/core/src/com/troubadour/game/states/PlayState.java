@@ -68,7 +68,7 @@ public class PlayState extends State {
                     player.resetLifeTimer();
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        gsm.pop();
+                        gsm.set(new GameOverState(gsm));
                     }
                 }
             }

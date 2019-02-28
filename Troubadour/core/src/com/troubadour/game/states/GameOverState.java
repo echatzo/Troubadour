@@ -5,29 +5,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.troubadour.game.Troubadour;
 
-public class MenuState extends State {
-
+public class GameOverState extends State {
     private Texture background;
-    private Texture playbutton;
+    private Texture gameOver;
 
-    public MenuState(GameStateManager gsm){
+    public GameOverState(GameStateManager gsm) {
         super(gsm);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
-        playbutton = new Texture("play.png");
-    }
-
-    @Override
-    public void dispose() {
-        background.dispose();
-        playbutton.dispose();
-        System.out.println("Menu State Disposed");
+        gameOver = new Texture("GameOver.png");
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            gsm.push(new PlayState(gsm));
+            gsm.pop();
         }
     }
 
@@ -42,8 +34,12 @@ public class MenuState extends State {
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0, 0, cam.viewportWidth, cam.viewportHeight);
-        sb.draw(playbutton, cam.position.x-60/2, cam.position.y - 40/2, 60, 40);
+        sb.draw(gameOver, cam.position.x-200/2, cam.position.y - 150/2, 200, 150);
         sb.end();
     }
 
+    @Override
+    public void dispose() {
+
+    }
 }

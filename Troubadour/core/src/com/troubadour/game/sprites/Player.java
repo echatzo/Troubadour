@@ -16,10 +16,17 @@ public class Player {
     private Texture texture;
     private Rectangle bounds;
 
+    private Texture life;
+    public Animation lifeAnimation;
+    private int lifeCount;
+
     private Texture player;
     private Animation playerAnimation;
 
     public Player(int x, int y){
+        lifeCount=3;
+        life = new Texture("life.png");
+        lifeAnimation= new Animation(new TextureRegion(life), 2, 0.5f);
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         texture = new Texture("troubadouranimation.png");
@@ -30,6 +37,8 @@ public class Player {
 
     public void update(float dt){
         playerAnimation.update(dt);
+        lifeAnimation.update(dt);
+        
         velocity.scl(dt);
         position.add(0, MOVEMENT*dt, 0);
 

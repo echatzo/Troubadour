@@ -17,17 +17,19 @@ public class Player {
     private Texture texture;
     private Rectangle bounds;
     private Animation playerAnimation;
-    private float lifeTimer;
+
 
     //player life characteristics
     private Texture life;
     public Animation lifeAnimation;
     private int lifeCount;
+    private float lifeTimer;
 
 
     public Player(int x, int y){
 
         lifeCount=3;
+        lifeTimer=0.5f;
         life = new Texture("life.png");
         lifeAnimation= new Animation(new TextureRegion(life), 2, 0.5f);
 

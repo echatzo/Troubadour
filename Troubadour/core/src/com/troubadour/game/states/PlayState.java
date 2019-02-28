@@ -68,6 +68,7 @@ public class PlayState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        //never forget to update position relatively to the camera as the world is scrolling
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0, cam.position.y - (cam.viewportHeight/2), cam.viewportWidth, cam.viewportHeight);

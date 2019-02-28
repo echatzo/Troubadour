@@ -71,6 +71,7 @@ public class Player {
     }
     public void dispose(){
         texture.dispose();
+        life.dispose();
     }
 
     public Rectangle getBounds(){
@@ -100,4 +101,6 @@ public class Player {
     public void resetLifeTimer(){
         lifeTimer = 0;
     }
+
+
 }

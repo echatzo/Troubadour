@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
-import com.troubadour.game.sprites.Bullet;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
 
@@ -56,8 +55,8 @@ public class PlayState extends State {
 
         for(int i = 0; i < walls.size; i++){
             Wall wall = walls.get(i);
-            if(cam.position.y-(cam.viewportHeight/2) > wall.getPosrightWall().y + wall.getrightWall().getWidth()){
-                wall.reposition(wall.getPosrightWall().y + ((Wall.WALL_THICK + WALL_SPACING)*WALL_COUNT));
+            if(cam.position.y-(cam.viewportHeight/2) > wall.getPosRightWall().y + wall.getRightWall().getWidth()){
+                wall.reposition(wall.getPosRightWall().y + ((Wall.WALL_THICK + WALL_SPACING)*WALL_COUNT));
             }
 
             if (wall.collides(player.getBounds())){
@@ -75,8 +74,8 @@ public class PlayState extends State {
 
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         for (Wall wall : walls) {
-            sb.draw(wall.getleftWall(), wall.getPosleftWall().x, wall.getPosleftWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
-            sb.draw(wall.getrightWall(), wall.getPosrightWall().x, wall.getPosrightWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
+            sb.draw(wall.getLeftWall(), wall.getPosLeftWall().x, wall.getPosLeftWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
+            sb.draw(wall.getRightWall(), wall.getPosRightWall().x, wall.getPosRightWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
         }
         sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
         sb.end();

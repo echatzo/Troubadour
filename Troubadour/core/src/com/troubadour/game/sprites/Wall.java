@@ -13,7 +13,7 @@ public class Wall {
     private static  final int WALL_GAP = 50;
     private static final int LOWEST_OPENING = 10;
     private Texture leftWall, rightWall;
-    private Vector2 posleftWall, posrightWall;
+    private Vector2 posLeftWall, posRightWall;
     private Rectangle boundsLeft, boundsRight;
     private Random rand;
 
@@ -22,34 +22,34 @@ public class Wall {
         rightWall = new Texture("wall.png");
         rand = new Random();
 
-        posrightWall = new Vector2(rand.nextInt(FLUCTUATION)+ WALL_GAP + LOWEST_OPENING, y);
-        posleftWall = new Vector2(posrightWall.x - WALL_GAP - 200, y);
+        posRightWall = new Vector2(rand.nextInt(FLUCTUATION)+ WALL_GAP + LOWEST_OPENING, y);
+        posLeftWall = new Vector2(posRightWall.x - WALL_GAP - 200, y);
 
-        boundsRight = new Rectangle(posrightWall.x, posrightWall.y, WALL_LENGTH , WALL_THICK );
-        boundsLeft = new Rectangle(posleftWall.x, posleftWall.y, WALL_LENGTH , WALL_THICK );
+        boundsRight = new Rectangle(posRightWall.x, posRightWall.y, WALL_LENGTH , WALL_THICK );
+        boundsLeft = new Rectangle(posLeftWall.x, posLeftWall.y, WALL_LENGTH , WALL_THICK );
     }
 
-    public Texture getleftWall() {
+    public Texture getLeftWall() {
         return leftWall;
     }
 
-    public Texture getrightWall() {
+    public Texture getRightWall() {
         return rightWall;
     }
 
-    public Vector2 getPosleftWall() {
-        return posleftWall;
+    public Vector2 getPosLeftWall() {
+        return posLeftWall;
     }
 
-    public Vector2 getPosrightWall() {
-        return posrightWall;
+    public Vector2 getPosRightWall() {
+        return posRightWall;
     }
 
     public void reposition(float y){
-        posrightWall.set(rand.nextInt(FLUCTUATION)+ WALL_GAP + LOWEST_OPENING, y);
-        posleftWall.set(posrightWall.x - WALL_GAP - 200, y);
-        boundsRight.setPosition(posrightWall.x, posrightWall.y);
-        boundsLeft.setPosition(posleftWall.x, posleftWall.y);
+        posRightWall.set(rand.nextInt(FLUCTUATION)+ WALL_GAP + LOWEST_OPENING, y);
+        posLeftWall.set(posRightWall.x - WALL_GAP - 200, y);
+        boundsRight.setPosition(posRightWall.x, posRightWall.y);
+        boundsLeft.setPosition(posLeftWall.x, posLeftWall.y);
     }
 
     public boolean collides(Rectangle playerHitBox){

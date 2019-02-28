@@ -12,6 +12,7 @@ public class MenuState extends State {
 
     public MenuState(GameStateManager gsm){
         super(gsm);
+        cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
         playbutton = new Texture("play.png");
     }
@@ -39,8 +40,9 @@ public class MenuState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, 0, 0, Troubadour.WIDTH, Troubadour.HEIGHT);
-        sb.draw(playbutton, (Troubadour.WIDTH/2)- (playbutton.getWidth()/2), (Troubadour.HEIGHT /2) - (playbutton.getHeight()/2));
+        sb.setProjectionMatrix(cam.combined);
+        sb.draw(background, 0, 0, cam.viewportWidth, cam.viewportHeight);
+        sb.draw(playbutton, cam.position.x-70/2, cam.position.y - 60/2, 70, 60);
         sb.end();
     }
 

@@ -2,6 +2,7 @@ package com.troubadour.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -21,12 +22,17 @@ public class PlayState extends State {
     private Texture enemy;
     private Animation enemyAnimation;
 
+    private float score;
+    private String yourScoreName;
+    BitmapFont yourBitmapFontName;
+
 
 
     private Array<Wall> walls;
 
     public PlayState(GameStateManager gsm){
         super(gsm);
+
         player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 30);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
@@ -37,6 +43,9 @@ public class PlayState extends State {
         for(int i = 1; i <= WALL_COUNT; i ++){
             walls.add(new Wall(i*(WALL_SPACING + Wall.WALL_THICK)));
         }
+        score = 0;
+        yourScoreName = "score: 0";
+        yourBitmapFontName = new BitmapFont();
 
     }
 
@@ -51,6 +60,9 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         player.update(dt);
+        score+=dt;
+        yourScoreName = "score: " + (int) score;
+
         enemyAnimation.update(dt);
         cam.position.y= player.getPosition().y + 180;
 
@@ -68,7 +80,7 @@ public class PlayState extends State {
                     player.resetLifeTimer();
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        gsm.set(new GameOverState(gsm));
+                        gsm.set(new GameOverState(gsm, (int)score));
                     }
                 }
             }
@@ -93,6 +105,8 @@ public class PlayState extends State {
         for (int i=1; i<=player.getLifeCount(); i++) {
             sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
         }
+        yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);
+        yourBitmapFontName.draw(sb, yourScoreName, 15, cam.position.y + cam.viewportHeight - (290));
         sb.end();
     }
 

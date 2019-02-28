@@ -17,6 +17,7 @@ public class Player {
     private Texture texture;
     private Rectangle bounds;
     private Animation playerAnimation;
+    private float lifeTimer;
 
     //player life characteristics
     private Texture life;
@@ -74,5 +75,29 @@ public class Player {
 
     public Rectangle getBounds(){
         return bounds;
+    }
+
+    public int getLifeCount(){
+        return this.lifeCount;
+    }
+
+    public void decLifeCount(){
+        this.lifeCount--;
+        System.out.println(lifeCount);
+    }
+    public void incLifeCount(){
+        this.lifeCount++;
+    }
+
+    public float getLifeTimer(){
+        return lifeTimer;
+    }
+
+    public void incLifeTimer(float dt){
+        lifeTimer+=dt;
+    }
+
+    public void resetLifeTimer(){
+        lifeTimer = 0;
     }
 }

@@ -22,6 +22,7 @@ public class PlayState extends State {
     private Animation enemyAnimation;
 
 
+
     private Array<Wall> walls;
 
     public PlayState(GameStateManager gsm){
@@ -60,7 +61,15 @@ public class PlayState extends State {
             }
 
             if (wall.collides(player.getBounds())){
-                gsm.set(new PlayState(gsm));
+                player.incLifeTimer(dt);
+                if(player.getLifeTimer()>2f) {
+                    player.decLifeCount();
+                    player.lifeAnimation.update(dt);
+                    if (player.getLifeCount() <= 0) {
+                        player.resetLifeTimer();
+                        gsm.set(new PlayState(gsm));
+                    }
+                }
             }
         }
         cam.update();
@@ -79,6 +88,11 @@ public class PlayState extends State {
             sb.draw(wall.getRightWall(), wall.getPosRightWall().x, wall.getPosRightWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
         }
         sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
+
+
+        for (int i=1; i<=player.getLifeCount(); i++) {
+            sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
+        }
         sb.end();
     }
 

@@ -15,8 +15,11 @@ public class Player {
     private Vector3 position;
     private Vector3 velocity;
     private Texture texture;
+    private Texture hitTexture;
     private Rectangle bounds;
+    private Animation playerAnimationGood;
     private Animation playerAnimation;
+    private Animation playerAnimationHit;
 
 
     //player life characteristics
@@ -36,7 +39,10 @@ public class Player {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         texture = new Texture("troubadouranimation.png");
-        playerAnimation = new Animation(new TextureRegion(texture), 3, 0.2f);
+        hitTexture = new Texture("troubadouranimationHit.png");
+        playerAnimationGood = new Animation(new TextureRegion(texture), 3, 0.2f);
+        playerAnimationHit = new Animation(new TextureRegion(hitTexture), 3, 0.2f);
+        playerAnimation=playerAnimationGood;
         bounds = new Rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT); //player hitbox
 
     }
@@ -104,5 +110,13 @@ public class Player {
         lifeTimer = 0;
     }
 
+    public void setTexture(int n){
+        if (n==1){
+            playerAnimation=playerAnimationGood;
+        }
+        if (n==2){
+            playerAnimation=playerAnimationHit;
+        }
+    }
 
 }

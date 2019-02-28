@@ -59,11 +59,12 @@ public class PlayState extends State {
             if(cam.position.y-(cam.viewportHeight/2) > wall.getPosRightWall().y + wall.getRightWall().getWidth()){
                 wall.reposition(wall.getPosRightWall().y + ((Wall.WALL_THICK + WALL_SPACING)*WALL_COUNT));
             }
-
-            if (wall.collides(player.getBounds())){
-                player.incLifeTimer(dt);
-                if(player.getLifeTimer()>0.8f) {
+            player.incLifeTimer(dt);
+            if(player.getLifeTimer()>5f) {
+                player.setTexture(1);
+                if (wall.collides(player.getBounds())){
                     player.decLifeCount();
+                    player.setTexture(2);
                     player.resetLifeTimer();
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {

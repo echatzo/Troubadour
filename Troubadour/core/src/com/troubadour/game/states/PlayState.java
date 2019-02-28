@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
+import com.troubadour.game.sprites.Bullet;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
 

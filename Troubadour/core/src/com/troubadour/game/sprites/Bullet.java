@@ -19,4 +19,7 @@ public class Bullet {
         bulletAnimation = new Animation(new TextureRegion(texture), 2, 0.1f);
         bounds = new Circle(x, y, BULLET_SIZE);
     }
+    public TextureRegion getTexture() {
+        return bulletAnimation.getFrame();
+    }
 }

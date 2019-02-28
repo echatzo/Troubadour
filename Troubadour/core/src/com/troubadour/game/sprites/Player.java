@@ -69,7 +69,7 @@ public class Player {
     }
 
     public void move(){
-        position.x = (Gdx.input.getX()/6)-(PLAYER_WIDTH/2);
+        position.x = (((Gdx.input.getX()*240)/Gdx.app.getGraphics().getWidth())- PLAYER_WIDTH/2);
     }
     public void dispose(){
         texture.dispose();

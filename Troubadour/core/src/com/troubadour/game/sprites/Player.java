@@ -11,6 +11,7 @@ public class Player {
     public static final int PLAYER_HEIGHT = 30;
     public static final int PLAYER_WIDTH = 25;
     private static final float MOVEMENT = 80;
+    private static final float MAX_CONTROL_SPEED = 1000;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -52,7 +53,7 @@ public class Player {
         lifeAnimation.update(dt);
 
         velocity.scl(dt);
-        position.add(0, MOVEMENT*dt, 0);
+        position.add(velocity.x, MOVEMENT*dt, 0);
 
         if(position.x<0){
             position.x=0;
@@ -75,7 +76,16 @@ public class Player {
     }
 
     public void move(){
-        position.x = (((Gdx.input.getX()*240)/Gdx.app.getGraphics().getWidth())- PLAYER_WIDTH/2);
+        float fingerPosition=(((Gdx.input.getX()*240)/Gdx.app.getGraphics().getWidth())- PLAYER_WIDTH/2);
+        if(this.getPosition().x < fingerPosition -10){
+            velocity.set(MAX_CONTROL_SPEED, 0, 0);
+        }
+        else if(this.getPosition().x > fingerPosition+10){
+            velocity.set(-MAX_CONTROL_SPEED, 0, 0);
+        }
+        else {
+            position.x = fingerPosition;
+        }
     }
     public void dispose(){
         texture.dispose();

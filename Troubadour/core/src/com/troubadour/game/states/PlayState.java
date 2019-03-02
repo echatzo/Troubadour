@@ -77,6 +77,7 @@ public class PlayState extends State {
                 if (wall.collides(player.getBounds())){
                     player.decLifeCount();
                     player.setTexture(2);
+                    Gdx.input.vibrate(500);
                     player.resetLifeTimer();
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {

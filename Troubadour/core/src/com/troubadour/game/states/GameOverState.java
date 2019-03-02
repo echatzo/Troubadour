@@ -41,7 +41,7 @@ public class GameOverState extends State {
         sb.draw(background, 0, 0, cam.viewportWidth, cam.viewportHeight);
         sb.draw(gameOver, cam.position.x-200/2, cam.position.y - 150/2, 200, 150);
         yourBitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        yourBitmapFontName.draw(sb, yourScoreName, 80, cam.position.y  - (100));
+        yourBitmapFontName.draw(sb, yourScoreName, 100, cam.position.y  - (100));
         sb.end();
     }
 

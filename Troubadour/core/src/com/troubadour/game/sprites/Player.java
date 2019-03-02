@@ -42,7 +42,7 @@ public class Player {
         texture = new Texture("troubadouranimation.png");
         hitTexture = new Texture("troubadouranimationHit.png");
         playerAnimationGood = new Animation(new TextureRegion(texture), 3, 0.2f);
-        playerAnimationHit = new Animation(new TextureRegion(hitTexture), 3, 0.2f);
+        playerAnimationHit = new Animation(new TextureRegion(hitTexture), 3, 0.1f);
         playerAnimation=playerAnimationGood;
         bounds = new Rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT); //player hitbox
 

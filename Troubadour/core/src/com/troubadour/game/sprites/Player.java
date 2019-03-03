@@ -15,19 +15,23 @@ public class Player {
 
     private Vector3 position;
     private Vector3 velocity;
+    private Rectangle bounds; //player hitBox
+
     private Texture texture;
+    private Animation playerAnimationGood; //Player animation
+
     private Texture hitTexture;
-    private Rectangle bounds;
-    private Animation playerAnimationGood;
-    private Animation playerAnimation;
-    private Animation playerAnimationHit;
+    private Animation playerAnimationHit; //Player animation when hit
+
+    private Animation playerAnimation; //Current player animation
+
 
 
     //player life characteristics
     private Texture life;
     public Animation lifeAnimation;
     private int lifeCount;
-    private float lifeTimer;
+    private float lifeTimer; //time remaining before the player can be hit again
 
 
     public Player(int x, int y){
@@ -44,7 +48,7 @@ public class Player {
         playerAnimationGood = new Animation(new TextureRegion(texture), 3, 0.2f);
         playerAnimationHit = new Animation(new TextureRegion(hitTexture), 3, 0.1f);
         playerAnimation=playerAnimationGood;
-        bounds = new Rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT); //player hitbox
+        bounds = new Rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 
     }
 
@@ -75,6 +79,7 @@ public class Player {
         return playerAnimation.getFrame();
     }
 
+    //moves the player toward the finger
     public void move(){
         float fingerPosition=(((Gdx.input.getX()*240)/Gdx.app.getGraphics().getWidth())- PLAYER_WIDTH/2);
         if(this.getPosition().x < fingerPosition -10){

@@ -1,6 +1,7 @@
 package com.troubadour.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +27,8 @@ public class PlayState extends State {
     private String yourScoreName;
     BitmapFont yourBitmapFontName;
 
+    private Sound oof;
+
 
 
     private Array<Wall> walls;
@@ -39,6 +42,7 @@ public class PlayState extends State {
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         walls = new Array<Wall>();
+        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
 
         for(int i = 1; i <= WALL_COUNT; i ++){
             walls.add(new Wall(i*(WALL_SPACING + Wall.WALL_THICK)));
@@ -76,6 +80,9 @@ public class PlayState extends State {
                 player.setTexture(1);//change the player texture back to normal
                 if (wall.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.decLifeCount();
+
+                    //son collision
+                    oof.play(0.5f);
 
                     player.setTexture(2);
                     Gdx.input.vibrate(500);
@@ -117,6 +124,7 @@ public class PlayState extends State {
     public void dispose() {
         background.dispose();
         player.dispose();
+        oof.dispose();
         for(Wall wall : walls){
             wall.dispose();
         }

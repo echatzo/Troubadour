@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
+
+import java.util.concurrent.TimeUnit;
 
 public class PlayState extends State {
 
@@ -84,12 +87,21 @@ public class PlayState extends State {
                     //son collision
                     oof.play(0.5f);
 
+
                     player.setTexture(2);
                     Gdx.input.vibrate(500);
 
                     player.resetLifeTimer();
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
+                        try
+                        {
+                            Thread.sleep(1000);
+                        }
+                        catch(InterruptedException ex)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
                         gsm.set(new GameOverState(gsm, (int)score));//if the player have no more lives, change the playState to a gameOverState
                     }
                 }

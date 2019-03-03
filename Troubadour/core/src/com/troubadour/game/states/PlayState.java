@@ -60,7 +60,7 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         player.update(dt);
-        score+=dt;
+        score+=dt; //increments the score
         yourScoreName = "score: " + (int) score;
 
         enemyAnimation.update(dt);
@@ -72,16 +72,18 @@ public class PlayState extends State {
                 wall.reposition(wall.getPosRightWall().y + ((Wall.WALL_THICK + WALL_SPACING)*WALL_COUNT));
             }
             player.incLifeTimer(dt);
-            if(player.getLifeTimer()>5f) {
-                player.setTexture(1);
-                if (wall.collides(player.getBounds())){
+            if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
+                player.setTexture(1);//change the player texture back to normal
+                if (wall.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.decLifeCount();
+
                     player.setTexture(2);
                     Gdx.input.vibrate(500);
+
                     player.resetLifeTimer();
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        gsm.set(new GameOverState(gsm, (int)score));
+                        gsm.set(new GameOverState(gsm, (int)score));//if the player have no more lives, change the playState to a gameOverState
                     }
                 }
             }
@@ -106,7 +108,7 @@ public class PlayState extends State {
         for (int i=1; i<=player.getLifeCount(); i++) {
             sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
         }
-        yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);
+        yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
         yourBitmapFontName.draw(sb, yourScoreName, 15, (int) cam.position.y + cam.viewportHeight - (290));
         sb.end();
     }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
+import com.troubadour.game.sprites.Background;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
 
@@ -20,7 +21,7 @@ public class PlayState extends State {
     private static final int WALL_COUNT = 6;
 
     private Player player;
-    private Texture background;
+    private Array<Background> backgrounds;
     private Texture enemy;
     private Animation enemyAnimation;
 
@@ -40,7 +41,10 @@ public class PlayState extends State {
 
         player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 30);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
-        background = new Texture("background.png");
+        backgrounds = new Array<Background>();
+        for(int i=0; i<=1; i++){
+            backgrounds.add(new Background(0,400*i));
+        }
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         walls = new Array<Wall>();
@@ -67,6 +71,11 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         player.update(dt);
+        for (Background background : backgrounds){
+            if (background.getPos().y<cam.position.y-600){
+                background.reposition();
+            }
+        }
         score+=dt; //increments the score
         yourScoreName = "score: " + (int) score;
 
@@ -118,8 +127,9 @@ public class PlayState extends State {
         //never forget to update position relatively to the camera as the world is scrolling
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background, 0, cam.position.y - (cam.viewportHeight/2), cam.viewportWidth, cam.viewportHeight);
-
+        for(Background background : backgrounds){
+            sb.draw(background.getTexture(), 0, background.getPos().y, 240, 400);
+        }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         for (Wall wall : walls) {
             sb.draw(wall.getLeftWall(), wall.getPosLeftWall().x, wall.getPosLeftWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
@@ -137,7 +147,10 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-        background.dispose();
+
+        for(Background background : backgrounds){
+            background.dispose();
+        }
         player.dispose();
         oof.dispose();
         death.dispose();

@@ -135,6 +135,7 @@ public class PlayState extends State {
             sb.draw(wall.getLeftWall(), wall.getPosLeftWall().x, wall.getPosLeftWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
             sb.draw(wall.getRightWall(), wall.getPosRightWall().x, wall.getPosRightWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
         }
+        sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
 
         for (int i=1; i<=player.getLifeCount(); i++) {

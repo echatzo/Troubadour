@@ -9,7 +9,7 @@ import java.util.Random;
 public class Wall {
     public static final float WALL_THICK = 30;
     public static final float WALL_LENGTH = 200;
-    private static final int FLUCTUATION = 190;
+    private static final int FLUCTUATION = 180;
     private static  final int WALL_GAP = 50;
     private static final int LOWEST_OPENING = 10;
     private Texture leftWall, rightWall;
@@ -18,12 +18,12 @@ public class Wall {
     private Random rand;
 
     public Wall(float y){
-        leftWall = new Texture("wall.png");
-        rightWall = new Texture("wall.png");
+        leftWall = new Texture("fence.png");
+        rightWall = new Texture("fence.png");
         rand = new Random();
 
         posRightWall = new Vector2(rand.nextInt(FLUCTUATION)+ WALL_GAP + LOWEST_OPENING, y);
-        posLeftWall = new Vector2(posRightWall.x - WALL_GAP - 200, y);
+        posLeftWall = new Vector2(posRightWall.x - WALL_GAP - WALL_LENGTH, y);
 
         boundsRight = new Rectangle(posRightWall.x, posRightWall.y, WALL_LENGTH , WALL_THICK );
         boundsLeft = new Rectangle(posLeftWall.x, posLeftWall.y, WALL_LENGTH , WALL_THICK );

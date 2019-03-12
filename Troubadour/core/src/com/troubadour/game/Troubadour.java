@@ -28,7 +28,7 @@ public class Troubadour extends ApplicationAdapter {
 		//music debut
         music = Gdx.audio.newMusic((Gdx.files.internal("music.mp3")));
         music.setLooping(true);
-        music.setVolume(0.1f);
+        music.setVolume(0.2f);
         music.play();
         //music fin
 		Gdx.gl.glClearColor(0, 0, 1, 1);

@@ -21,7 +21,7 @@ public abstract class Mob {
 
     public abstract Vector3 getPosition();
 
-    public abstract TextureRegion getTexture();
+    public abstract Texture getTexture();
 
     public abstract void dispose();
 

@@ -10,15 +10,20 @@ import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Background;
+import com.troubadour.game.sprites.Ghost;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
 
 
-public class PlayState extends State {
+public class PlayStateWorld2 extends State {
 
 
     private static final int WALL_SPACING = 100;
     private static final int WALL_COUNT = 6;
+
+    private static final int ENEMY_SPACING = 100;
+    private static final int ENEMY_COUNT = 6;
+
 
     private Player player;
     private Array<Background> backgrounds;
@@ -34,9 +39,10 @@ public class PlayState extends State {
 
 
 
-    private Array<Wall> walls;
+    //private Array<Wall> walls;
+    private Array<Ghost> enemies;
 
-    public PlayState(GameStateManager gsm){
+    public PlayStateWorld2(GameStateManager gsm){
         super(gsm);
 
         player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 30);
@@ -47,12 +53,18 @@ public class PlayState extends State {
         }
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
-        walls = new Array<Wall>();
+        //walls = new Array<Wall>();
+        enemies = new Array<Ghost>();
+
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
-        for(int i = 1; i <= WALL_COUNT; i ++){
+        /*for(int i = 1; i <= WALL_COUNT; i ++){
             walls.add(new Wall(i*(WALL_SPACING + Wall.WALL_THICK)));
+        }*/
+        for(int i = 1; i <= ENEMY_COUNT; i ++){
+            //enemies.add(new Ghost((Troubadour.WIDTH /4),i*(ENEMY_SPACING + Ghost.ENEMY_THICK)));
+            enemies.add(new Ghost(i*(ENEMY_SPACING + Ghost.ENEMY_THICK)));
         }
         score = 0;
         yourScoreName = "score: 0";
@@ -82,15 +94,15 @@ public class PlayState extends State {
         enemyAnimation.update(dt);
         cam.position.y= player.getPosition().y + 180;
 
-        for(int i = 0; i < walls.size; i++){
-            Wall wall = walls.get(i);
-            if(cam.position.y-(cam.viewportHeight/2) > wall.getPosRightWall().y + wall.getRightWall().getWidth()){
-                wall.reposition(wall.getPosRightWall().y + ((Wall.WALL_THICK + WALL_SPACING)*WALL_COUNT));
+        for(int i = 0; i < enemies.size; i++){
+            Ghost ghost = enemies.get(i);
+            if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.getTexture().getWidth()){
+                ghost.reposition(ghost.getPosition().y + ((Ghost.ENEMY_THICK + ENEMY_SPACING)*ENEMY_COUNT));
             }
             player.incLifeTimer(dt);
             if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
-                if (wall.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
+                if (ghost.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.decLifeCount();
 
                     //son collision
@@ -131,9 +143,8 @@ public class PlayState extends State {
             sb.draw(background.getTexture(), 0, background.getPos().y, 240, 400);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
-        for (Wall wall : walls) {
-            sb.draw(wall.getLeftWall(), wall.getPosLeftWall().x, wall.getPosLeftWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
-            sb.draw(wall.getRightWall(), wall.getPosRightWall().x, wall.getPosRightWall().y, Wall.WALL_LENGTH, Wall.WALL_THICK);
+        for (Ghost ghost : enemies) {
+            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, ghost.ENEMY_LENGTH, ghost.ENEMY_THICK);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
@@ -155,9 +166,9 @@ public class PlayState extends State {
         player.dispose();
         oof.dispose();
         death.dispose();
-        for(Wall wall : walls){
-            wall.dispose();
+        for(Ghost ghost : enemies){
+            ghost.dispose();
         }
-        System.out.println("Play State Disposed");
+        System.out.println("Play State World2 Disposed");
     }
 }

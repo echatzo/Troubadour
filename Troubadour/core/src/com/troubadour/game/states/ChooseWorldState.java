@@ -30,7 +30,7 @@ public class ChooseWorldState extends State {
     private Skin skin;
     private TextButton world1, world2;
     private BitmapFont font;
-    int row_height = Gdx.graphics.getWidth() / 12;
+    int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
 
     private FitViewport fitViewport;
@@ -40,22 +40,25 @@ public class ChooseWorldState extends State {
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
 
-        fitViewport = new FitViewport(Troubadour.WIDTH, Troubadour.HEIGHT);
+        //fitViewport = new FitViewport(Troubadour.WIDTH, Troubadour.HEIGHT);
 
-        stage = new Stage(fitViewport);
+        //stage = new Stage(fitViewport);
+        stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         font = new BitmapFont();
         skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
 
         world1 = new TextButton("World 1", skin);
-        world1.setSize(col_width*6,row_height*4);
-        world1.setPosition( cam.position.x, cam.position.y + 200);
+        world1.setSize(col_width*6,row_height*2);
+        world1.setPosition(col_width*3,Gdx.graphics.getHeight()-row_height*5);
+        //world1.setTransform(true);
+        //world1.scaleBy(2f);
         world1.setChecked(false);
         stage.addActor(world1);
 
         world2 = new TextButton("World 2", skin);
-        world2.setSize(col_width*6,row_height*4);
-        world2.setPosition( cam.position.x, cam.position.y );
+        world2.setSize(col_width*6,row_height*2);
+        world2.setPosition( col_width*3,row_height*3 );
         world2.setChecked(false);
         stage.addActor(world2);
 
@@ -89,8 +92,6 @@ public class ChooseWorldState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0, 0, cam.viewportWidth, cam.viewportHeight);

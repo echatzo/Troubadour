@@ -28,9 +28,11 @@ public class MenuState extends State {
     public void handleInput() {
         if(Gdx.input.justTouched()){
             //world 1
-            //gsm.push(new PlayState(gsm));
+            //gsm.set(new PlayState(gsm));
             //world 2
-            gsm.push(new PlayStateWorld2(gsm));
+            //gsm.set(new PlayStateWorld2(gsm));
+            //choose World
+            gsm.push(new ChooseWorldState(gsm));
         }
     }
 

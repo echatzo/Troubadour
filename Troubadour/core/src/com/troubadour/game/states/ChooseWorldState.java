@@ -72,12 +72,12 @@ public class ChooseWorldState extends State {
 
     @Override
     public void handleInput() {
-        if(world1.isChecked()){
+        if(world1.isPressed()){
             //world 1
-            gsm.set(new PlayState(gsm));
+            gsm.push(new PlayState(gsm));
         }
-        if(world2.isChecked()){
-            gsm.set(new PlayStateWorld2(gsm));
+        if(world2.isPressed()){
+            gsm.push(new PlayStateWorld2(gsm));
         }
     }
 
@@ -89,6 +89,8 @@ public class ChooseWorldState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0, 0, cam.viewportWidth, cam.viewportHeight);

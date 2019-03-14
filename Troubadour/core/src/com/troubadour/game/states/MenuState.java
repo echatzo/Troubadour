@@ -32,7 +32,7 @@ public class MenuState extends State {
             //world 2
             //gsm.set(new PlayStateWorld2(gsm));
             //choose World
-            gsm.push(new ChooseWorldState(gsm));
+            gsm.set(new ChooseWorldState(gsm));
         }
     }
 

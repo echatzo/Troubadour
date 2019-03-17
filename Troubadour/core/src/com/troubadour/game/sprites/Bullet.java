@@ -7,19 +7,55 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Bullet {
     public static final int BULLET_SIZE = 8;
+    private static final float MOVEMENT = 110;
+
     private Vector3 position;
     private Vector3 velocity;
     private Texture texture;
     private Circle bounds;
     private Animation bulletAnimation;
+    private boolean shoot;
+
     public Bullet(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         texture = new Texture("bulletAnimation.png");
         bulletAnimation = new Animation(new TextureRegion(texture), 2, 0.1f);
         bounds = new Circle(x, y, BULLET_SIZE);
+        shoot = false;
+    }
+
+    public void update(float dt, float x, float y){
+
+        velocity.scl(dt);
+
+        if (shoot){
+            position.add(0, MOVEMENT*dt, 0);
+        }
+        else {
+            position.set(x, y,0);
+        }
+
+        bounds.setPosition(position.x, position.y);
+
     }
     public TextureRegion getTexture() {
         return bulletAnimation.getFrame();
+    }
+
+    public Vector3 getPosition() {
+        return position;
+    }
+
+    public void dispose(){
+        texture.dispose();
+    }
+
+    public void setShoot(boolean flag){
+        shoot = flag;
+    }
+
+    public void getShoot(){
+        return shoot;
     }
 }

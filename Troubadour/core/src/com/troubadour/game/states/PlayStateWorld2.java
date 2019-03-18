@@ -96,8 +96,8 @@ public class PlayStateWorld2 extends State {
 
         for(int i = 0; i < enemies.size; i++){
             Ghost ghost = enemies.get(i);
-            if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.getTexture().getWidth()){
-                ghost.reposition(ghost.getPosition().y + ((Ghost.ENEMY_THICK + ENEMY_SPACING)*ENEMY_COUNT));
+            if(cam.position.y-(cam.viewportHeight/2) > ghost.getPositionLeft().y + ghost.getTexture().getWidth()){
+                ghost.reposition(ghost.getPositionLeft().y + ((Ghost.ENEMY_THICK + ENEMY_SPACING)*ENEMY_COUNT));
             }
             player.incLifeTimer(dt);
             if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
@@ -144,7 +144,8 @@ public class PlayStateWorld2 extends State {
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         for (Ghost ghost : enemies) {
-            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, ghost.ENEMY_LENGTH, ghost.ENEMY_THICK);
+            sb.draw(ghost.getTexture(), ghost.getPositionLeft().x, ghost.getPositionLeft().y, ghost.ENEMY_LENGTH, ghost.ENEMY_THICK);
+            sb.draw(ghost.getTexture(), ghost.getPositionRight().x, ghost.getPositionRight().y, ghost.ENEMY_LENGTH, ghost.ENEMY_THICK);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);

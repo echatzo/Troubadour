@@ -9,7 +9,7 @@ import java.util.Random;
 public class Ghost  {
 
     public static final int GHOST_HEIGHT = 26;
-    public static final int GHOST_WIDTH = 21;
+    public static final int GHOST_WIDTH = 34;
     private static final float MOVEMENT = 80;
     private static final float MAX_CONTROL_SPEED = 1000;
     private static final int FLUCTUATION = 100; //180;

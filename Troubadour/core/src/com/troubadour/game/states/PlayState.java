@@ -52,7 +52,7 @@ public class PlayState extends State {
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
         for(int i = 1; i <= WALL_COUNT; i ++){
-            walls.add(new Wall(i*(WALL_SPACING + Wall.WALL_THICK)));
+            walls.add(new Wall(cam.viewportHeight+i*(WALL_SPACING + Wall.WALL_THICK)));
         }
         score = 0;
         yourScoreName = "score: 0";

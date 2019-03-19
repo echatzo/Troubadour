@@ -19,10 +19,9 @@ import com.troubadour.game.sprites.Wall;
 public class PlayStateWorld2 extends State {
 
 
-    private static final int WALL_SPACING = 100;
-    private static final int WALL_COUNT = 6;
 
-    private static final int ENEMY_SPACING = 100;
+
+    private static final int ENEMY_SPACING = 50;
     private static final int ENEMY_COUNT = 100;
 
 
@@ -81,7 +80,9 @@ public class PlayStateWorld2 extends State {
             player.move();
         }
         if(Gdx.input.justTouched()){
-            projectiles.add(new Bullet(player.getPosition().x, player.getPosition().y));
+            if (projectiles.size<5) {
+                projectiles.add(new Bullet(player.getPosition().x, player.getPosition().y));
+            }
         }
     }
 
@@ -110,7 +111,7 @@ public class PlayStateWorld2 extends State {
                 ghost.reposition(ghost.getPositionRight().y + ((Ghost.ENEMY_THICK + ENEMY_SPACING)*ENEMY_COUNT));
             }
             player.incLifeTimer(dt);
-            if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
+            if(player.getLifeTimer()>150f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (ghost.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.decLifeCount();

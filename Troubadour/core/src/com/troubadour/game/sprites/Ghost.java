@@ -13,7 +13,7 @@ public class Ghost  {
     private static final float MOVEMENT = 80;
     private static final float MAX_CONTROL_SPEED = 1000;
     private static final int FLUCTUATION = 100; //180;
-    private static  final int ENEMY_GAP = 50;
+    private static  final int ENEMY_GAP = 80;
     public static final float ENEMY_THICK = 25;
     public static final float ENEMY_LENGTH = 45;
 

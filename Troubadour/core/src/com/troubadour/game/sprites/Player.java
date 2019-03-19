@@ -10,7 +10,7 @@ import com.troubadour.game.Troubadour;
 public class Player {
     public static final int PLAYER_HEIGHT = 30;
     public static final int PLAYER_WIDTH = 25;
-    private static final float MOVEMENT = 80;
+    private static final float MOVEMENT = 100;
     private static final float MAX_CONTROL_SPEED = 1000;
 
     private Vector3 position;
@@ -37,7 +37,7 @@ public class Player {
     public Player(int x, int y){
 
         lifeCount=3;
-        lifeTimer=0.5f;
+        lifeTimer=-5f;
         life = new Texture("life.png");
         lifeAnimation= new Animation(new TextureRegion(life), 2, 0.5f);
 
@@ -122,7 +122,7 @@ public class Player {
     }
 
     public void resetLifeTimer(){
-        lifeTimer = 0;
+        lifeTimer = 0f;
     }
 
     public void setTexture(int n){

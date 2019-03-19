@@ -50,7 +50,7 @@ public class PlayStateWorld2 extends State {
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         backgrounds = new Array<Background>();
         for(int i=0; i<=1; i++){
-            backgrounds.add(new Background(0,400*i));
+            backgrounds.add(new Background(0,400*i, "damier.png"));
         }
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);

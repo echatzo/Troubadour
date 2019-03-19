@@ -8,10 +8,10 @@ public class Background {
     private Texture texture;
     private static final float MOVEMENT = 80;
 
-    public Background(int x, int y){
+    public Background(int x, int y, String image){
 
         position = new Vector3 (x, y, 0);
-        texture  = new Texture("ground.png");
+        texture  = new Texture(image);
 
     }
 

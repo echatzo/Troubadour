@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.troubadour.game.states.GameStateManager;
 import com.troubadour.game.states.MenuState;
 
-public class Troubadour extends ApplicationAdapter {
+public class Troubadour extends ApplicationAdapter{
 
 
 	public static final int WIDTH = 480;

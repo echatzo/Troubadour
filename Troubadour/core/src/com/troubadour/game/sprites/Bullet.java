@@ -4,17 +4,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 public class Bullet {
     public static final int BULLET_SIZE = 8;
-    private static final float MOVEMENT = 110;
+    private static final float MOVEMENT = 200;
 
     private Vector3 position;
     private Vector3 velocity;
     private Texture texture;
     private Circle bounds;
     private Animation bulletAnimation;
-    private boolean shoot;
 
     public Bullet(int x, int y){
         position = new Vector3(x, y, 0);
@@ -22,20 +22,12 @@ public class Bullet {
         texture = new Texture("bulletAnimation.png");
         bulletAnimation = new Animation(new TextureRegion(texture), 2, 0.1f);
         bounds = new Circle(x, y, BULLET_SIZE);
-        shoot = false;
     }
 
-    public void update(float dt, float x, float y){
+    public void update(float dt){
 
         velocity.scl(dt);
-
-        if (shoot){
-            position.add(0, MOVEMENT*dt, 0);
-        }
-        else {
-            position.set(x, y,0);
-        }
-
+        position.add(0, MOVEMENT*dt, 0);
         bounds.setPosition(position.x, position.y);
 
     }
@@ -51,11 +43,8 @@ public class Bullet {
         texture.dispose();
     }
 
-    public void setShoot(boolean flag){
-        shoot = flag;
-    }
-
-    public void getShoot(){
-        return shoot;
+    public void Shoot(Array<Bullet> projectiles,float x,float y){
+        Bullet bullet = new Bullet(x,y);
+        projectiles.add(bullet);
     }
 }

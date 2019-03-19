@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Background;
+import com.troubadour.game.sprites.Bullet;
 import com.troubadour.game.sprites.Ghost;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
@@ -41,6 +42,7 @@ public class PlayStateWorld2 extends State {
 
     //private Array<Wall> walls;
     private Array<Ghost> enemies;
+    private Array<Bullet> projectiles;
 
     public PlayStateWorld2(GameStateManager gsm){
         super(gsm);
@@ -87,6 +89,9 @@ public class PlayStateWorld2 extends State {
             if (background.getPos().y<cam.position.y-600){
                 background.reposition();
             }
+        }
+        for (Bullet bullet : projectiles){
+            bullet.update(dt);
         }
         score+=dt; //increments the score
         yourScoreName = "score: " + (int) score;
@@ -144,7 +149,10 @@ public class PlayStateWorld2 extends State {
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         for (Ghost ghost : enemies) {
-            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, ghost.ENEMY_LENGTH, ghost.ENEMY_THICK);
+            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, Ghost.ENEMY_LENGTH, Ghost.ENEMY_THICK);
+        }
+        for (Bullet bullet : projectiles){
+            sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition()., Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);

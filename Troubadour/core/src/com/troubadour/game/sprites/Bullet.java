@@ -31,6 +31,7 @@ public class Bullet {
         position.add(0, MOVEMENT*dt, 0);
 
         bounds.setPosition(position.x, position.y);
+        bulletAnimation.update(dt);
 
     }
     public TextureRegion getTexture() {
@@ -44,11 +45,12 @@ public class Bullet {
     public void dispose(){
         texture.dispose();
     }
-
+    /*
     public void Shoot(Array<Bullet> projectiles,float x,float y){
         Bullet bullet = new Bullet(x,y);
         projectiles.add(bullet);
     }
+    */
 
     public boolean collides(Rectangle ennemyHitBox){
         return ennemyHitBox.overlaps(bounds);

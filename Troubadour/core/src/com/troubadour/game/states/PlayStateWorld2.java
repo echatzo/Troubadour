@@ -93,6 +93,7 @@ public class PlayStateWorld2 extends State {
         for (Bullet bullet : projectiles){
             bullet.update(dt);
         }
+
         score+=dt; //increments the score
         yourScoreName = "score: " + (int) score;
 
@@ -133,6 +134,15 @@ public class PlayStateWorld2 extends State {
                         }
                         gsm.set(new GameOverState(gsm, (int)score));//if the player have no more lives, change the playState to a gameOverState
                     }
+                }
+            }
+
+            for(int j=0; j < projectiles.size; j++){
+                Bullet bullet = projectiles.get(j);
+                if(bullet.collides(ghost.getBounds())){
+                    bullet.dispose();
+                    projectiles.removeIndex(j);
+                    ghost.dispose();
                 }
             }
         }

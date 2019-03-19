@@ -27,17 +27,6 @@ public class Ghost  {
     private Random rand;
 
 
-    //useless method
-    public Ghost(float x, float y) {
-       positionLeft = new Vector3(x, y, 0);
-       positionRight = new Vector3(x, y, 0);
-       velocity = new Vector3(0, 0, 0);
-       texture = new Texture("enemyRezizev6.png");
-       boundsLeft = new Rectangle(x, y, GHOST_WIDTH, GHOST_HEIGHT);
-       boundsRight = new Rectangle(x, y, GHOST_WIDTH, GHOST_HEIGHT);
-       rand = new Random();
-    }
-
     public Ghost(float y) {
         rand = new Random();
         positionLeft = new Vector3(rand.nextInt(FLUCTUATION), y, 0);

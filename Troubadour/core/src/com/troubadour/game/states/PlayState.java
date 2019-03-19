@@ -80,7 +80,7 @@ public class PlayState extends State {
         yourScoreName = "score: " + (int) score;
 
         enemyAnimation.update(dt);
-        cam.position.y= player.getPosition().y + 180;
+        cam.position.y= player.getPosition().y + 150;
 
         for(int i = 0; i < walls.size; i++){
             Wall wall = walls.get(i);

@@ -46,7 +46,7 @@ public class PlayStateWorld2 extends State {
     public PlayStateWorld2(GameStateManager gsm){
         super(gsm);
 
-        player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 30);
+        player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 100);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         backgrounds = new Array<Background>();
         for(int i=0; i<=1; i++){
@@ -65,7 +65,7 @@ public class PlayStateWorld2 extends State {
         }*/
         for(int i = 1; i <= ENEMY_COUNT; i ++){
             //enemies.add(new Ghost((Troubadour.WIDTH /4),i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)));
-            enemies.add(new Ghost(i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)));
+            enemies.add(new Ghost(i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)+cam.viewportHeight));
         }
         projectiles=new Array<Bullet>();
         score = 0;
@@ -99,17 +99,20 @@ public class PlayStateWorld2 extends State {
             bullet.update(dt);
         }
 
-        score+=dt; //increments the score
-        yourScoreName = "score: " + (int) score;
+        //score+=dt; //increments the score
+        //yourScoreName = "score: " + (int) score;
 
         enemyAnimation.update(dt);
-        cam.position.y= player.getPosition().y + 180;
+        cam.position.y= player.getPosition().y + 150;
 
         for(int i = 0; i < enemies.size; i++){
             Ghost ghost = enemies.get(i);
             ghost.update(dt);
             if(cam.position.y-(cam.viewportHeight/2) > ghost.getPositionRight().y + ghost.GHOST_WIDTH){
-                ghost.reposition(ghost.getPositionRight().y + ((Ghost.GHOST_WIDTH + ENEMY_SPACING)*ENEMY_COUNT));
+                score=score+1;
+                yourScoreName = "score: " + (int) score;
+                //ghost.reposition(ghost.getPositionRight().y + ((Ghost.GHOST_WIDTH + ENEMY_SPACING)*ENEMY_COUNT));
+                enemies.removeIndex(i);
             }
             player.incLifeTimer(dt);
             if(player.getLifeTimer()>150f) { //verifies whether the player is still invincible
@@ -149,11 +152,13 @@ public class PlayStateWorld2 extends State {
                     bullet.dispose();
                     projectiles.removeIndex(j);
                 }
-                else if(bullet.collides(ghost.getLeftBounds())){
+                else if(bullet.collides(ghost.getLeftBounds())||bullet.collides(ghost.getRightBounds())){
                     bullet.dispose();
                     projectiles.removeIndex(j);
                     ghost.dispose();
                     enemies.removeIndex(i);
+                    score=score+1;
+                    yourScoreName = "score: " + (int) score;
                 }
 
             }

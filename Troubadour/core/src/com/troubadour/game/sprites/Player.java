@@ -10,8 +10,8 @@ import com.troubadour.game.Troubadour;
 public class Player {
     public static final int PLAYER_HEIGHT = 30;
     public static final int PLAYER_WIDTH = 25;
-    private static final float MOVEMENT = 100;
-    private static final float MAX_CONTROL_SPEED = 1000;
+    private static final float MOVEMENT = 120;
+    private static final float MAX_CONTROL_SPEED = 800;
 
     private Vector3 position;
     private Vector3 velocity;

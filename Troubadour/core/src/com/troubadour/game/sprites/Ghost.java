@@ -23,8 +23,6 @@ public class Ghost  {
     //private Animation mobAnimation;
     private Random rand;
 
-
-<<<<<<< HEAD
     //useless method
     public Ghost(float x, float y) {
        positionLeft = new Vector3(x, y, 0);

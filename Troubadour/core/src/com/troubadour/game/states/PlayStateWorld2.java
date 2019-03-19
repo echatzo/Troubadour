@@ -23,7 +23,7 @@ public class PlayStateWorld2 extends State {
     private static final int WALL_COUNT = 6;
 
     private static final int ENEMY_SPACING = 100;
-    private static final int ENEMY_COUNT = 6;
+    private static final int ENEMY_COUNT = 100;
 
 
     private Player player;
@@ -143,9 +143,15 @@ public class PlayStateWorld2 extends State {
 
             for(int j=0; j < projectiles.size; j++){
                 Bullet bullet = projectiles.get(j);
-                if(bullet.collides(ghost.getLeftBounds())){
+                if (bullet.getPosition().y>player.getPosition().y+cam.viewportHeight){
                     bullet.dispose();
                     projectiles.removeIndex(j);
+                }
+                else if(bullet.collides(ghost.getLeftBounds())){
+                    bullet.dispose();
+                    projectiles.removeIndex(j);
+                    ghost.dispose();
+                    enemies.removeIndex(i);
                 }
 
             }

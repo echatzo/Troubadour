@@ -139,7 +139,7 @@ public class PlayStateWorld2 extends State {
 
             for(int j=0; j < projectiles.size; j++){
                 Bullet bullet = projectiles.get(j);
-                if(bullet.collides(ghost.getBounds())){
+                if(bullet.collides(ghost.getLeftBounds())){
                     bullet.dispose();
                     projectiles.removeIndex(j);
                     ghost.dispose();

@@ -36,8 +36,6 @@ public class Ghost  {
        rand = new Random();
     }
 
-=======
->>>>>>> master
     public Ghost(float y) {
         rand = new Random();
         positionLeft = new Vector3(rand.nextInt(FLUCTUATION), y, 0);

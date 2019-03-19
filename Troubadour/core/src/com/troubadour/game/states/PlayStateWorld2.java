@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Background;
-import com.troubadour.game.sprites.Bullet;
 import com.troubadour.game.sprites.Ghost;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
@@ -24,8 +23,6 @@ public class PlayStateWorld2 extends State {
 
     private static final int ENEMY_SPACING = 100;
     private static final int ENEMY_COUNT = 6;
-    private static final int BULLET_COUNT = 6;
-
 
 
     private Player player;
@@ -44,7 +41,6 @@ public class PlayStateWorld2 extends State {
 
     //private Array<Wall> walls;
     private Array<Ghost> enemies;
-    private Array<Bullet> projectiles;
 
     public PlayStateWorld2(GameStateManager gsm){
         super(gsm);
@@ -59,8 +55,6 @@ public class PlayStateWorld2 extends State {
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         //walls = new Array<Wall>();
         enemies = new Array<Ghost>();
-        projectiles = new Array<Bullet>();
-
 
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
@@ -72,11 +66,6 @@ public class PlayStateWorld2 extends State {
             //enemies.add(new Ghost((Troubadour.WIDTH /4),i*(ENEMY_SPACING + Ghost.ENEMY_THICK)));
             enemies.add(new Ghost(i*(ENEMY_SPACING + Ghost.ENEMY_THICK)));
         }
-
-        for(int i = 1; i <= BULLET_COUNT; i ++){
-            projectiles.add(new Bullet(0,0);
-        }
-
         score = 0;
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
@@ -94,11 +83,6 @@ public class PlayStateWorld2 extends State {
     public void update(float dt) {
         handleInput();
         player.update(dt);
-
-        for (Bullet bullet : projectiles){
-            bullet.update(dt,player.getPosition().x,player.getPosition().y);
-        }
-
         for (Background background : backgrounds){
             if (background.getPos().y<cam.position.y-600){
                 background.reposition();
@@ -160,12 +144,7 @@ public class PlayStateWorld2 extends State {
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         for (Ghost ghost : enemies) {
-            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, Ghost.ENEMY_LENGTH, Ghost.ENEMY_THICK);
-        }
-        for (Bullet bullet : projectiles){
-            if(bullet.getShoot();){
-                sb.draw(bullet.getTexture(), bullet.getPosition().x,bullet.getPosition().y,Bullet.BULLET_SIZE,Bullet.BULLET_SIZE);
-            }
+            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, ghost.ENEMY_LENGTH, ghost.ENEMY_THICK);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
@@ -189,9 +168,6 @@ public class PlayStateWorld2 extends State {
         death.dispose();
         for(Ghost ghost : enemies){
             ghost.dispose();
-        }
-        for(Bullet bullet : projectiles){
-            bullet.dispose();
         }
         System.out.println("Play State World2 Disposed");
     }

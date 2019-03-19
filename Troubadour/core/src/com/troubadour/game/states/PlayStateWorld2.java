@@ -162,7 +162,7 @@ public class PlayStateWorld2 extends State {
             sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, Ghost.ENEMY_LENGTH, Ghost.ENEMY_THICK);
         }
         for (Bullet bullet : projectiles){
-            sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition()., Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
+            sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);

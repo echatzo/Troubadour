@@ -24,6 +24,7 @@ public class Ghost  {
     private Random rand;
 
 
+<<<<<<< HEAD
     //useless method
     public Ghost(float x, float y) {
        positionLeft = new Vector3(x, y, 0);
@@ -35,6 +36,8 @@ public class Ghost  {
        rand = new Random();
     }
 
+=======
+>>>>>>> master
     public Ghost(float y) {
         rand = new Random();
         positionLeft = new Vector3(rand.nextInt(FLUCTUATION), y, 0);

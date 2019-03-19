@@ -17,7 +17,7 @@ public class Bullet {
     private Rectangle bounds;
     private Animation bulletAnimation;
 
-    public Bullet(int x, int y){
+    public Bullet(float x, float y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         texture = new Texture("bulletAnimation.png");

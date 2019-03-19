@@ -64,8 +64,8 @@ public class PlayStateWorld2 extends State {
             walls.add(new Wall(i*(WALL_SPACING + Wall.WALL_THICK)));
         }*/
         for(int i = 1; i <= ENEMY_COUNT; i ++){
-            //enemies.add(new Ghost((Troubadour.WIDTH /4),i*(ENEMY_SPACING + Ghost.ENEMY_THICK)));
-            enemies.add(new Ghost(i*(ENEMY_SPACING + Ghost.ENEMY_THICK)));
+            //enemies.add(new Ghost((Troubadour.WIDTH /4),i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)));
+            enemies.add(new Ghost(i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)));
         }
         projectiles=new Array<Bullet>();
         score = 0;
@@ -107,8 +107,9 @@ public class PlayStateWorld2 extends State {
 
         for(int i = 0; i < enemies.size; i++){
             Ghost ghost = enemies.get(i);
-            if(cam.position.y-(cam.viewportHeight/2) > ghost.getPositionRight().y + ghost.getTexture().getWidth()){
-                ghost.reposition(ghost.getPositionRight().y + ((Ghost.ENEMY_THICK + ENEMY_SPACING)*ENEMY_COUNT));
+            ghost.update(dt);
+            if(cam.position.y-(cam.viewportHeight/2) > ghost.getPositionRight().y + ghost.GHOST_WIDTH){
+                ghost.reposition(ghost.getPositionRight().y + ((Ghost.GHOST_WIDTH + ENEMY_SPACING)*ENEMY_COUNT));
             }
             player.incLifeTimer(dt);
             if(player.getLifeTimer()>150f) { //verifies whether the player is still invincible
@@ -170,8 +171,8 @@ public class PlayStateWorld2 extends State {
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         for (Ghost ghost : enemies) {
-            sb.draw(ghost.getTexture(), ghost.getPositionLeft().x, ghost.getPositionLeft().y, Ghost.ENEMY_LENGTH, Ghost.ENEMY_THICK);
-            sb.draw(ghost.getTexture(), ghost.getPositionRight().x, ghost.getPositionRight().y, Ghost.ENEMY_LENGTH, Ghost.ENEMY_THICK);
+            sb.draw(ghost.getTexture(), ghost.getPositionLeft().x, ghost.getPositionLeft().y, Ghost.GHOST_WIDTH, Ghost.GHOST_HEIGHT);
+            sb.draw(ghost.getTexture(), ghost.getPositionRight().x, ghost.getPositionRight().y, Ghost.GHOST_WIDTH, Ghost.GHOST_HEIGHT);
         }
         for (Bullet bullet : projectiles){
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);

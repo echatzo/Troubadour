@@ -25,8 +25,8 @@ public class Wall {
         posRightWall = new Vector2(rand.nextInt(FLUCTUATION)+ WALL_GAP + LOWEST_OPENING, y);
         posLeftWall = new Vector2(posRightWall.x - WALL_GAP - WALL_LENGTH, y);
 
-        boundsRight = new Rectangle(posRightWall.x, posRightWall.y, WALL_LENGTH , WALL_THICK/2 );
-        boundsLeft = new Rectangle(posLeftWall.x, posLeftWall.y, WALL_LENGTH , WALL_THICK /2);
+        boundsRight = new Rectangle(posRightWall.x, posRightWall.y, WALL_LENGTH , WALL_THICK/4 );
+        boundsLeft = new Rectangle(posLeftWall.x, posLeftWall.y, WALL_LENGTH , WALL_THICK /4);
     }
 
     public Texture getLeftWall() {

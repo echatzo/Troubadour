@@ -10,37 +10,38 @@ import java.util.Random;
 //base model for enemies
 public abstract class Mob {
     private Vector3 position;
-    private Vector3 velocity;
     private Texture texture;
     private Rectangle bounds;
-    private Animation mobAnimation;
-    private Random rand;
+    private Animation animation;
     public static final int HEIGHT = 26;
     public static final int WIDTH = 19;
 
-    private Mob(int x, int y){
+    public Mob(float x, float y) {
         position = new Vector3(x, y, 0);
-        velocity = new Vector3(0, 0, 0);
         texture = new Texture("squeleton.png");
-        mobAnimation = new Animation(new TextureRegion(texture), 3, 0.5f);
-        bounds = new Rectangle(x, y, WIDTH, HEIGHT);
-        rand = new Random();
+        animation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        bounds = new Rectangle(position.x+5, y, WIDTH, HEIGHT);
     }
 
     public void update(float dt) {
-        mobAnimation.update(dt);
+        animation.update(dt);
     }
 
     public Vector3 getPosition(){
         return position;
     }
 
-    public abstract Texture getTexture();
+    public TextureRegion getTexture(){
+        return animation.getFrame();
+    }
 
-    public abstract void dispose();
+    public void dispose() {
+        texture.dispose();
+    }
 
-    public abstract Rectangle getBounds();
-
+    public Rectangle getBounds() {
+        return bounds;
+    }
 
 
 

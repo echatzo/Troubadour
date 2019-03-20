@@ -90,7 +90,7 @@ public class PlayStateWorld2 extends State {
         if(Gdx.input.isTouched()){
             player.move();
             if(time>nextBullet){
-                nextBullet=time+1;
+                nextBullet=time+0.18f;
                 projectiles.add(new Bullet(player.getPosition().x, player.getPosition().y));
             }
         }
@@ -112,8 +112,6 @@ public class PlayStateWorld2 extends State {
         if (time>nextWave&&totalWaves<ENEMY_COUNT){
             totalWaves++;
             nextWave++;
-            score++;
-            yourScoreName = "score: " + (int) score;
             Random rand = new Random();
             int enemiesOnRow = 4+ rand.nextInt(4);
             float firsEnemyX = rand.nextFloat()*cam.viewportWidth*(1-(enemiesOnRow/6));
@@ -175,8 +173,16 @@ public class PlayStateWorld2 extends State {
                 else if(bullet.collides(ghost.getBounds())){
                     bullet.dispose();
                     projectiles.removeIndex(j);
-                    ghost.dispose();
-                    enemies.removeIndex(i);
+                    ghost.hurt();
+                    if(ghost.getLifeCount()<=0) {
+                        ghost.dispose();
+                        if(ghost.isDark()){
+                            score+=4;
+                        }
+                        enemies.removeIndex(i);
+                        score++;
+                        yourScoreName = "score: " + (int) score;
+                    }
 
                 }
 

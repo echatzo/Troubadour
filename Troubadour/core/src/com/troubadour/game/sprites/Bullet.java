@@ -2,14 +2,12 @@ package com.troubadour.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 
 public class Bullet {
     public static final int BULLET_SIZE = 8;
-    private static final float MOVEMENT = 200;
+    private float movement = 200;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -20,7 +18,7 @@ public class Bullet {
     public Bullet(float x, float y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        texture = new Texture("bulletAnimation.png");
+        texture = new Texture("bulletAnimation2.png");
         bulletAnimation = new Animation(new TextureRegion(texture), 2, 0.1f);
         bounds = new Rectangle(x, y, BULLET_SIZE, BULLET_SIZE);
     }
@@ -28,7 +26,7 @@ public class Bullet {
     public void update(float dt){
 
         velocity.scl(dt);
-        position.add(0, MOVEMENT*dt, 0);
+        position.add(0, movement *dt, 0);
 
         bounds.setPosition(position.x, position.y);
         bulletAnimation.update(dt);

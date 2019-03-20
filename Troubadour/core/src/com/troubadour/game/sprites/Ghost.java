@@ -16,24 +16,22 @@ public class Ghost  {
 
 
 
-    private Vector3 positionLeft, positionRight;
+    private Vector3 position;
     private Texture texture;
     private Animation mobAnimation;
-    private Rectangle boundsLeft, boundsRight;
+    private Rectangle bounds;
     //private Animation mobAnimation;
     private Random rand;
 
     //useless method
     public Ghost(float x, float y) {
-       positionLeft = new Vector3(x, y, 0);
-       positionRight = new Vector3(x, y, 0);
+       position = new Vector3(x, y, 0);
        texture = new Texture("squeleton.png");
        mobAnimation = new Animation(new TextureRegion(texture), 3, 0.5f);
-       boundsLeft = new Rectangle(x, y, GHOST_WIDTH, GHOST_HEIGHT);
-       boundsRight = new Rectangle(x, y, GHOST_WIDTH, GHOST_HEIGHT);
+       bounds = new Rectangle(position.x+5, y, GHOST_WIDTH, GHOST_HEIGHT);
        rand = new Random();
     }
-
+/*
     public Ghost(float y) {
         rand = new Random();
         positionLeft = new Vector3(rand.nextInt(FLUCTUATION), y, 0);
@@ -45,25 +43,22 @@ public class Ghost  {
         boundsRight = new Rectangle((positionRight.x)+5, y, GHOST_WIDTH, GHOST_HEIGHT);
 
     }
-
+*/
     public void update(float dt) {
         mobAnimation.update(dt);
     }
 
 
-    public Vector3 getPositionLeft() {
-        return positionLeft;
+    public Vector3 getPosition() {
+        return position;
     }
 
-    public Vector3 getPositionRight() {
-        return positionRight;
-    }
 
 
     public TextureRegion getTexture() {
         return mobAnimation.getFrame();
     }
-
+/*
     public void reposition(float y){
         positionLeft.set(rand.nextInt(FLUCTUATION), y,0);
         positionRight.set(110+rand.nextInt(FLUCTUATION), y,0);
@@ -71,9 +66,9 @@ public class Ghost  {
         boundsRight.setPosition(positionRight.x, positionRight.y);
 
     }
-
+*/
     public boolean collides(Rectangle playerHitBox){
-        return playerHitBox.overlaps(boundsLeft)||playerHitBox.overlaps(boundsRight);
+        return playerHitBox.overlaps(bounds);
     }
 
     public void dispose() {
@@ -82,13 +77,13 @@ public class Ghost  {
     }
 
 
-    public Rectangle getLeftBounds() {
-        return boundsLeft;
+    public Rectangle getBounds() {
+        return bounds;
     }
-
+/*
     public Rectangle getRightBounds() {
         return boundsRight;
     }
-
+*/
 
 }

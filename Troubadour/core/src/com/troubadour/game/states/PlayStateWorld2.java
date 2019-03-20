@@ -15,6 +15,8 @@ import com.troubadour.game.sprites.Ghost;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Wall;
 
+import java.util.Random;
+
 
 public class PlayStateWorld2 extends State {
 
@@ -64,8 +66,10 @@ public class PlayStateWorld2 extends State {
             walls.add(new Wall(i*(WALL_SPACING + Wall.WALL_THICK)));
         }*/
         for(int i = 1; i <= ENEMY_COUNT; i ++){
-            //enemies.add(new Ghost((Troubadour.WIDTH /4),i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)));
-            enemies.add(new Ghost(i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)+cam.viewportHeight));
+            Random rand = new Random();
+            for (int j =1; j<=rand.nextInt(5); j++){
+                enemies.add(new Ghost(j*cam.viewportWidth/5,i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)+cam.viewportHeight));
+            }
         }
         projectiles=new Array<Bullet>();
         score = 0;
@@ -108,7 +112,7 @@ public class PlayStateWorld2 extends State {
         for(int i = 0; i < enemies.size; i++){
             Ghost ghost = enemies.get(i);
             ghost.update(dt);
-            if(cam.position.y-(cam.viewportHeight/2) > ghost.getPositionRight().y + ghost.GHOST_WIDTH){
+            if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.GHOST_HEIGHT){
                 score=score+1;
                 yourScoreName = "score: " + (int) score;
                 //ghost.reposition(ghost.getPositionRight().y + ((Ghost.GHOST_WIDTH + ENEMY_SPACING)*ENEMY_COUNT));
@@ -152,7 +156,7 @@ public class PlayStateWorld2 extends State {
                     bullet.dispose();
                     projectiles.removeIndex(j);
                 }
-                else if(bullet.collides(ghost.getLeftBounds())||bullet.collides(ghost.getRightBounds())){
+                else if(bullet.collides(ghost.getBounds())){
                     bullet.dispose();
                     projectiles.removeIndex(j);
                     ghost.dispose();
@@ -176,8 +180,7 @@ public class PlayStateWorld2 extends State {
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         for (Ghost ghost : enemies) {
-            sb.draw(ghost.getTexture(), ghost.getPositionLeft().x, ghost.getPositionLeft().y, Ghost.GHOST_WIDTH, Ghost.GHOST_HEIGHT);
-            sb.draw(ghost.getTexture(), ghost.getPositionRight().x, ghost.getPositionRight().y, Ghost.GHOST_WIDTH, Ghost.GHOST_HEIGHT);
+            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, Ghost.GHOST_WIDTH, Ghost.GHOST_HEIGHT);
         }
         for (Bullet bullet : projectiles){
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);

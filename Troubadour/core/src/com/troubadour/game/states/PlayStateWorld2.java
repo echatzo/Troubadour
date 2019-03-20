@@ -33,11 +33,15 @@ public class PlayStateWorld2 extends State {
     private Animation enemyAnimation;
 
     private float score;
+    private float time;
+    private float nextWave;
+    private int totalWaves;
     private String yourScoreName;
     BitmapFont yourBitmapFontName;
 
     private Sound oof;
     private Sound death;
+    private Sound note;
 
 
 
@@ -61,21 +65,25 @@ public class PlayStateWorld2 extends State {
 
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
+        note = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
 
-        /*for(int i = 1; i <= WALL_COUNT; i ++){
-            walls.add(new Wall(i*(WALL_SPACING + Wall.WALL_THICK)));
-        }*/
+/*
         for(int i = 1; i <= ENEMY_COUNT; i ++){
             Random rand = new Random();
-            for (int j =1; j<=rand.nextInt(5); j++){
-                enemies.add(new Ghost(j*cam.viewportWidth/5,i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)+cam.viewportHeight));
+            int enemiesOnRow = 4+ rand.nextInt(4);
+            float firsEnemyX = rand.nextFloat()*cam.viewportWidth*(1-(enemiesOnRow/6));
+            for (int j =0; j<enemiesOnRow; j++){
+                enemies.add(new Ghost(firsEnemyX+j*cam.viewportWidth/8,i*(ENEMY_SPACING + Ghost.GHOST_HEIGHT)+cam.viewportHeight));
             }
         }
+        */
         projectiles=new Array<Bullet>();
         score = 0;
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
-
+        time =0;
+        nextWave=2;
+        totalWaves=0;
     }
 
     @Override
@@ -84,7 +92,7 @@ public class PlayStateWorld2 extends State {
             player.move();
         }
         if(Gdx.input.justTouched()){
-            if (projectiles.size<5) {
+            if (projectiles.size<10) {
                 projectiles.add(new Bullet(player.getPosition().x, player.getPosition().y));
             }
         }
@@ -102,7 +110,19 @@ public class PlayStateWorld2 extends State {
         for (Bullet bullet : projectiles){
             bullet.update(dt);
         }
-
+        time+=dt;
+        if (time>nextWave&&totalWaves<ENEMY_COUNT){
+            totalWaves++;
+            nextWave++;
+            score++;
+            yourScoreName = "score: " + (int) score;
+            Random rand = new Random();
+            int enemiesOnRow = 4+ rand.nextInt(4);
+            float firsEnemyX = rand.nextFloat()*cam.viewportWidth*(1-(enemiesOnRow/6));
+            for (int j =0; j<enemiesOnRow; j++){
+                enemies.add(new Ghost(firsEnemyX+j*cam.viewportWidth/8,cam.position.y+Ghost.GHOST_HEIGHT*2+cam.viewportHeight));
+            }
+        }
         //score+=dt; //increments the score
         //yourScoreName = "score: " + (int) score;
 
@@ -113,13 +133,11 @@ public class PlayStateWorld2 extends State {
             Ghost ghost = enemies.get(i);
             ghost.update(dt);
             if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.GHOST_HEIGHT){
-                score=score+1;
-                yourScoreName = "score: " + (int) score;
                 //ghost.reposition(ghost.getPositionRight().y + ((Ghost.GHOST_WIDTH + ENEMY_SPACING)*ENEMY_COUNT));
                 enemies.removeIndex(i);
             }
             player.incLifeTimer(dt);
-            if(player.getLifeTimer()>150f) { //verifies whether the player is still invincible
+            if(player.getLifeTimer()>50f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (ghost.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.decLifeCount();
@@ -161,8 +179,7 @@ public class PlayStateWorld2 extends State {
                     projectiles.removeIndex(j);
                     ghost.dispose();
                     enemies.removeIndex(i);
-                    score=score+1;
-                    yourScoreName = "score: " + (int) score;
+
                 }
 
             }

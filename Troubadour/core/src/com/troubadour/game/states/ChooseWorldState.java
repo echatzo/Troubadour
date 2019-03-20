@@ -53,12 +53,14 @@ public class ChooseWorldState extends State {
         world1.setPosition(col_width*3,Gdx.graphics.getHeight()-row_height*5);
         //world1.setTransform(true);
         //world1.scaleBy(2f);
+        world1.getLabel().setFontScale(5,5);
         world1.setChecked(false);
         stage.addActor(world1);
 
         world2 = new TextButton("World 2", skin);
         world2.setSize(col_width*6,row_height*2);
         world2.setPosition( col_width*3,row_height*3 );
+        world2.getLabel().setFontScale(5,5);
         world2.setChecked(false);
         stage.addActor(world2);
 

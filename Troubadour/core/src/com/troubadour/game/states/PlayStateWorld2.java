@@ -31,7 +31,7 @@ public class PlayStateWorld2 extends State {
     private Texture enemy;
     private Animation enemyAnimation;
 
-    private float score;
+    private int score;
     private float time;
     private float nextBullet;
     private float nextWave;
@@ -113,7 +113,11 @@ public class PlayStateWorld2 extends State {
             totalWaves++;
             if(time>40){
                 player.movement=180;
+                if(time>120){
+                    gsm.set(new PlayStateWorld2Boss(gsm, player, score));
+                }
             }
+
             nextWave++;
             Random rand = new Random();
             int enemiesOnRow = 4+ rand.nextInt(4);
@@ -202,7 +206,6 @@ public class PlayStateWorld2 extends State {
         for(Background background : backgrounds){
             sb.draw(background.getTexture(), 0, background.getPos().y, 240, 400);
         }
-        sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         for (Ghost ghost : enemies) {
             sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, Ghost.WIDTH, Ghost.HEIGHT);
         }

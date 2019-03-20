@@ -34,6 +34,7 @@ public class PlayStateWorld2 extends State {
 
     private float score;
     private float time;
+    private float nextBullet;
     private float nextWave;
     private int totalWaves;
     private String yourScoreName;
@@ -41,7 +42,6 @@ public class PlayStateWorld2 extends State {
 
     private Sound oof;
     private Sound death;
-    private Sound note;
 
 
 
@@ -65,7 +65,6 @@ public class PlayStateWorld2 extends State {
 
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
-        note = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
 
 /*
         for(int i = 1; i <= ENEMY_COUNT; i ++){
@@ -83,6 +82,7 @@ public class PlayStateWorld2 extends State {
         yourBitmapFontName = new BitmapFont();
         time =0;
         nextWave=2;
+        nextBullet=1;
         totalWaves=0;
     }
 
@@ -90,9 +90,8 @@ public class PlayStateWorld2 extends State {
     protected void handleInput() {
         if(Gdx.input.isTouched()){
             player.move();
-        }
-        if(Gdx.input.justTouched()){
-            if (projectiles.size<10) {
+            if(time>nextBullet){
+                nextBullet=time+1;
                 projectiles.add(new Bullet(player.getPosition().x, player.getPosition().y));
             }
         }

@@ -91,7 +91,7 @@ public class PlayStateWorld2 extends State {
             player.move();
             if(time>nextBullet){
                 nextBullet=time+0.18f;
-                projectiles.add(new Bullet(player.getPosition().x, player.getPosition().y));
+                projectiles.add(new Bullet(player.getPosition().x, player.getPosition().y, player.movement+80));
             }
         }
     }
@@ -111,6 +111,9 @@ public class PlayStateWorld2 extends State {
         time+=dt;
         if (time>nextWave&&totalWaves<ENEMY_COUNT){
             totalWaves++;
+            if(time>40){
+                player.movement=180;
+            }
             nextWave++;
             Random rand = new Random();
             int enemiesOnRow = 4+ rand.nextInt(4);
@@ -166,7 +169,7 @@ public class PlayStateWorld2 extends State {
 
             for(int j=0; j < projectiles.size; j++){
                 Bullet bullet = projectiles.get(j);
-                if (bullet.getPosition().y>player.getPosition().y+cam.viewportHeight){
+                if (bullet.getPosition().y>player.getPosition().y+cam.viewportHeight/2){
                     bullet.dispose();
                     projectiles.removeIndex(j);
                 }

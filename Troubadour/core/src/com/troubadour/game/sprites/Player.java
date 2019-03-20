@@ -10,7 +10,7 @@ import com.troubadour.game.Troubadour;
 public class Player {
     public static final int PLAYER_HEIGHT = 30;
     public static final int PLAYER_WIDTH = 25;
-    public float MOVEMENT = 120;
+    public float movement = 120;
     private static final float MAX_CONTROL_SPEED = 800;
 
     private Vector3 position;
@@ -57,7 +57,7 @@ public class Player {
         lifeAnimation.update(dt);
 
         velocity.scl(dt);
-        position.add(velocity.x, MOVEMENT*dt, 0);
+        position.add(velocity.x, movement *dt, 0);
 
         if(position.x<0){
             position.x=0;

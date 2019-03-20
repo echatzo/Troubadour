@@ -15,12 +15,13 @@ public class Bullet {
     private Rectangle bounds;
     private Animation bulletAnimation;
 
-    public Bullet(float x, float y){
+    public Bullet(float x, float y, float speed){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         texture = new Texture("bulletAnimation2.png");
         bulletAnimation = new Animation(new TextureRegion(texture), 2, 0.1f);
         bounds = new Rectangle(x, y, BULLET_SIZE, BULLET_SIZE);
+        movement=speed;
     }
 
     public void update(float dt){

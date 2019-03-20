@@ -74,6 +74,15 @@ public class Ghost extends Mob {
 
     public void hurt() {
         lifeCount--;
+        if(!dark) {
+            if(lifeCount==2) {
+                texture = new Texture("squeletonhurt1.png");
+            }
+            else if (lifeCount==1){
+                texture = new Texture("squeletonhurt2.png");
+            }
+            animation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        }
     }
 
 

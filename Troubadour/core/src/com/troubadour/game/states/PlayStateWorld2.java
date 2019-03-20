@@ -91,7 +91,7 @@ public class PlayStateWorld2 extends State {
             player.move();
             if(time>nextBullet){
                 nextBullet=time+0.18f;
-                projectiles.add(new Bullet(player.getPosition().x, player.getPosition().y, player.movement+80));
+                projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, player.movement+80));
             }
         }
     }

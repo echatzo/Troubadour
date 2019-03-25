@@ -16,11 +16,10 @@ import com.troubadour.game.sprites.Player;
 
 public class PlayStateWorld2Boss  extends State {
     private Player player;
+    private Boss1 boss1;
     private Background background;
-    private Texture bossTexture;
-    private Animation bossAnimation;
 
-    private float score;
+    private int score;
     private float time;
     private float nextBullet;
     private String yourScoreName;
@@ -33,10 +32,12 @@ public class PlayStateWorld2Boss  extends State {
     public PlayStateWorld2Boss (GameStateManager gsm, Player player, int score){
         super(gsm);
         this.player=player;
+        this.score = score;
+        boss1 = new Boss1();
+
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
+        cam.position.y= player.getPosition().y + 150;
         background = new Background(0,0, "damier.png");
-        bossTexture = new Texture("enemysque.png");
-        bossAnimation = new Animation(new TextureRegion(bossTexture), 3, 2f);
         player.movement=0;
     }
 
@@ -55,6 +56,12 @@ public class PlayStateWorld2Boss  extends State {
     public void update(float dt) {
         handleInput();
         player.update(dt);
+        boss1.update(dt);
+
+        for (Bullet bullet : projectiles){
+            bullet.update(dt);
+        }
+
     }
 
     @Override
@@ -66,7 +73,7 @@ public class PlayStateWorld2Boss  extends State {
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
-        sb.draw(bossAnimation.getFrame(), player.getPosition().x, player.getPosition().y, Boss1.WIDTH, Boss1.HEIGHT);
+        sb.draw(boss1.getAnimation().getFrame(), boss1.getPosition().x, boss1.getPosition().y, Boss1.WIDTH, Boss1.HEIGHT);
         for (int i=1; i<=player.getLifeCount(); i++) {
             sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
         }

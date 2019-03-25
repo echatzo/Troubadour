@@ -73,6 +73,10 @@ public class Boss1 {
         else{ animation = animationGood; }
     }
 
+    public Animation getAnimation(){
+        return animation;
+    }
+
     public void hurt(){
         this.lifeCount--;
     }

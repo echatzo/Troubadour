@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Bullet {
     public static final int BULLET_SIZE = 8;
-    private float movement = 200;
+    private float movement;
 
     private Vector3 position;
     private Vector3 velocity;

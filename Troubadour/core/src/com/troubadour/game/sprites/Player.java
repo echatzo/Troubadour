@@ -105,7 +105,7 @@ public class Player {
         return this.lifeCount;
     }
 
-    public void decLifeCount(){
+    public void hurt(){
         this.lifeCount--;
         System.out.println(lifeCount);
     }
@@ -132,6 +132,9 @@ public class Player {
         if (n==2){
             playerAnimation=playerAnimationHit;
         }
+    }
+    public float getMovement(){
+        return movement;
     }
 
 }

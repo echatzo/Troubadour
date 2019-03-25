@@ -118,7 +118,7 @@ public class PlayState extends State {
             if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (wall.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
-                    player.decLifeCount();
+                    player.hurt();
 
                     //son collision
                     if (player.getLifeCount() > 0) {

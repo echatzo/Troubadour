@@ -11,8 +11,6 @@ import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Background;
 import com.troubadour.game.sprites.Bullet;
-import com.troubadour.game.sprites.Ghost;
-import com.troubadour.game.sprites.Mob;
 import com.troubadour.game.sprites.Player;
 import com.troubadour.game.sprites.Squeleton;
 
@@ -91,8 +89,8 @@ public class PlayStateWorld2 extends State {
         if(Gdx.input.isTouched()){
             player.move();
             if(time>nextBullet){
-                nextBullet=time+0.18f;
-                projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, player.movement+80));
+                nextBullet=time+0.12f;
+                projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, player.movement+120));
             }
         }
     }
@@ -112,20 +110,18 @@ public class PlayStateWorld2 extends State {
         time+=dt;
         if (time>nextWave&&totalWaves<ENEMY_COUNT){
             totalWaves++;
-            if(time>40){
-                player.movement=180;
-                if(time>120){
-                    gsm.set(new PlayStateWorld2Boss(gsm, player, score));
-                }
-            }
-
-            nextWave++;
+            player.movement=100+time;
+            System.out.println(player.getMovement());
+            nextWave+=(140/player.getMovement());
             Random rand = new Random();
             int enemiesOnRow = 4+ rand.nextInt(4);
-            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(1-(enemiesOnRow/6));
+            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-(enemiesOnRow*((1/8)+(Squeleton.WIDTH/cam.viewportWidth))));
             for (int j =0; j<enemiesOnRow; j++){
                 enemies.add(new Squeleton(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
             }
+        }
+        if(time>105){
+            gsm.set(new PlayStateWorld2Boss(gsm, player, score));
         }
 
         enemyAnimation.update(dt);
@@ -141,7 +137,7 @@ public class PlayStateWorld2 extends State {
             if(player.getLifeTimer()>50f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (squeleton.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
-                    player.decLifeCount();
+                    player.hurt();
 
                     //son collision
                     if (player.getLifeCount() > 0) {

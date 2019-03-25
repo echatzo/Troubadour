@@ -29,7 +29,7 @@ public class Boss1 {
 
         position = new Vector3(0, 0, 0);
         velocity = new Vector3(0, 0, 0);
-        texture = new Texture("enemysque.png");
+        texture = new Texture("Boss1.png");
         //hitTexture = new Texture("troubadouranimationHit.png");
         animationGood = new Animation(new TextureRegion(texture), 3, 0.2f);
         //playerAnimationHit = new Animation(new TextureRegion(hitTexture), 3, 0.1f);

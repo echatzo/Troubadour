@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
@@ -19,6 +22,12 @@ public class PlayState extends State {
 
     private static final int WALL_SPACING = 100;
     private static final int WALL_COUNT = 6;
+
+    private Stage stage;
+    private Skin skin;
+    private TextButton pauseButton;
+    int row_height = Gdx.graphics.getHeight() / 12;
+    int col_width = Gdx.graphics.getWidth() / 12;
 
     private Player player;
     private Array<Background> backgrounds;
@@ -58,12 +67,30 @@ public class PlayState extends State {
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
 
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        //font = new BitmapFont();
+        skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
+
+        pauseButton = new TextButton("Pause", skin);
+        pauseButton.setSize(col_width*3,row_height);
+        pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),Gdx.graphics.getHeight()-80-pauseButton.getHeight());
+        //world1.setTransform(true);
+        //world1.scaleBy(2f);
+        //pauseButton.getLabel().setFontScale(col_width/40,row_height/40);
+        pauseButton.setChecked(false);
+        stage.addActor(pauseButton);
+
     }
 
     @Override
     protected void handleInput() {
         if(Gdx.input.isTouched()){
             player.move();
+        }
+
+        if(pauseButton.isPressed()){
+            gsm.push(new PauseState(gsm));
         }
     }
 
@@ -143,7 +170,12 @@ public class PlayState extends State {
         }
         yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
         yourBitmapFontName.draw(sb, yourScoreName, 15, (int) cam.position.y + cam.viewportHeight - (290));
+
         sb.end();
+
+
+        stage.act();
+        stage.draw();
     }
 
     @Override

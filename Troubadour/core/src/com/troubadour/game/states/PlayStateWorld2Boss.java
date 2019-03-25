@@ -53,7 +53,8 @@ public class PlayStateWorld2Boss  extends State {
 
     @Override
     public void update(float dt) {
-
+        handleInput();
+        player.update(dt);
     }
 
     @Override

@@ -12,7 +12,9 @@ import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Background;
 import com.troubadour.game.sprites.Bullet;
 import com.troubadour.game.sprites.Ghost;
+import com.troubadour.game.sprites.Mob;
 import com.troubadour.game.sprites.Player;
+import com.troubadour.game.sprites.Squeleton;
 
 import java.util.Random;
 
@@ -45,7 +47,7 @@ public class PlayStateWorld2 extends State {
 
 
     //private Array<Wall> walls;
-    private Array<Ghost> enemies;
+    private Array<Mob> enemies;
     private Array<Bullet> projectiles;
 
     public PlayStateWorld2(GameStateManager gsm){
@@ -59,8 +61,7 @@ public class PlayStateWorld2 extends State {
         }
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
-        //walls = new Array<Wall>();
-        enemies = new Array<Ghost>();
+        enemies = new Array<Mob>();
 
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
@@ -121,28 +122,25 @@ public class PlayStateWorld2 extends State {
             nextWave++;
             Random rand = new Random();
             int enemiesOnRow = 4+ rand.nextInt(4);
-            float firsEnemyX = rand.nextFloat()*cam.viewportWidth*(1-(enemiesOnRow/6));
+            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(1-(enemiesOnRow/6));
             for (int j =0; j<enemiesOnRow; j++){
-                enemies.add(new Ghost(firsEnemyX+j*cam.viewportWidth/8,cam.position.y+Ghost.HEIGHT *2+cam.viewportHeight));
+                enemies.add(new Squeleton(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
             }
         }
-        //score+=dt; //increments the score
-        //yourScoreName = "score: " + (int) score;
 
         enemyAnimation.update(dt);
         cam.position.y= player.getPosition().y + 150;
 
         for(int i = 0; i < enemies.size; i++){
-            Ghost ghost = enemies.get(i);
-            ghost.update(dt);
-            if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.HEIGHT){
-                //ghost.reposition(ghost.getPositionRight().y + ((Ghost.WIDTH + ENEMY_SPACING)*ENEMY_COUNT));
+            Squeleton squeleton = enemies.get(i);
+            squeleton.update(dt);
+            if(cam.position.y-(cam.viewportHeight/2) > squeleton.getPosition().y + squeleton.HEIGHT){
                 enemies.removeIndex(i);
             }
             player.incLifeTimer(dt);
             if(player.getLifeTimer()>50f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
-                if (ghost.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
+                if (squeleton.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.decLifeCount();
 
                     //son collision
@@ -173,17 +171,17 @@ public class PlayStateWorld2 extends State {
 
             for(int j=0; j < projectiles.size; j++){
                 Bullet bullet = projectiles.get(j);
-                if (bullet.getPosition().y>player.getPosition().y+cam.viewportHeight/2){
+                if (bullet.getPosition().y>player.getPosition().y+cam.viewportHeight-150){
                     bullet.dispose();
                     projectiles.removeIndex(j);
                 }
-                else if(bullet.collides(ghost.getBounds())){
+                else if(bullet.collides(squeleton.getBounds())){
                     bullet.dispose();
                     projectiles.removeIndex(j);
-                    ghost.hurt();
-                    if(ghost.getLifeCount()<=0) {
-                        ghost.dispose();
-                        if(ghost.isDark()){
+                    squeleton.hurt();
+                    if(squeleton.getLifeCount()<=0) {
+                        squeleton.dispose();
+                        if(squeleton.isDark()){
                             score+=4;
                         }
                         enemies.removeIndex(i);
@@ -206,8 +204,8 @@ public class PlayStateWorld2 extends State {
         for(Background background : backgrounds){
             sb.draw(background.getTexture(), 0, background.getPos().y, 240, 400);
         }
-        for (Ghost ghost : enemies) {
-            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, Ghost.WIDTH, Ghost.HEIGHT);
+        for (Squeleton squeleton : enemies) {
+            sb.draw(squeleton.getTexture(), squeleton.getPosition().x, squeleton.getPosition().y, Squeleton.WIDTH, Squeleton.HEIGHT);
         }
         for (Bullet bullet : projectiles){
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
@@ -232,8 +230,8 @@ public class PlayStateWorld2 extends State {
         player.dispose();
         oof.dispose();
         death.dispose();
-        for(Ghost ghost : enemies){
-            ghost.dispose();
+        for(Squeleton squeleton : enemies){
+            squeleton.dispose();
         }
         System.out.println("Play State World2 Disposed");
     }

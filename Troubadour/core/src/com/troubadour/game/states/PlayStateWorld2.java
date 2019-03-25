@@ -47,7 +47,7 @@ public class PlayStateWorld2 extends State {
 
 
     //private Array<Wall> walls;
-    private Array<Mob> enemies;
+    private Array<Squeleton> enemies;
     private Array<Bullet> projectiles;
 
     public PlayStateWorld2(GameStateManager gsm){
@@ -61,7 +61,7 @@ public class PlayStateWorld2 extends State {
         }
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
-        enemies = new Array<Mob>();
+        enemies = new Array<Squeleton>();
 
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));

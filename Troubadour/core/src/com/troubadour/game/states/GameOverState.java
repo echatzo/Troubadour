@@ -24,7 +24,8 @@ public class GameOverState extends State {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            gsm.pop();
+
+            gsm.set(new ChooseWorldState(gsm));
         }
     }
 

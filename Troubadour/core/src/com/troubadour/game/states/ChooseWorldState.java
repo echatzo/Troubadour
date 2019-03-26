@@ -79,10 +79,12 @@ public class ChooseWorldState extends State {
     public void handleInput() {
         if(world1.isPressed()){
             //world 1
-            gsm.push(new PlayState(gsm));
+            world1.setChecked(false);
+            gsm.set(new PlayState(gsm));
         }
         if(world2.isPressed()){
-            gsm.push(new PlayStateWorld2(gsm));
+            world2.setChecked(false);
+            gsm.set(new PlayStateWorld2(gsm));
         }
     }
 

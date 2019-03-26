@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
@@ -24,6 +27,12 @@ public class PlayStateWorld2 extends State {
 
     private static final int ENEMY_SPACING = 50;
     private static final int ENEMY_COUNT = 100;
+
+    private Stage stage;
+    private Skin skin;
+    private TextButton pauseButton;
+    int row_height = Gdx.graphics.getHeight() / 12;
+    int col_width = Gdx.graphics.getWidth() / 12;
 
 
     private Player player;
@@ -82,6 +91,21 @@ public class PlayStateWorld2 extends State {
         nextWave=2;
         nextBullet=1;
         totalWaves=0;
+
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        //font = new BitmapFont();
+        skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
+
+        pauseButton = new TextButton("Pause", skin);
+        pauseButton.setSize(col_width*3,row_height);
+        //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),Gdx.graphics.getHeight()-enemy.getHeight()-pauseButton.getHeight());
+        //methode brute pour placer
+        pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),(int) cam.position.y + cam.viewportHeight + 850);
+        pauseButton.scaleBy(2f);
+        pauseButton.getLabel().setFontScale(col_width/40,row_height/40);
+        pauseButton.setChecked(false);
+        stage.addActor(pauseButton);
     }
 
     @Override
@@ -92,6 +116,9 @@ public class PlayStateWorld2 extends State {
                 nextBullet=time+0.12f;
                 projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, player.movement+120));
             }
+        }
+        if(pauseButton.isPressed()){
+            gsm.push(new PauseState(gsm));
         }
     }
 
@@ -215,6 +242,9 @@ public class PlayStateWorld2 extends State {
         yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
         yourBitmapFontName.draw(sb, yourScoreName, 15, (int) cam.position.y + cam.viewportHeight - (290));
         sb.end();
+
+        stage.act();
+        stage.draw();
     }
 
     @Override

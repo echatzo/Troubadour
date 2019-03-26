@@ -1,3 +1,4 @@
+
 package com.troubadour.game.states;
 
 import com.badlogic.gdx.Gdx;
@@ -21,17 +22,12 @@ public class PauseState extends State {
     public void dispose() {
         background.dispose();
         playTexture.dispose();
-        System.out.println("Menu State Disposed");
+        System.out.println("Pause State Disposed");
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            //world 1
-            //gsm.set(new PlayState(gsm));
-            //world 2
-            //gsm.set(new PlayStateWorld2(gsm));
-            //choose World
             gsm.pop();
         }
     }

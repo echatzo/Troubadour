@@ -25,6 +25,9 @@ public class PlayStateWorld2Boss  extends State {
     private String yourScoreName;
     BitmapFont yourBitmapFontName;
 
+    private Texture enemy;
+    private Animation enemyAnimation;
+
     private Sound oof;
     private Sound death;
     private Array<Bullet> projectiles;
@@ -34,11 +37,21 @@ public class PlayStateWorld2Boss  extends State {
         this.player=player;
         this.score = score;
         boss1 = new Boss1();
+        projectiles=new Array<Bullet>();
+
 
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         cam.position.y= player.getPosition().y + 150;
         background = new Background(0,0, "damier.png");
-        player.movement=0;
+        player.setMovement(0);
+        player.setPosition((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 100);
+
+        enemy = new Texture("enemyAnimation.png");
+        enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
+
+        time = 0;
+        yourScoreName = "score: 0";
+        yourBitmapFontName = new BitmapFont();
     }
 
     @Override
@@ -61,6 +74,9 @@ public class PlayStateWorld2Boss  extends State {
         for (Bullet bullet : projectiles){
             bullet.update(dt);
         }
+        time+=dt;
+        enemyAnimation.update(dt);
+
 
     }
 

@@ -10,7 +10,7 @@ import com.troubadour.game.Troubadour;
 public class Player {
     public static final int PLAYER_HEIGHT = 30;
     public static final int PLAYER_WIDTH = 25;
-    public float movement = 120;
+    private float movement = 120;
     private static final float MAX_CONTROL_SPEED = 800;
 
     private Vector3 position;
@@ -74,6 +74,11 @@ public class Player {
         return position;
     }
 
+    public void setPosition(int x, int y){
+        position.x = x;
+        position.y = y;
+    }
+
 
     public TextureRegion getTexture() {
         return playerAnimation.getFrame();
@@ -135,6 +140,10 @@ public class Player {
     }
     public float getMovement(){
         return movement;
+    }
+
+    public void setMovement(float x){
+        movement = x;
     }
 
 }

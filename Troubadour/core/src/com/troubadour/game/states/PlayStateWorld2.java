@@ -114,7 +114,7 @@ public class PlayStateWorld2 extends State {
             player.move();
             if(time>nextBullet){
                 nextBullet=time+0.12f;
-                projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, player.movement+120));
+                projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, player.getMovement()+120));
             }
         }
         if(pauseButton.isPressed()){
@@ -137,7 +137,7 @@ public class PlayStateWorld2 extends State {
         time+=dt;
         if (time>nextWave&&totalWaves<ENEMY_COUNT){
             totalWaves++;
-            player.movement=100+time;
+            player.setMovement(100+time);
             System.out.println(player.getMovement());
             nextWave+=(140/player.getMovement());
             Random rand = new Random();
@@ -147,7 +147,7 @@ public class PlayStateWorld2 extends State {
                 enemies.add(new Squeleton(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
             }
         }
-        if(time>105){
+        if(time>15){
             gsm.set(new PlayStateWorld2Boss(gsm, player, score));
         }
 

@@ -1,9 +1,12 @@
 package com.troubadour.game.sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.troubadour.game.Troubadour;
 
 import java.util.Random;
 
@@ -16,13 +19,14 @@ public class Ghost extends Mob {
 
 
     private Vector3 position;
+    private Vector3 velocity;
     private Texture texture;
     private Animation animation;
     private Rectangle bounds;
     private Random rand;
     private int lifeCount;
     private boolean dark;
-
+    private float movement;
 
     public Ghost(float x, float y) {
         super(x,y);
@@ -39,13 +43,33 @@ public class Ghost extends Mob {
             texture = new Texture("squeleton.png");
         }
         position = new Vector3(x, y, 0);
+        velocity = new Vector3(0, 0, 0);
+        movement = 120;
         animation = new Animation(new TextureRegion(texture), 3, 0.5f);
         bounds = new Rectangle(position.x+5, y, WIDTH, HEIGHT);
 
     }
 
     public void update(float dt) {
+        System.out.println("ghostupdate");
+        System.out.println(movement);
+        System.out.println(position.x);
         animation.update(dt);
+
+        if(position.x <0) movement = 120;
+        if(position.x > Gdx.graphics.getWidth()) movement = -120;
+        //velocity.scl(dt);
+        position.add(movement*dt, 0, 0);
+
+        if(position.x<0){
+            position.x=0;
+        }
+        if(position.x> (Troubadour.WIDTH /2)-(WIDTH)){
+            position.x=(Troubadour.WIDTH /2)-(WIDTH);
+        }
+
+
+        bounds.setPosition(position.x, position.y);
     }
 
 

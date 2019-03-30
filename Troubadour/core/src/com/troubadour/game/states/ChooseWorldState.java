@@ -29,7 +29,7 @@ public class ChooseWorldState extends State {
     private Texture background;
     private Stage stage;
     private Skin skin;
-    private TextButton world1, world2, music;
+    private TextButton world1, world2, world3, music;
     private BitmapFont font;
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
@@ -51,7 +51,7 @@ public class ChooseWorldState extends State {
 
         world1 = new TextButton("World 1", skin);
         world1.setSize(col_width*6,row_height*2);
-        world1.setPosition(col_width*3,Gdx.graphics.getHeight()-row_height*5);
+        world1.setPosition(col_width*3,Gdx.graphics.getHeight()-row_height*3);
         //world1.setTransform(true);
         //world1.scaleBy(2f);
         world1.getLabel().setFontScale(col_width/23,row_height/23);
@@ -60,10 +60,17 @@ public class ChooseWorldState extends State {
 
         world2 = new TextButton("World 2", skin);
         world2.setSize(col_width*6,row_height*2);
-        world2.setPosition( col_width*3,row_height*4 );
+        world2.setPosition( col_width*3,row_height*6 );
         world2.getLabel().setFontScale(col_width/23,row_height/23);
         world2.setChecked(false);
         stage.addActor(world2);
+
+        world3 = new TextButton("World 3", skin);
+        world3.setSize(col_width*6,row_height*2);
+        world3.setPosition( col_width*3,row_height*3 );
+        world3.getLabel().setFontScale(col_width/23,row_height/23);
+        world3.setChecked(false);
+        stage.addActor(world3);
 
         music = new TextButton("Mute Music", skin);
         //music.setSize(col_width*6/2,row_height*2/2);
@@ -107,6 +114,10 @@ public class ChooseWorldState extends State {
         if(world2.isPressed()){
             world2.setChecked(false);
             gsm.set(new PlayStateWorld2(gsm));
+        }
+        if(world3.isPressed()){
+            world3.setChecked(false);
+            gsm.set(new PlayStateWorld3(gsm));
         }
     }
 

@@ -19,9 +19,12 @@ public class Troubadour extends ApplicationAdapter{
 	private GameStateManager gsm;
 	private SpriteBatch batch;
 
-	private Music music;
+	private static Music music;
+	public static boolean mute =false;
 
-	@Override
+
+
+    @Override
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
@@ -42,9 +45,23 @@ public class Troubadour extends ApplicationAdapter{
 		gsm.render(batch);
 	}
 
+
     @Override
     public void dispose() {
         super.dispose();
         music.dispose();
+    }
+
+    public static void muteMusic(){
+		music.stop();
+		music.dispose();
+	}
+    public static void playMusic(){
+        //music debut
+        music = Gdx.audio.newMusic((Gdx.files.internal("music.mp3")));
+        music.setLooping(true);
+        music.setVolume(0.2f);
+        music.play();
+        //music fin
     }
 }

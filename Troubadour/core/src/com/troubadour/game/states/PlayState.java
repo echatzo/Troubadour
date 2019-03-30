@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
@@ -45,7 +47,7 @@ public class PlayState extends State {
 
     private Array<Wall> walls;
 
-    public PlayState(GameStateManager gsm){
+    public PlayState(final GameStateManager gsm){
         super(gsm);
 
         player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 30);
@@ -80,6 +82,12 @@ public class PlayState extends State {
         pauseButton.scaleBy(2f);
         pauseButton.getLabel().setFontScale(col_width/40,row_height/40);
         pauseButton.setChecked(false);
+        pauseButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.push(new PauseState(gsm));
+            }
+        });
         stage.addActor(pauseButton);
 
     }
@@ -90,9 +98,6 @@ public class PlayState extends State {
             player.move();
         }
 
-        if(pauseButton.isPressed()){
-            gsm.push(new PauseState(gsm));
-        }
     }
 
     @Override
@@ -171,7 +176,6 @@ public class PlayState extends State {
         }
         yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
         yourBitmapFontName.draw(sb, yourScoreName, 15, (int) cam.position.y + cam.viewportHeight - (290));
-
         sb.end();
 
 

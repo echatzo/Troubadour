@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.troubadour.game.Troubadour;
@@ -28,7 +29,7 @@ public class ChooseWorldState extends State {
     private Texture background;
     private Stage stage;
     private Skin skin;
-    private TextButton world1, world2;
+    private TextButton world1, world2, music;
     private BitmapFont font;
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
@@ -59,10 +60,31 @@ public class ChooseWorldState extends State {
 
         world2 = new TextButton("World 2", skin);
         world2.setSize(col_width*6,row_height*2);
-        world2.setPosition( col_width*3,row_height*3 );
+        world2.setPosition( col_width*3,row_height*4 );
         world2.getLabel().setFontScale(col_width/23,row_height/23);
         world2.setChecked(false);
         stage.addActor(world2);
+
+        music = new TextButton("Mute Music", skin);
+        //music.setSize(col_width*6/2,row_height*2/2);
+        music.setPosition( col_width*6,row_height );
+        //music.getLabel().setFontScale(col_width/23,row_height/23);
+        music.setChecked(false);
+        music.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(Troubadour.mute) {
+                    Troubadour.mute = false;
+                    Troubadour.playMusic();
+
+                }
+                else {
+                    Troubadour.mute = true;
+                    Troubadour.muteMusic();
+                }
+            }
+        });
+        stage.addActor(music);
 
 
     }

@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
@@ -57,7 +59,7 @@ public class PlayStateWorld2 extends State {
     private Array<Squeleton> enemies;
     private Array<Bullet> projectiles;
 
-    public PlayStateWorld2(GameStateManager gsm){
+    public PlayStateWorld2(final GameStateManager gsm){
         super(gsm);
 
         player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 100);
@@ -99,12 +101,18 @@ public class PlayStateWorld2 extends State {
 
         pauseButton = new TextButton("Pause", skin);
         pauseButton.setSize(col_width*3,row_height);
-        //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),Gdx.graphics.getHeight()-enemy.getHeight()-pauseButton.getHeight());
+        pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),Gdx.graphics.getHeight()-enemy.getHeight()-pauseButton.getHeight());
         //methode brute pour placer
-        pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),(int) cam.position.y + cam.viewportHeight + 850);
+        //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),(int) cam.position.y + cam.viewportHeight + 850);
         pauseButton.scaleBy(2f);
         pauseButton.getLabel().setFontScale(col_width/40,row_height/40);
         pauseButton.setChecked(false);
+        pauseButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.push(new PauseState(gsm));
+            }
+        });
         stage.addActor(pauseButton);
     }
 
@@ -116,9 +124,6 @@ public class PlayStateWorld2 extends State {
                 nextBullet=time+0.12f;
                 projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, player.getMovement()+120));
             }
-        }
-        if(pauseButton.isPressed()){
-            gsm.push(new PauseState(gsm));
         }
     }
 

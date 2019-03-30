@@ -51,9 +51,6 @@ public class Ghost extends Mob {
     }
 
     public void update(float dt) {
-        System.out.println("ghostupdate");
-        System.out.println(movement);
-        System.out.println(position.x);
         animation.update(dt);
 
         if(position.x <0) movement = 120;

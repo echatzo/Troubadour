@@ -36,7 +36,7 @@ public class ChooseWorldState extends State {
 
     private FitViewport fitViewport;
 
-    public ChooseWorldState(GameStateManager gsm){
+    public ChooseWorldState(final GameStateManager gsm){
         super(gsm);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
@@ -56,6 +56,12 @@ public class ChooseWorldState extends State {
         //world1.scaleBy(2f);
         world1.getLabel().setFontScale(col_width/23,row_height/23);
         world1.setChecked(false);
+        world1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayState(gsm));
+            }
+        });
         stage.addActor(world1);
 
         world2 = new TextButton("World 2", skin);
@@ -63,6 +69,12 @@ public class ChooseWorldState extends State {
         world2.setPosition( col_width*3,row_height*6 );
         world2.getLabel().setFontScale(col_width/23,row_height/23);
         world2.setChecked(false);
+        world2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayStateWorld2(gsm));
+            }
+        });
         stage.addActor(world2);
 
         world3 = new TextButton("World 3", skin);
@@ -70,6 +82,12 @@ public class ChooseWorldState extends State {
         world3.setPosition( col_width*3,row_height*3 );
         world3.getLabel().setFontScale(col_width/23,row_height/23);
         world3.setChecked(false);
+        world3.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayStateWorld3(gsm));
+            }
+        });
         stage.addActor(world3);
 
         music = new TextButton("Mute Music", skin);
@@ -106,19 +124,7 @@ public class ChooseWorldState extends State {
 
     @Override
     public void handleInput() {
-        if(world1.isPressed()){
-            //world 1
-            world1.setChecked(false);
-            gsm.set(new PlayState(gsm));
-        }
-        if(world2.isPressed()){
-            world2.setChecked(false);
-            gsm.set(new PlayStateWorld2(gsm));
-        }
-        if(world3.isPressed()){
-            world3.setChecked(false);
-            gsm.set(new PlayStateWorld3(gsm));
-        }
+
     }
 
     @Override

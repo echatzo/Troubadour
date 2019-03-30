@@ -15,7 +15,7 @@ import com.troubadour.game.Troubadour;
 public class PauseState extends State {
 
     private Texture background;
-    private TextButton resume, music;
+    private TextButton resume, music, exit;
     private Stage stage;
     private Skin skin;
     int row_height = Gdx.graphics.getHeight() / 12;
@@ -70,6 +70,19 @@ public class PauseState extends State {
             }
         });
         stage.addActor(music);
+
+        exit = new TextButton("Exit", skin);
+        exit.setSize(col_width*6/2,row_height*2/2);
+        exit.setPosition( col_width*(float)1.5,row_height );
+        //music.getLabel().setFontScale(col_width/23,row_height/23);
+        exit.setChecked(false);
+        exit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.push(new ChooseWorldState(gsm));
+            }
+        });
+        stage.addActor(exit);
     }
 
     @Override
@@ -81,9 +94,7 @@ public class PauseState extends State {
 
     @Override
     public void handleInput() {
-        if(Gdx.input.justTouched()){
-           // gsm.pop();
-        }
+
     }
 
     @Override

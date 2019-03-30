@@ -73,8 +73,8 @@ public class ChooseWorldState extends State {
         stage.addActor(world3);
 
         music = new TextButton("Mute Music", skin);
-        //music.setSize(col_width*6/2,row_height*2/2);
-        music.setPosition( col_width*6,row_height );
+        music.setSize(col_width*6/2,row_height*2/2);
+        music.setPosition( col_width*8,row_height );
         //music.getLabel().setFontScale(col_width/23,row_height/23);
         music.setChecked(false);
         music.addListener(new ClickListener() {

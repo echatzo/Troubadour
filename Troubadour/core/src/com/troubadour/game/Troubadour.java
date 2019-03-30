@@ -53,8 +53,7 @@ public class Troubadour extends ApplicationAdapter{
     }
 
     public static void muteMusic(){
-		music.stop();
-		music.dispose();
+		music.pause();
 	}
     public static void playMusic(){
         //music debut

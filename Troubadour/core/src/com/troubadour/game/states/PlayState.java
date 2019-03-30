@@ -75,10 +75,9 @@ public class PlayState extends State {
         skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
 
         pauseButton = new TextButton("Pause", skin);
-        pauseButton.setSize(col_width*3,row_height);
-        //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),Gdx.graphics.getHeight()-enemy.getHeight()-pauseButton.getHeight());
+        pauseButton.setSize(col_width*4,row_height);
         //methode brute pour placer
-        pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),(int) cam.position.y + cam.viewportHeight + 850);
+        //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),(int) cam.position.y + cam.viewportHeight + 850);
         pauseButton.scaleBy(2f);
         pauseButton.getLabel().setFontScale(col_width/40,row_height/40);
         pauseButton.setChecked(false);
@@ -88,6 +87,7 @@ public class PlayState extends State {
                 gsm.push(new PauseState(gsm));
             }
         });
+        pauseButton.setPosition(col_width*(float)7.8,row_height*(float)8.6);
         stage.addActor(pauseButton);
 
     }

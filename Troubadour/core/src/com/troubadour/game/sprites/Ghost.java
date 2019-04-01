@@ -58,8 +58,7 @@ public class Ghost extends Mob {
 
         position.add(velocity.x*dt, 0, 0);
 
-       // bounds.setPosition(position.x, position.y);
-        bounds.setX(position.x);
+       bounds.setPosition(position.x, position.y);
     }
 
 

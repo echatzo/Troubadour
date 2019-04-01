@@ -36,7 +36,6 @@ public class PlayStateWorld2Boss  extends State {
         super(gsm);
         this.player=player;
         this.score = score;
-        boss1 = new Boss1();
         projectiles=new Array<Bullet>();
 
 
@@ -44,7 +43,8 @@ public class PlayStateWorld2Boss  extends State {
         cam.position.y= player.getPosition().y + 150;
         background = new Background(0,0, "damier.png");
         player.setMovement(0);
-        player.setPosition((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 100);
+        player.setPosition((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 50);
+        boss1 = new Boss1(player.getPosition().x + Player.PLAYER_WIDTH - Boss1.WIDTH, player.getPosition().y + cam.viewportHeight/2);
 
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);

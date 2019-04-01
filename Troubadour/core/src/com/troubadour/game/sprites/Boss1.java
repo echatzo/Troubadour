@@ -25,11 +25,11 @@ public class Boss1 {
 
     private int lifeCount;
 
-    public Boss1(){
+    public Boss1(float x, float y){
 
         lifeCount=150;
 
-        position = new Vector3(0, 0, 0);
+        position = new Vector3(x, y, 0);
         velocity = new Vector3(MOVEMENT, 0, 0);
         texture = new Texture("Boss1.png");
         hitTexture = new Texture("Boss1_hit.png");

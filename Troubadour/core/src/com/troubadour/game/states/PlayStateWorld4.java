@@ -22,7 +22,7 @@ import com.troubadour.game.sprites.Squeleton;
 import java.util.Random;
 
 
-public class PlayStateWorld2 extends State {
+public class PlayStateWorld4 extends State {
 
 
 
@@ -58,7 +58,7 @@ public class PlayStateWorld2 extends State {
     private Array<Squeleton> enemies;
     private Array<Bullet> projectiles;
 
-    public PlayStateWorld2(final GameStateManager gsm){
+    public PlayStateWorld4(final GameStateManager gsm){
         super(gsm);
 
         player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 100);
@@ -144,13 +144,10 @@ public class PlayStateWorld2 extends State {
             totalWaves++;
             player.setMovement(100+time);
             System.out.println(player.getMovement());
-            nextWave+=(140/player.getMovement());
+            nextWave+=(100/player.getMovement());
             Random rand = new Random();
-            int enemiesOnRow = 4+ rand.nextInt(4);
-            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-(enemiesOnRow*((1/8)+(Squeleton.WIDTH/cam.viewportWidth))));
-            for (int j =0; j<enemiesOnRow; j++){
-                enemies.add(new Squeleton(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
-            }
+            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-((1/8)+(Squeleton.WIDTH/cam.viewportWidth)));
+            enemies.add(new Squeleton(firstEnemyX,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
         }
         if(time>15){
             gsm.set(new PlayStateWorld2Boss(gsm, player, score));

@@ -14,6 +14,7 @@ public class Ghost extends Mob {
 
     public static final int HEIGHT = 26;
     public static final int WIDTH = 19;
+    public static final int MOVEMENT = 80;
 
 
 
@@ -26,7 +27,6 @@ public class Ghost extends Mob {
     private Random rand;
     private int lifeCount;
     private boolean dark;
-    private float movement;
 
     public Ghost(float x, float y) {
         super(x,y);
@@ -43,8 +43,7 @@ public class Ghost extends Mob {
             texture = new Texture("squeleton.png");
         }
         position = new Vector3(x, y, 0);
-        velocity = new Vector3(0, 0, 0);
-        movement = 120;
+        velocity = new Vector3(MOVEMENT, 0, 0);
         animation = new Animation(new TextureRegion(texture), 3, 0.5f);
         bounds = new Rectangle(position.x+5, y, WIDTH, HEIGHT);
 
@@ -53,25 +52,22 @@ public class Ghost extends Mob {
     public void update(float dt) {
         animation.update(dt);
 
-        if(position.x <0) movement = 120;
-        if(position.x > Gdx.graphics.getWidth()) movement = -120;
-        //velocity.scl(dt);
-        position.add(movement*dt, 0, 0);
 
-        if(position.x<0){
-            position.x=0;
-        }
-        if(position.x> (Troubadour.WIDTH /2)-(WIDTH)){
-            position.x=(Troubadour.WIDTH /2)-(WIDTH);
-        }
+        if(position.x <0) velocity.x = MOVEMENT;
+        if(position.x > Troubadour.WIDTH/2) velocity.x=-MOVEMENT;
 
+        position.add(velocity.x*dt, 0, 0);
 
         bounds.setPosition(position.x, position.y);
     }
 
 
     public Vector3 getPosition() {
-        return super.getPosition();
+        return position;
+    }
+
+    public Vector3 getVelocity(){
+        return velocity;
     }
 
     public boolean isDark(){

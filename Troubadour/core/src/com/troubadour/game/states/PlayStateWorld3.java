@@ -165,6 +165,7 @@ public class PlayStateWorld3 extends State {
 
         for(int i = 0; i < enemies.size; i++){
             Ghost ghost = enemies.get(i);
+            System.out.println(ghost.getVelocity().x);
             ghost.update(dt);
             if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.HEIGHT){
                 enemies.removeIndex(i);

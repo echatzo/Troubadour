@@ -135,8 +135,8 @@ public class PlayStateWorld3 extends State {
             System.out.println(player.getMovement());
             nextWave+=(140/player.getMovement());
             Random rand = new Random();
-            //int enemiesOnRow = 4+ rand.nextInt(4);
-            int enemiesOnRow =2;
+            int enemiesOnRow = 3+ rand.nextInt(3);
+            //int enemiesOnRow =4;
             float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-(enemiesOnRow*((1/8)+(Squeleton.WIDTH/cam.viewportWidth))));
             for (int j =0; j<enemiesOnRow; j++){
                 enemies.add(new Ghost(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));

@@ -32,9 +32,9 @@ public class PlayStateWorld2Boss  extends State {
     private Sound death;
     private Array<Bullet> projectiles;
 
-    public PlayStateWorld2Boss (GameStateManager gsm, Player player, int score){
+    public PlayStateWorld2Boss (GameStateManager gsm, Player prevplayer, int score){
         super(gsm);
-        this.player=player;
+        this.player=prevplayer;
         this.score = score;
         projectiles=new Array<Bullet>();
 
@@ -42,8 +42,9 @@ public class PlayStateWorld2Boss  extends State {
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         cam.position.y= player.getPosition().y + 150;
         background = new Background(0,0, "damier.png");
-        player.setMovement(0);
-        player.setPosition((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 50);
+        this.player=player;
+        this.player.setMovement(0);
+        this.player.setPosition((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 50);
         boss1 = new Boss1(player.getPosition().x + Player.PLAYER_WIDTH - Boss1.WIDTH, player.getPosition().y + cam.viewportHeight/2);
 
         enemy = new Texture("enemyAnimation.png");
@@ -60,7 +61,7 @@ public class PlayStateWorld2Boss  extends State {
             player.move();
             if(time>nextBullet){
                 nextBullet=time+0.18f;
-                projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, 80));
+                projectiles.add(new Bullet(player.getPosition().x+ Player.PLAYER_WIDTH/3, player.getPosition().y, 120));
             }
         }
     }
@@ -77,6 +78,25 @@ public class PlayStateWorld2Boss  extends State {
         time+=dt;
         enemyAnimation.update(dt);
 
+        for(int j=0; j < projectiles.size; j++){
+            Bullet bullet = projectiles.get(j);
+            if (bullet.getPosition().y>player.getPosition().y+cam.viewportHeight-150){
+                bullet.dispose();
+                projectiles.removeIndex(j);
+            }
+            else if(bullet.collides(boss1.getBounds())){
+                bullet.dispose();
+                projectiles.removeIndex(j);
+                boss1.hurt();
+                if(boss1.getLifeCount()<=0) {
+                    boss1.dispose();
+                    score++;
+                    yourScoreName = "score: " + (int) score;
+                }
+
+            }
+
+        }
 
     }
 

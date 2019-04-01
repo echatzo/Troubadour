@@ -43,8 +43,7 @@ public class Boss1 {
     public void update(float dt){
         animation.update(dt);
 
-        velocity.scl(dt);
-        position.add(velocity.x, 0, 0);
+        position.add(velocity.x*dt, 0, 0);
 
         if(position.x < 0){
 
@@ -63,6 +62,7 @@ public class Boss1 {
     }
 
     public Vector3 getPosition(){ return position; }
+    public Vector3 getVelocity(){ return velocity; }
 
     public void dispose(){
         texture.dispose();
@@ -79,6 +79,14 @@ public class Boss1 {
 
     public void hurt(){
         this.lifeCount--;
+    }
+
+    public Rectangle getBounds(){
+        return bounds;
+    }
+
+    public int getLifeCount(){
+        return lifeCount;
     }
 
     public void shotgun(){

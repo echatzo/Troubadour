@@ -150,7 +150,7 @@ public class PlayStateWorld4 extends State {
             enemies.add(new Squeleton(firstEnemyX,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
         }
         if(time>15){
-            gsm.set(new PlayStateWorld2Boss(gsm, player, score));
+            gsm.set(new PlayStateWorld2Boss(gsm, player.getLifeCount(), score));
         }
 
         enemyAnimation.update(dt);
@@ -242,7 +242,7 @@ public class PlayStateWorld4 extends State {
             sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
         }
         yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
-        yourBitmapFontName.draw(sb, yourScoreName, 15, (int) cam.position.y + cam.viewportHeight - (290));
+        yourBitmapFontName.draw(sb, yourScoreName, 15, cam.position.y + cam.viewportHeight - (290));
         sb.end();
 
         stage.act();

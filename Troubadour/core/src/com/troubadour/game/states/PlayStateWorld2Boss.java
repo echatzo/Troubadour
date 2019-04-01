@@ -32,9 +32,10 @@ public class PlayStateWorld2Boss  extends State {
     private Sound death;
     private Array<Bullet> projectiles;
 
-    public PlayStateWorld2Boss (GameStateManager gsm, Player prevplayer, int score){
+    public PlayStateWorld2Boss (GameStateManager gsm, int lives, int score){
         super(gsm);
-        this.player=prevplayer;
+        this.player=new Player(50, Troubadour.WIDTH/2-player.PLAYER_WIDTH/2);
+        this.player.setLifeCount(lives);
         this.score = score;
         projectiles=new Array<Bullet>();
 
@@ -114,7 +115,7 @@ public class PlayStateWorld2Boss  extends State {
             sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
         }
         yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
-        yourBitmapFontName.draw(sb, yourScoreName, 15, (int) cam.position.y + cam.viewportHeight - (290));
+        yourBitmapFontName.draw(sb, yourScoreName, 15, cam.position.y + cam.viewportHeight - (290));
         sb.end();
     }
 

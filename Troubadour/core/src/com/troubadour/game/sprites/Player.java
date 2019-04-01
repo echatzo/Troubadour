@@ -118,6 +118,7 @@ public class Player {
         this.lifeCount++;
     }
 
+    public void setLifeCount(int lives) {this.lifeCount=lives;}
     public float getLifeTimer(){
         return lifeTimer;
     }

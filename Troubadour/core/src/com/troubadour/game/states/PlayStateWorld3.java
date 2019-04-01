@@ -54,10 +54,6 @@ public class PlayStateWorld3 extends State {
     private Sound oof;
     private Sound death;
 
-
-
-    //private Array<Wall> walls;
-    //private Array<Squeleton> enemies;
     private Array<Ghost> enemies;
     private Array<Bullet> projectiles;
 
@@ -77,21 +73,11 @@ public class PlayStateWorld3 extends State {
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
-/*
-        for(int i = 1; i <= ENEMY_COUNT; i ++){
-            Random rand = new Random();
-            int enemiesOnRow = 4+ rand.nextInt(4);
-            float firsEnemyX = rand.nextFloat()*cam.viewportWidth*(1-(enemiesOnRow/6));
-            for (int j =0; j<enemiesOnRow; j++){
-                enemies.add(new Ghost(firsEnemyX+j*cam.viewportWidth/8,i*(ENEMY_SPACING + Ghost.HEIGHT)+cam.viewportHeight));
-            }
-        }
-        */
         projectiles=new Array<Bullet>();
         score = 0;
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
-        time =0;
+        time = 0;
         nextWave=2;
         nextBullet=1;
         totalWaves=0;

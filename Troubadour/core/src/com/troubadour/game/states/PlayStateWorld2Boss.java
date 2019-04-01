@@ -32,9 +32,9 @@ public class PlayStateWorld2Boss  extends State {
     private Sound death;
     private Array<Bullet> projectiles;
 
-    public PlayStateWorld2Boss (GameStateManager gsm, Player prevplayer, int score){
+    public PlayStateWorld2Boss (GameStateManager gsm, Player player, int score){
         super(gsm);
-        this.player=prevplayer;
+        this.player=player;
         this.score = score;
         projectiles=new Array<Bullet>();
 
@@ -53,6 +53,8 @@ public class PlayStateWorld2Boss  extends State {
         time = 0;
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
+
+        player.setTexture(1);
     }
 
     @Override

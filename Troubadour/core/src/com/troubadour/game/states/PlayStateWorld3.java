@@ -37,7 +37,6 @@ public class PlayStateWorld3 extends State {
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
 
-
     private Player player;
     private Array<Background> backgrounds;
     private Texture enemy;

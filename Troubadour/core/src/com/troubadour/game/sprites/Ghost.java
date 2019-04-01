@@ -27,6 +27,7 @@ public class Ghost extends Mob {
     private Random rand;
     private int lifeCount;
     private boolean dark;
+    int signe;
 
     public Ghost(float x, float y) {
         super(x,y);
@@ -43,7 +44,9 @@ public class Ghost extends Mob {
             texture = new Texture("squeleton.png");
         }
         position = new Vector3(x, y, 0);
-        velocity = new Vector3(MOVEMENT, 0, 0);
+        if(rand.nextBoolean()) signe = 1;
+        else signe = -1;
+        velocity = new Vector3(signe*MOVEMENT, 0, 0);
         animation = new Animation(new TextureRegion(texture), 3, 0.5f);
         bounds = new Rectangle(position.x+5, y, WIDTH, HEIGHT);
 

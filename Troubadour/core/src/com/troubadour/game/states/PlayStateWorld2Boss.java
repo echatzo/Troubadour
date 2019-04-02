@@ -63,7 +63,10 @@ public class PlayStateWorld2Boss  extends State {
 
         this.time = 0;
 
+        this.nextBossBullet = 1f;
+
         this.projectiles = new Array<Bullet>();
+        this.projectilesBoss = new Array<BulletBoss1>();
         this.background = new Background(0,0, "damier.png");
 
         this.enemy = new Texture("enemyAnimation.png");
@@ -112,6 +115,15 @@ public class PlayStateWorld2Boss  extends State {
         player.update(dt);
         boss1.update(dt);
 
+        if(time>nextBossBullet){
+            nextBossBullet=time+1f;
+            projectilesBoss.add(new BulletBoss1(boss1.getPosition().x+(Boss1.WIDTH/2-BulletBoss1.BULLET_SIZE/2),boss1.getPosition().y,player.getPosition().x+(Player.PLAYER_WIDTH/2),player.getPosition().y));
+        }
+
+        for (BulletBoss1 bulletBoss1 : projectilesBoss){
+            bulletBoss1.update(dt);
+        }
+
         for (Bullet bullet : projectiles){
             bullet.update(dt);
         }
@@ -138,6 +150,20 @@ public class PlayStateWorld2Boss  extends State {
 
         }
 
+        for(int j=0; j < projectilesBoss.size; j++){
+            BulletBoss1 bulletBoss1 = projectilesBoss.get(j);
+            if (bulletBoss1.getPosition().y < player.getPosition().y-10){
+                bulletBoss1.dispose();
+                projectilesBoss.removeIndex(j);
+            }
+            else if(bulletBoss1.collides(player.getBounds())){
+                bulletBoss1.dispose();
+                projectilesBoss.removeIndex(j);
+                player.hurt();
+            }
+
+        }
+
         if(boss1.getLifeCount() == 0){
             gsm.set(new ChooseWorldState(gsm));
         }
@@ -151,6 +177,9 @@ public class PlayStateWorld2Boss  extends State {
         sb.draw(background.getTexture(), 0, background.getPos().y, 240, 400);
         for (Bullet bullet : projectiles){
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
+        }
+        for (BulletBoss1 bulletBoss1 : projectilesBoss){
+            sb.draw(bulletBoss1.getTexture(),bulletBoss1.getPosition().x,bulletBoss1.getPosition().y, BulletBoss1.BULLET_SIZE,BulletBoss1.BULLET_SIZE);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
         sb.draw(boss1.getAnimation().getFrame(), boss1.getPosition().x, boss1.getPosition().y, Boss1.WIDTH, Boss1.HEIGHT);

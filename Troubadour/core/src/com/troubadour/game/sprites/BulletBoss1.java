@@ -20,8 +20,6 @@ public class BulletBoss1 {
     public BulletBoss1(float x, float y, float x_target, float y_target){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(-(x-x_target), -(y-y_target), 0);
-        System.out.println(velocity.x);
-        System.out.println(velocity.y);
         texture = new Texture("BulletBoss1.png");
         bulletAnimation = new Animation(new TextureRegion(texture), 2, 0.3f);
         bounds = new Rectangle(x, y, BULLET_SIZE, BULLET_SIZE);

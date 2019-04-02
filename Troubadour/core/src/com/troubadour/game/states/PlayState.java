@@ -35,6 +35,7 @@ public class PlayState extends State {
     private Array<Background> backgrounds;
     private Texture enemy;
     private Animation enemyAnimation;
+    private float time;
 
     private float score;
     private String yourScoreName;
@@ -42,6 +43,7 @@ public class PlayState extends State {
 
     private Sound oof;
     private Sound death;
+
 
 
 
@@ -68,6 +70,7 @@ public class PlayState extends State {
         score = 0;
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
+        time = 0;
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -112,8 +115,13 @@ public class PlayState extends State {
         score+=dt; //increments the score
         yourScoreName = "score: " + (int) score;
 
+        time += dt;
+        System.out.println(time);
+        player.setMovement(100+time);
+        System.out.println(player.getMovement());
+
         enemyAnimation.update(dt);
-        cam.position.y= player.getPosition().y + 150;
+        cam.position.y = player.getPosition().y + 150;
 
         for(int i = 0; i < walls.size; i++){
             Wall wall = walls.get(i);
@@ -197,4 +205,6 @@ public class PlayState extends State {
         }
         System.out.println("Play State Disposed");
     }
+
+
 }

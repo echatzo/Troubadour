@@ -27,7 +27,7 @@ public class Boss1 {
 
     public Boss1(float x, float y){
 
-        lifeCount=100;
+        lifeCount=10;
 
         position = new Vector3(x, y, 0);
         velocity = new Vector3(MOVEMENT, 0, 0);

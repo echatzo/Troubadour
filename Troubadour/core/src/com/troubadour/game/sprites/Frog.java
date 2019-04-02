@@ -24,7 +24,7 @@ public class Frog extends Mob{
     public Frog(float x, float y) {
         super(x,y);
 
-         lifeCount=3;
+         lifeCount=5;
          texture = new Texture("frog.png");
 
         position = new Vector3(x, y, 0);

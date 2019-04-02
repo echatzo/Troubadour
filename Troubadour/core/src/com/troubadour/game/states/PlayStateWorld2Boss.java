@@ -144,6 +144,7 @@ public class PlayStateWorld2Boss  extends State {
                     boss1.dispose();
                     score = score + 50;
                     yourScoreName = "score: " + (int) score;
+                    gsm.set(new WinState(gsm, (int)score));
                 }
 
             }
@@ -165,7 +166,7 @@ public class PlayStateWorld2Boss  extends State {
         }
 
         if(boss1.getLifeCount() == 0){
-            gsm.set(new ChooseWorldState(gsm));
+            gsm.set(new WinState(gsm, (int)score));
         }
 
     }

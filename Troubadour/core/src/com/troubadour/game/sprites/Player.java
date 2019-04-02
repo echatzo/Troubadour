@@ -65,7 +65,7 @@ public class Player {
         if(position.x> (Troubadour.WIDTH /2)-(PLAYER_WIDTH)){
             position.x=(Troubadour.WIDTH /2)-(PLAYER_WIDTH);
         }
-        velocity.scl(1/dt);
+        //velocity.scl(1/dt);
 
         bounds.setPosition(position.x, position.y);
 

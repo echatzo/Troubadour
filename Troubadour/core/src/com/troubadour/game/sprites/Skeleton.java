@@ -25,10 +25,10 @@ public class Skeleton extends Mob{
         super(x,y);
         rand = new Random();
         dark=false;
-        if(rand.nextInt(5)==4){
+        if(rand.nextInt(3)==1){
             dark = true;
             lifeCount=8;
-            texture = new Texture("squeletondark.png");
+            texture = new Texture("squeletondiams.png");
         }
         else{
             dark=false;
@@ -70,8 +70,9 @@ public class Skeleton extends Mob{
     }
 
     public void hurt() {
-        lifeCount--;
+
         if(!dark) {
+            lifeCount--;
             if(lifeCount==2) {
                 texture = new Texture("squeletonhurt1.png");
             }

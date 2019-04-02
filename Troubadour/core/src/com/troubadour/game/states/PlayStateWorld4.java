@@ -163,7 +163,7 @@ public class PlayStateWorld4 extends State {
                 enemies.removeIndex(i);
             }
             player.incLifeTimer(dt);
-            if(player.getLifeTimer()>50f) { //verifies whether the player is still invincible
+            if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (frog.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();

@@ -153,7 +153,7 @@ public class PlayStateWorld2 extends State {
             }
         }
         if(time>15){
-            gsm.set(new PlayStateWorld2Boss(gsm, player, score));
+            gsm.set(new PlayStateWorld2Boss(gsm, player.getLifeCount(), score));
         }
 
         enemyAnimation.update(dt);

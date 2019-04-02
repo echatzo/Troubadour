@@ -150,7 +150,7 @@ public class PlayStateWorld4 extends State {
             enemies.add(new Squeleton(firstEnemyX,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
         }
         if(time>15){
-            gsm.set(new PlayStateWorld2Boss(gsm, player, score));
+            gsm.set(new PlayStateWorld2Boss(gsm, player.getLifeCount(), score));
         }
 
         enemyAnimation.update(dt);

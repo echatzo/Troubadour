@@ -43,30 +43,34 @@ public class PlayStateWorld2Boss  extends State {
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
 
-    public PlayStateWorld2Boss (final GameStateManager gsm, Player player, int score){
+    public PlayStateWorld2Boss (final GameStateManager gsm, int lifeCount, int score){
         super(gsm);
-        this.player=player;
-        this.score = score;
-        projectiles=new Array<Bullet>();
 
+        this.player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 50);
+        this.player.setMovement(0);
+        this.player.setLifeCount(lifeCount);
+        this.player.setTexture(1);
 
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         cam.position.y= player.getPosition().y + 150;
-        background = new Background(0,0, "damier.png");
-        this.player=player;
-        this.player.setMovement(0);
-        this.player.setPosition((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 50);
-        boss1 = new Boss1(player.getPosition().x + Player.PLAYER_WIDTH - Boss1.WIDTH, player.getPosition().y + cam.viewportHeight/2);
 
-        enemy = new Texture("enemyAnimation.png");
-        enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
+        this.boss1 = new Boss1(player.getPosition().x + Player.PLAYER_WIDTH - Boss1.WIDTH, player.getPosition().y + cam.viewportHeight/2);
 
-        time = 0;
-        yourScoreName = "score: 0";
+        this.score = score;
+
+        this.time = 0;
+
+        this.projectiles = new Array<Bullet>();
+        this.background = new Background(0,0, "damier.png");
+
+        this.enemy = new Texture("enemyAnimation.png");
+        this.enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
+
+        yourScoreName = "score: " + (int) this.score;
         yourBitmapFontName = new BitmapFont();
+
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        //font = new BitmapFont();
         skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
 
         pauseButton = new TextButton("Pause", skin);
@@ -85,7 +89,7 @@ public class PlayStateWorld2Boss  extends State {
         pauseButton.setPosition(col_width*(float)7.8,row_height*(float)8.6);
         stage.addActor(pauseButton);
 
-        player.setTexture(1);
+
     }
 
     @Override
@@ -123,12 +127,16 @@ public class PlayStateWorld2Boss  extends State {
                 boss1.hurt();
                 if(boss1.getLifeCount()<=0) {
                     boss1.dispose();
-                    score++;
+                    score = score + 50;
                     yourScoreName = "score: " + (int) score;
                 }
 
             }
 
+        }
+
+        if(boss1.getLifeCount() == 0){
+            gsm.set(new ChooseWorldState(gsm));
         }
 
     }
@@ -147,7 +155,7 @@ public class PlayStateWorld2Boss  extends State {
             sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
         }
         yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
-        yourBitmapFontName.draw(sb, yourScoreName, 15, (int) cam.position.y + cam.viewportHeight - (290));
+        yourBitmapFontName.draw(sb, yourScoreName, 15, (int) cam.position.y + cam.viewportHeight - (220));
         sb.end();
     }
 

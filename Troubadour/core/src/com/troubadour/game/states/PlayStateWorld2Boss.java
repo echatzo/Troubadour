@@ -72,8 +72,11 @@ public class PlayStateWorld2Boss  extends State {
         this.enemy = new Texture("enemyAnimation.png");
         this.enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
 
-        yourScoreName = "score: " + (int) this.score;
+        //yourScoreName = "score: " + (int) this.score;
+        yourScoreName = "life: 100";
         yourBitmapFontName = new BitmapFont();
+
+        death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -140,6 +143,7 @@ public class PlayStateWorld2Boss  extends State {
                 bullet.dispose();
                 projectiles.removeIndex(j);
                 boss1.hurt();
+                yourScoreName = "life: " + (int) boss1.getLifeCount();
                 if(boss1.getLifeCount()<=0) {
                     boss1.dispose();
                     score = score + 50;
@@ -161,6 +165,18 @@ public class PlayStateWorld2Boss  extends State {
                 bulletBoss1.dispose();
                 projectilesBoss.removeIndex(j);
                 player.hurt();
+                if (player.getLifeCount() <= 0) {
+                    death.play(0.2f);
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }
+                    catch(InterruptedException ex)
+                    {
+                        Thread.currentThread().interrupt();
+                    }
+                    gsm.set(new GameOverState(gsm, (int)score));//if the player have no more lives, change the playState to a gameOverState
+                }
             }
 
         }

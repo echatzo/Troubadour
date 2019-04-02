@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class Ghost extends Mob {
 
-    public static final int HEIGHT = 26;
-    public static final int WIDTH = 19;
+    public static final int HEIGHT = 20;
+    public static final int WIDTH = 21;
     public static final int MOVEMENT = 80;
 
 
@@ -35,27 +35,28 @@ public class Ghost extends Mob {
         dark=false;
         if(rand.nextInt(5)==4){
             dark = true;
-            lifeCount=8;
-            texture = new Texture("squeletondark.png");
+            //toujours 3 car on a pas de skin differents
+            lifeCount=3;
+            //texture = new Texture("squeletondark.png");
+            texture = new Texture("ghost.png");
         }
         else{
             dark=false;
             lifeCount=3;
-            texture = new Texture("squeleton.png");
+            //texture = new Texture("squeleton.png");
+            texture = new Texture("ghost.png");
         }
         position = new Vector3(x, y, 0);
         if(rand.nextBoolean()) signe = 1;
         else signe = -1;
         velocity = new Vector3(signe*MOVEMENT, 0, 0);
-        animation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        //animation = new Animation(new TextureRegion(texture), 3, 0.5f);
         bounds = new Rectangle(position.x+5, y, WIDTH, HEIGHT);
 
     }
 
     public void update(float dt) {
-        animation.update(dt);
-
-
+        //animation.update(dt);
         if(position.x <0) velocity.x = MOVEMENT;
         if(position.x > Troubadour.WIDTH/2) velocity.x=-MOVEMENT;
 
@@ -83,6 +84,10 @@ public class Ghost extends Mob {
         return animation.getFrame();
     }
 
+    public Texture getTexture2(){
+        return texture;
+    }
+
     public boolean collides(Rectangle playerHitBox){
 
         return playerHitBox.overlaps(bounds);
@@ -94,7 +99,7 @@ public class Ghost extends Mob {
 
     public void hurt() {
         lifeCount--;
-        if(!dark) {
+        /*if(!dark) {
             if(lifeCount==2) {
                 texture = new Texture("squeletonhurt1.png");
             }
@@ -102,7 +107,7 @@ public class Ghost extends Mob {
                 texture = new Texture("squeletonhurt2.png");
             }
             animation = new Animation(new TextureRegion(texture), 3, 0.5f);
-        }
+        }*/
     }
 
 

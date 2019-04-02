@@ -17,6 +17,7 @@ import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Background;
 import com.troubadour.game.sprites.Boss1;
 import com.troubadour.game.sprites.Bullet;
+import com.troubadour.game.sprites.BulletBoss1;
 import com.troubadour.game.sprites.Player;
 
 public class PlayStateWorld2Boss  extends State {
@@ -27,6 +28,7 @@ public class PlayStateWorld2Boss  extends State {
     private int score;
     private float time;
     private float nextBullet;
+    private float nextBossBullet;
     private String yourScoreName;
     BitmapFont yourBitmapFontName;
 
@@ -36,6 +38,7 @@ public class PlayStateWorld2Boss  extends State {
     private Sound oof;
     private Sound death;
     private Array<Bullet> projectiles;
+    private Array<BulletBoss1> projectilesBoss;
 
     private Stage stage;
     private Skin skin;

@@ -18,7 +18,6 @@ import com.troubadour.game.sprites.Background;
 import com.troubadour.game.sprites.Bullet;
 import com.troubadour.game.sprites.Ghost;
 import com.troubadour.game.sprites.Player;
-import com.troubadour.game.sprites.Squeleton;
 
 import java.util.Random;
 

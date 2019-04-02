@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 
 import java.util.Random;
 
-public class Squeleton extends Mob{
+public class Skeleton extends Mob{
     public static final int HEIGHT = 26;
     public static final int WIDTH = 19;
 
@@ -23,7 +23,7 @@ public class Squeleton extends Mob{
     private boolean dark;
 
 
-    public Squeleton(float x, float y) {
+    public Skeleton(float x, float y) {
         super(x,y);
         rand = new Random();
         dark=false;

@@ -17,7 +17,7 @@ import com.troubadour.game.sprites.Animation;
 import com.troubadour.game.sprites.Background;
 import com.troubadour.game.sprites.Bullet;
 import com.troubadour.game.sprites.Player;
-import com.troubadour.game.sprites.Squeleton;
+import com.troubadour.game.sprites.Frog;
 
 import java.util.Random;
 
@@ -55,7 +55,7 @@ public class PlayStateWorld4 extends State {
 
 
     //private Array<Wall> walls;
-    private Array<Squeleton> enemies;
+    private Array<Frog> enemies;
     private Array<Bullet> projectiles;
 
     public PlayStateWorld4(final GameStateManager gsm){
@@ -65,11 +65,11 @@ public class PlayStateWorld4 extends State {
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         backgrounds = new Array<Background>();
         for(int i=0; i<=1; i++){
-            backgrounds.add(new Background(0,400*i, "damier.png"));
+            backgrounds.add(new Background(0,400*i, "background3.png"));
         }
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
-        enemies = new Array<Squeleton>();
+        enemies = new Array<Frog>();
 
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
@@ -146,8 +146,8 @@ public class PlayStateWorld4 extends State {
             System.out.println(player.getMovement());
             nextWave+=(100/player.getMovement());
             Random rand = new Random();
-            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-((1/8)+(Squeleton.WIDTH/cam.viewportWidth)));
-            enemies.add(new Squeleton(firstEnemyX,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
+            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-((1/8)+(Frog.WIDTH/cam.viewportWidth)));
+            enemies.add(new Frog(firstEnemyX,cam.position.y+Frog.HEIGHT *2+cam.viewportHeight));
         }
         if(time>15){
             gsm.set(new PlayStateWorld2Boss(gsm, player.getLifeCount(), score));
@@ -157,15 +157,15 @@ public class PlayStateWorld4 extends State {
         cam.position.y= player.getPosition().y + 150;
 
         for(int i = 0; i < enemies.size; i++){
-            Squeleton squeleton = enemies.get(i);
-            squeleton.update(dt);
-            if(cam.position.y-(cam.viewportHeight/2) > squeleton.getPosition().y + squeleton.HEIGHT){
+            Frog frog = enemies.get(i);
+            frog.update(dt);
+            if(cam.position.y-(cam.viewportHeight/2) > frog.getPosition().y + frog.HEIGHT){
                 enemies.removeIndex(i);
             }
             player.incLifeTimer(dt);
             if(player.getLifeTimer()>50f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
-                if (squeleton.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
+                if (frog.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();
 
                     //son collision
@@ -200,15 +200,12 @@ public class PlayStateWorld4 extends State {
                     bullet.dispose();
                     projectiles.removeIndex(j);
                 }
-                else if(bullet.collides(squeleton.getBounds())){
+                else if(bullet.collides(frog.getBounds())){
                     bullet.dispose();
                     projectiles.removeIndex(j);
-                    squeleton.hurt();
-                    if(squeleton.getLifeCount()<=0) {
-                        squeleton.dispose();
-                        if(squeleton.isDark()){
-                            score+=4;
-                        }
+                    frog.hurt();
+                    if(frog.getLifeCount()<=0) {
+                        frog.dispose();
                         enemies.removeIndex(i);
                         score++;
                         yourScoreName = "score: " + (int) score;
@@ -229,8 +226,8 @@ public class PlayStateWorld4 extends State {
         for(Background background : backgrounds){
             sb.draw(background.getTexture(), 0, background.getPos().y, 240, 400);
         }
-        for (Squeleton squeleton : enemies) {
-            sb.draw(squeleton.getTexture(), squeleton.getPosition().x, squeleton.getPosition().y, Squeleton.WIDTH, Squeleton.HEIGHT);
+        for (Frog frog : enemies) {
+            sb.draw(frog.getTexture(), frog.getPosition().x, frog.getPosition().y, Frog.WIDTH, Frog.HEIGHT);
         }
         for (Bullet bullet : projectiles){
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
@@ -258,8 +255,8 @@ public class PlayStateWorld4 extends State {
         player.dispose();
         oof.dispose();
         death.dispose();
-        for(Squeleton squeleton : enemies){
-            squeleton.dispose();
+        for(Frog frog : enemies){
+            frog.dispose();
         }
         System.out.println("Play State World2 Disposed");
     }

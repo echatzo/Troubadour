@@ -47,12 +47,7 @@ public class PlayStateWorld2Boss  extends State {
     int col_width = Gdx.graphics.getWidth() / 12;
 
     public PlayStateWorld2Boss (final GameStateManager gsm, int lifeCount, int score){
-    public PlayStateWorld2Boss (GameStateManager gsm, int lives, int score){
         super(gsm);
-        this.player=new Player(50, Troubadour.WIDTH/2-player.PLAYER_WIDTH/2);
-        this.player.setLifeCount(lives);
-        this.score = score;
-        projectiles=new Array<Bullet>();
 
         this.player = new Player((Troubadour.WIDTH /4)-(Player.PLAYER_WIDTH/2), 50);
         this.player.setMovement(0);

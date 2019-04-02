@@ -57,8 +57,6 @@ public class Ghost extends Mob {
 
     public void update(float dt) {
         //animation.update(dt);
-
-
         if(position.x <0) velocity.x = MOVEMENT;
         if(position.x > Troubadour.WIDTH/2) velocity.x=-MOVEMENT;
 

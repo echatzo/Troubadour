@@ -131,7 +131,6 @@ public class PlayStateWorld3 extends State {
         if (time>nextWave&&totalWaves<ENEMY_COUNT){
             totalWaves++;
             player.setMovement(100+time);
-            System.out.println(player.getMovement());
             nextWave+=(140/player.getMovement());
             Random rand = new Random();
             int enemiesOnRow = 3+ rand.nextInt(3);
@@ -150,7 +149,6 @@ public class PlayStateWorld3 extends State {
 
         for(int i = 0; i < enemies.size; i++){
             Ghost ghost = enemies.get(i);
-            System.out.println(ghost.getVelocity().x);
             ghost.update(dt);
             if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.HEIGHT){
                 enemies.removeIndex(i);

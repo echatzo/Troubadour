@@ -8,11 +8,9 @@ import com.badlogic.gdx.math.Vector3;
 import java.util.Random;
 
 public class Skeleton extends Mob{
+
     public static final int HEIGHT = 26;
     public static final int WIDTH = 19;
-
-
-
 
     private Vector3 position;
     private Texture texture;

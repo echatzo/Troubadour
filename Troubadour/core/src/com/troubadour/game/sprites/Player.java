@@ -118,6 +118,7 @@ public class Player {
         this.lifeCount++;
     }
 
+    public void setLifeCount(int lives) {this.lifeCount=lives;}
     public float getLifeTimer(){
         return lifeTimer;
     }
@@ -137,10 +138,6 @@ public class Player {
         if (n==2){
             playerAnimation=playerAnimationHit;
         }
-    }
-
-    public void setLifeCount(int x){
-        this.lifeCount = x;
     }
 
     public float getMovement(){

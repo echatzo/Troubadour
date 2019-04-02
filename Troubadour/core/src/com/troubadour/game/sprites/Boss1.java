@@ -27,7 +27,7 @@ public class Boss1 {
 
     public Boss1(float x, float y){
 
-        lifeCount=150;
+        lifeCount=10;
 
         position = new Vector3(x, y, 0);
         velocity = new Vector3(MOVEMENT, 0, 0);
@@ -57,11 +57,18 @@ public class Boss1 {
             velocity.x = - MOVEMENT;
         }
 
+        int toss = (int)(Math.random()*100);
+
+        if (toss == 1){
+            velocity.x = -velocity.x;
+        }
+
         bounds.setPosition(position.x, position.y);
 
     }
 
     public Vector3 getPosition(){ return position; }
+
     public Vector3 getVelocity(){ return velocity; }
 
     public void dispose(){

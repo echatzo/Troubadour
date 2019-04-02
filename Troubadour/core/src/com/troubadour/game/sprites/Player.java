@@ -139,6 +139,11 @@ public class Player {
             playerAnimation=playerAnimationHit;
         }
     }
+
+    public void setLifeCount(int x){
+        this.lifeCount = x;
+    }
+
     public float getMovement(){
         return movement;
     }

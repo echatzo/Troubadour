@@ -29,7 +29,7 @@ public class ChooseWorldState extends State {
     private Texture background;
     private Stage stage;
     private Skin skin;
-    private TextButton world1, world2, world3, music;
+    private TextButton world1, world2, world3, world4, music;
     private BitmapFont font;
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
@@ -50,8 +50,8 @@ public class ChooseWorldState extends State {
         skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
 
         world1 = new TextButton("World 1", skin);
-        world1.setSize(col_width*6,row_height*2);
-        world1.setPosition(col_width*3,Gdx.graphics.getHeight()-row_height*3);
+        world1.setSize(col_width*5,row_height*2);
+        world1.setPosition(col_width*1,row_height*8);
         //world1.setTransform(true);
         //world1.scaleBy(2f);
         world1.getLabel().setFontScale(col_width/23,row_height/23);
@@ -65,8 +65,8 @@ public class ChooseWorldState extends State {
         stage.addActor(world1);
 
         world2 = new TextButton("World 2", skin);
-        world2.setSize(col_width*6,row_height*2);
-        world2.setPosition( col_width*3,row_height*6 );
+        world2.setSize(col_width*5,row_height*2);
+        world2.setPosition( col_width*6,row_height*8 );
         world2.getLabel().setFontScale(col_width/23,row_height/23);
         world2.setChecked(false);
         world2.addListener(new ClickListener() {
@@ -78,8 +78,8 @@ public class ChooseWorldState extends State {
         stage.addActor(world2);
 
         world3 = new TextButton("World 3", skin);
-        world3.setSize(col_width*6,row_height*2);
-        world3.setPosition( col_width*3,row_height*3 );
+        world3.setSize(col_width*5,row_height*2);
+        world3.setPosition( col_width*1,row_height*5 );
         world3.getLabel().setFontScale(col_width/23,row_height/23);
         world3.setChecked(false);
         world3.addListener(new ClickListener() {
@@ -89,6 +89,19 @@ public class ChooseWorldState extends State {
             }
         });
         stage.addActor(world3);
+
+        world4 = new TextButton("World 4", skin);
+        world4.setSize(col_width*5,row_height*2);
+        world4.setPosition( col_width*6,row_height*5 );
+        world4.getLabel().setFontScale(col_width/23,row_height/23);
+        world4.setChecked(false);
+        world4.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayStateWorld4(gsm));
+            }
+        });
+        stage.addActor(world4);
 
         music = new TextButton("Mute Music", skin);
         music.setSize(col_width*6/2,row_height*2/2);

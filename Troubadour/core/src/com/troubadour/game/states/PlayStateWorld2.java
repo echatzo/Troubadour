@@ -143,7 +143,7 @@ public class PlayStateWorld2 extends State {
         if (time>nextWave&&totalWaves<ENEMY_COUNT){
             totalWaves++;
             player.setMovement(100+time);
-            System.out.println(player.getMovement());
+            //System.out.println(player.getMovement());
             nextWave+=(140/player.getMovement());
             Random rand = new Random();
             int enemiesOnRow = 4+ rand.nextInt(4);
@@ -152,7 +152,7 @@ public class PlayStateWorld2 extends State {
                 enemies.add(new Squeleton(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
             }
         }
-        if(time>35){
+        if(time>15){
             gsm.set(new PlayStateWorld2Boss(gsm, player.getLifeCount(), score));
         }
 

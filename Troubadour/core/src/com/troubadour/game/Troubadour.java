@@ -23,7 +23,6 @@ public class Troubadour extends ApplicationAdapter{
 	public static boolean mute =false;
 
 
-
     @Override
 	public void create () {
 		batch = new SpriteBatch();

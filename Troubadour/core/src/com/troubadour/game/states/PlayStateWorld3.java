@@ -136,9 +136,9 @@ public class PlayStateWorld3 extends State {
             Random rand = new Random();
             int enemiesOnRow = 3+ rand.nextInt(3);
             //int enemiesOnRow =4;
-            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-(enemiesOnRow*((1/8)+(Squeleton.WIDTH/cam.viewportWidth))));
+            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-(enemiesOnRow*((1/8)+(Ghost.WIDTH/cam.viewportWidth))));
             for (int j =0; j<enemiesOnRow; j++){
-                enemies.add(new Ghost(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
+                enemies.add(new Ghost(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Ghost.HEIGHT *2+cam.viewportHeight));
             }
         }
         /*if(time>15){
@@ -223,7 +223,7 @@ public class PlayStateWorld3 extends State {
             sb.draw(background.getTexture(), 0, background.getPos().y, 240, 400);
         }
         for (Ghost ghost : enemies) {
-            sb.draw(ghost.getTexture(), ghost.getPosition().x, ghost.getPosition().y, Ghost.WIDTH, Ghost.HEIGHT);
+            sb.draw(ghost.getTexture2(), ghost.getPosition().x, ghost.getPosition().y, Ghost.WIDTH, Ghost.HEIGHT);
         }
         for (Bullet bullet : projectiles){
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);

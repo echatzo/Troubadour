@@ -37,7 +37,6 @@ public class PlayStateWorld3 extends State {
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
 
-
     private Player player;
     private Array<Background> backgrounds;
     private Texture enemy;
@@ -135,16 +134,16 @@ public class PlayStateWorld3 extends State {
             System.out.println(player.getMovement());
             nextWave+=(140/player.getMovement());
             Random rand = new Random();
-            //int enemiesOnRow = 4+ rand.nextInt(4);
-            int enemiesOnRow =1;
+            int enemiesOnRow = 3+ rand.nextInt(3);
+            //int enemiesOnRow =4;
             float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-(enemiesOnRow*((1/8)+(Squeleton.WIDTH/cam.viewportWidth))));
             for (int j =0; j<enemiesOnRow; j++){
                 enemies.add(new Ghost(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Squeleton.HEIGHT *2+cam.viewportHeight));
             }
         }
-        if(time>15){
+        /*if(time>15){
             gsm.set(new PlayStateWorld2Boss(gsm, player, score));
-        }
+        }*/
 
         enemyAnimation.update(dt);
         cam.position.y= player.getPosition().y + 150;
@@ -157,7 +156,7 @@ public class PlayStateWorld3 extends State {
                 enemies.removeIndex(i);
             }
             player.incLifeTimer(dt);
-            if(player.getLifeTimer()>50f) { //verifies whether the player is still invincible
+            if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (ghost.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();

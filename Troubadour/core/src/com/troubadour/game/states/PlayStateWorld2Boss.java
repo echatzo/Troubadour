@@ -6,6 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.troubadour.game.Troubadour;
 import com.troubadour.game.sprites.Animation;
@@ -32,7 +37,13 @@ public class PlayStateWorld2Boss  extends State {
     private Sound death;
     private Array<Bullet> projectiles;
 
-    public PlayStateWorld2Boss (GameStateManager gsm, Player player, int score){
+    private Stage stage;
+    private Skin skin;
+    private TextButton pauseButton;
+    int row_height = Gdx.graphics.getHeight() / 12;
+    int col_width = Gdx.graphics.getWidth() / 12;
+
+    public PlayStateWorld2Boss (final GameStateManager gsm, Player player, int score){
         super(gsm);
         this.player=player;
         this.score = score;
@@ -53,6 +64,26 @@ public class PlayStateWorld2Boss  extends State {
         time = 0;
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        //font = new BitmapFont();
+        skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
+
+        pauseButton = new TextButton("Pause", skin);
+        pauseButton.setSize(col_width*4,row_height);
+        //methode brute pour placer
+        //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),(int) cam.position.y + cam.viewportHeight + 850);
+        pauseButton.scaleBy(2f);
+        pauseButton.getLabel().setFontScale(col_width/40,row_height/40);
+        pauseButton.setChecked(false);
+        pauseButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.push(new PauseState(gsm));
+            }
+        });
+        pauseButton.setPosition(col_width*(float)7.8,row_height*(float)8.6);
+        stage.addActor(pauseButton);
 
         player.setTexture(1);
     }

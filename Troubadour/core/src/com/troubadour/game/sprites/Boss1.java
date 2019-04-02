@@ -57,11 +57,18 @@ public class Boss1 {
             velocity.x = - MOVEMENT;
         }
 
+        int toss = (int)(Math.random()*100);
+
+        if (toss == 1){
+            velocity.x = -velocity.x;
+        }
+
         bounds.setPosition(position.x, position.y);
 
     }
 
     public Vector3 getPosition(){ return position; }
+
     public Vector3 getVelocity(){ return velocity; }
 
     public void dispose(){

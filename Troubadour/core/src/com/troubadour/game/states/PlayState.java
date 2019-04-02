@@ -116,9 +116,7 @@ public class PlayState extends State {
         yourScoreName = "score: " + (int) score;
 
         time += dt;
-        System.out.println(time);
         player.setMovement(100+time);
-        System.out.println(player.getMovement());
 
         enemyAnimation.update(dt);
         cam.position.y = player.getPosition().y + 150;

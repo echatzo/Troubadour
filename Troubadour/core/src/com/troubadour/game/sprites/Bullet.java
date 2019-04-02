@@ -44,12 +44,6 @@ public class Bullet {
     public void dispose(){
         texture.dispose();
     }
-    /*
-    public void Shoot(Array<Bullet> projectiles,float x,float y){
-        Bullet bullet = new Bullet(x,y);
-        projectiles.add(bullet);
-    }
-    */
 
     public boolean collides(Rectangle ennemyHitBox){
         return ennemyHitBox.overlaps(bounds);

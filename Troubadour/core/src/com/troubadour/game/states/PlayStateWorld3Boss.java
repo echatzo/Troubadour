@@ -118,7 +118,7 @@ public class PlayStateWorld3Boss extends State {
         player.update(dt);
         boss2.update(dt);
 
-        if(time>nextBossBullet){
+        if(time>nextBossBullet&&boss2.getPosition().y>Troubadour.HEIGHT/4){
             nextBossBullet=time+1f;
             projectilesBoss.add(new BulletBoss1(boss2.getPosition().x+(Boss2.WIDTH/2-BulletBoss1.BULLET_SIZE/2),boss2.getPosition().y,player.getPosition().x+(Player.PLAYER_WIDTH/2),player.getPosition().y));
         }

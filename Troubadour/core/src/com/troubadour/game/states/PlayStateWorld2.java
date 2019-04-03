@@ -207,7 +207,7 @@ public class PlayStateWorld2 extends State {
                     skeleton.hurt();
                     if(skeleton.getLifeCount()<=0) {
                         skeleton.dispose();
-                        if(skeleton.isDark()){
+                        if(skeleton.isInvincible()){
                             score+=4;
                         }
                         enemies.removeIndex(i);

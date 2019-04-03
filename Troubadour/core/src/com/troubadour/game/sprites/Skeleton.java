@@ -18,20 +18,20 @@ public class Skeleton extends Mob{
     private Rectangle bounds;
     private Random rand;
     private int lifeCount;
-    private boolean dark;
+    private boolean invincible;
 
 
     public Skeleton(float x, float y) {
         super(x,y);
         rand = new Random();
-        dark=false;
+        invincible =false;
         if(rand.nextInt(3)==1){
-            dark = true;
+            invincible = true;
             lifeCount=8;
             texture = new Texture("squeletondiams.png");
         }
         else{
-            dark=false;
+            invincible =false;
             lifeCount=3;
             texture = new Texture("squeleton.png");
         }
@@ -50,8 +50,8 @@ public class Skeleton extends Mob{
         return super.getPosition();
     }
 
-    public boolean isDark(){
-        return dark;
+    public boolean isInvincible(){
+        return invincible;
     }
 
 
@@ -71,7 +71,7 @@ public class Skeleton extends Mob{
 
     public void hurt() {
 
-        if(!dark) {
+        if(!invincible) {
             lifeCount--;
             if(lifeCount==2) {
                 texture = new Texture("squeletonhurt1.png");

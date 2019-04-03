@@ -39,11 +39,13 @@ public class PlayStateWorld4 extends State {
     private Player player;
     private Array<Background> backgrounds;
     private Texture enemy;
+    private Texture frogBulletTexture;
     private Animation enemyAnimation;
 
     private int score;
     private float time;
     private float nextBullet;
+    private float nextFrogBullet;
     private float nextWave;
     private int totalWaves;
     private String yourScoreName;
@@ -51,12 +53,14 @@ public class PlayStateWorld4 extends State {
 
     private Sound oof;
     private Sound death;
+    private Random rand;
 
 
 
     //private Array<Wall> walls;
     private Array<Frog> enemies;
     private Array<Bullet> projectiles;
+    private Array<Bullet> frogProjectiles;
 
     public PlayStateWorld4(final GameStateManager gsm){
         super(gsm);
@@ -70,10 +74,10 @@ public class PlayStateWorld4 extends State {
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         enemies = new Array<Frog>();
-
+        frogBulletTexture= new Texture("bubblesAnimation.png");
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
-
+        rand = new Random();
 /*
         for(int i = 1; i <= ENEMY_COUNT; i ++){
             Random rand = new Random();
@@ -85,6 +89,7 @@ public class PlayStateWorld4 extends State {
         }
         */
         projectiles=new Array<Bullet>();
+        frogProjectiles=new Array<Bullet>();
         score = 0;
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
@@ -144,8 +149,8 @@ public class PlayStateWorld4 extends State {
             totalWaves++;
             player.setMovement(100+time);
             System.out.println(player.getMovement());
-            nextWave+=(70/player.getMovement());
-            Random rand = new Random();
+            nextWave+=(50/player.getMovement());
+
             float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-((1/8)+(Frog.WIDTH/cam.viewportWidth)));
             enemies.add(new Frog(firstEnemyX,cam.position.y+Frog.HEIGHT *2+cam.viewportHeight));
         }
@@ -156,14 +161,19 @@ public class PlayStateWorld4 extends State {
         enemyAnimation.update(dt);
         cam.position.y= player.getPosition().y + 150;
 
+        player.incLifeTimer(dt);
         for(int i = 0; i < enemies.size; i++){
             Frog frog = enemies.get(i);
             frog.update(dt);
+            if(time>nextFrogBullet&&rand.nextInt(10)==3) {
+                nextFrogBullet=time+0.3f;
+                frogProjectiles.add(new Bullet(frog.getPosition().x+frog.WIDTH/2-Bullet.BULLET_SIZE/2, frog.getPosition().y, -40, frogBulletTexture));
+            }
             if(cam.position.y-(cam.viewportHeight/2) > frog.getPosition().y + frog.HEIGHT){
                 enemies.removeIndex(i);
             }
-            player.incLifeTimer(dt);
-            if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
+
+            if(player.getLifeTimer()>0.5f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (frog.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();
@@ -215,6 +225,43 @@ public class PlayStateWorld4 extends State {
 
             }
         }
+        for(int i = 0; i < frogProjectiles.size; i++){
+            Bullet frogBullet = frogProjectiles.get(i);
+            frogBullet.update(dt);
+            if (frogBullet.getPosition().y<player.getPosition().y-100){
+                frogProjectiles.removeIndex(i);
+            }
+            else if(player.getLifeTimer()>0.5f) { //verifies whether the player is still invincible
+                player.setTexture(1);//change the player texture back to normal
+                if (frogBullet.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
+                    player.hurt();
+                    frogProjectiles.removeIndex(i);
+                    //son collision
+                    if (player.getLifeCount() > 0) {
+                        oof.play(2f);
+                    }
+
+
+                    player.setTexture(2);
+                    Gdx.input.vibrate(500);
+
+                    player.resetLifeTimer();
+                    player.lifeAnimation.update(dt);
+                    if (player.getLifeCount() <= 0) {
+                        death.play(0.2f);
+                        try
+                        {
+                            Thread.sleep(1000);
+                        }
+                        catch(InterruptedException ex)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
+                        gsm.set(new GameOverState(gsm, (int)score));//if the player have no more lives, change the playState to a gameOverState
+                    }
+                }
+            }
+        }
         cam.update();
     }
 
@@ -230,6 +277,9 @@ public class PlayStateWorld4 extends State {
             sb.draw(frog.getTexture(), frog.getPosition().x, frog.getPosition().y, Frog.WIDTH, Frog.HEIGHT);
         }
         for (Bullet bullet : projectiles){
+            sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
+        }
+        for (Bullet bullet : frogProjectiles){
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);

@@ -23,6 +23,14 @@ public class Bullet {
         bounds = new Rectangle(x, y, BULLET_SIZE, BULLET_SIZE);
         movement=speed;
     }
+    public Bullet(float x, float y, float speed, Texture tex){
+        position = new Vector3(x, y, 0);
+        velocity = new Vector3(0, 0, 0);
+        texture = tex;
+        bulletAnimation = new Animation(new TextureRegion(texture), 2, 0.1f);
+        bounds = new Rectangle(x, y, BULLET_SIZE, BULLET_SIZE);
+        movement=speed;
+    }
 
     public void update(float dt){
 

@@ -38,6 +38,7 @@ public class PlayStateWorld3 extends State {
 
     private Player player;
     private Array<Background> backgrounds;
+    private Texture cadre;
     private Texture enemy;
     private Animation enemyAnimation;
 
@@ -64,8 +65,9 @@ public class PlayStateWorld3 extends State {
         for(int i=0; i<=1; i++){
             backgrounds.add(new Background(0,400*i, "background2.png"));
         }
-        enemy = new Texture("enemyAnimation.png");
-        enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
+        cadre = new Texture("cadrebleu.png");
+        enemy = new Texture("ghostboss.png");
+        enemyAnimation = new Animation(new TextureRegion(enemy), 3, 0.8f);
         enemies = new Array<Ghost>();
 
         oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
@@ -87,7 +89,7 @@ public class PlayStateWorld3 extends State {
 
         pauseButton = new TextButton("Pause", skin);
         pauseButton.setSize(col_width*3,row_height);
-        //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),Gdx.graphics.getHeight()-enemy.getHeight()-pauseButton.getHeight());
+        //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),Gdx.graphics.getHeight()-cadre.getHeight()-pauseButton.getHeight());
         //methode brute pour placer
         //pauseButton.setPosition(Gdx.graphics.getWidth() - pauseButton.getWidth(),(int) cam.position.y + cam.viewportHeight + 850);
         pauseButton.setPosition(col_width*(float)7.8,row_height*(float)8.6);
@@ -150,6 +152,7 @@ public class PlayStateWorld3 extends State {
             if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.HEIGHT){
                 enemies.removeIndex(i);
             }
+
             if(player.getLifeTimer()>1f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (ghost.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
@@ -223,10 +226,11 @@ public class PlayStateWorld3 extends State {
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
-        sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
+        sb.draw(cadre, 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
+        sb.draw(enemyAnimation.getFrame(), 14, cam.position.y + (cam.viewportHeight/2)-70, enemy.getWidth()/3, enemy.getHeight());
 
         for (int i=1; i<=player.getLifeCount(); i++) {
-            sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
+            sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (208+20*i));
         }
         yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
         yourBitmapFontName.draw(sb, yourScoreName, 15,  cam.position.y + cam.viewportHeight - (290));

@@ -37,7 +37,7 @@ public class Player {
     public Player(int x, int y){
 
         lifeCount=3;
-        lifeTimer=-5f;
+        lifeTimer=0f;
         life = new Texture("life.png");
         lifeAnimation= new Animation(new TextureRegion(life), 2, 0.5f);
 

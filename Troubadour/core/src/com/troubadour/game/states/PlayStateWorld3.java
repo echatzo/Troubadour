@@ -76,7 +76,7 @@ public class PlayStateWorld3 extends State {
         yourScoreName = "score: 0";
         yourBitmapFontName = new BitmapFont();
         time = 0;
-        nextWave=2;
+        nextWave=1.5f;
         nextBullet=1;
         totalWaves=0;
 
@@ -130,14 +130,11 @@ public class PlayStateWorld3 extends State {
         if (time>nextWave&&totalWaves<ENEMY_COUNT){
             totalWaves++;
             player.setMovement(100+time);
-            nextWave+=(140/player.getMovement());
+            nextWave+=(35/player.getMovement());
             Random rand = new Random();
-            int enemiesOnRow = 3+ rand.nextInt(3);
-            //int enemiesOnRow =4;
-            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-(enemiesOnRow*((1/8)+(Ghost.WIDTH/cam.viewportWidth))));
-            for (int j =0; j<enemiesOnRow; j++){
-                enemies.add(new Ghost(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Ghost.HEIGHT *2+cam.viewportHeight));
-            }
+            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-((1/8)+(Ghost.WIDTH/cam.viewportWidth)));
+            enemies.add(new Ghost(firstEnemyX,cam.position.y+Ghost.HEIGHT *2+cam.viewportHeight));
+
         }
         if(time>15) {
             gsm.set(new PlayStateWorld3Boss(gsm, player.getLifeCount(), score));

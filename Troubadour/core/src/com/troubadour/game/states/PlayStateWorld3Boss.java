@@ -76,6 +76,7 @@ public class PlayStateWorld3Boss extends State {
         yourScoreName = "life: 100";
         yourBitmapFontName = new BitmapFont();
 
+        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
         death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
         stage = new Stage();
@@ -154,31 +155,61 @@ public class PlayStateWorld3Boss extends State {
             }
 
         }
-
-        for(int j=0; j < projectilesBoss.size; j++){
-            BulletBoss1 bulletBoss1 = projectilesBoss.get(j);
-            if (bulletBoss1.getPosition().y < player.getPosition().y-10){
-                bulletBoss1.dispose();
-                projectilesBoss.removeIndex(j);
-            }
-            else if(bulletBoss1.collides(player.getBounds())){
-                bulletBoss1.dispose();
-                projectilesBoss.removeIndex(j);
+        player.incLifeTimer(dt);
+        if(player.getLifeTimer()>0.5f) {
+            player.setTexture(1);
+            if (boss2.collides(player.getBounds())) {
                 player.hurt();
+                if (player.getLifeCount() > 0) {
+                    oof.play(2f);
+                }
+
+
+                player.setTexture(2);
+                Gdx.input.vibrate(500);
+
+                player.resetLifeTimer();
+                player.lifeAnimation.update(dt);
                 if (player.getLifeCount() <= 0) {
                     death.play(0.2f);
-                    try
-                    {
+                    try {
                         Thread.sleep(1000);
-                    }
-                    catch(InterruptedException ex)
-                    {
+                    } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    gsm.set(new GameOverState(gsm, (int)score));//if the player have no more lives, change the playState to a gameOverState
+                    gsm.set(new GameOverState(gsm, (int) score));//if the player have no more lives, change the playState to a gameOverState
                 }
             }
+            for (int j = 0; j < projectilesBoss.size; j++) {
+                BulletBoss1 bulletBoss1 = projectilesBoss.get(j);
+                if (bulletBoss1.getPosition().y < player.getPosition().y - 10) {
+                    bulletBoss1.dispose();
+                    projectilesBoss.removeIndex(j);
+                } else if (bulletBoss1.collides(player.getBounds())) {
+                    player.hurt();
+                    bulletBoss1.dispose();
+                    projectilesBoss.removeIndex(j);
+                    if (player.getLifeCount() > 0) {
+                        oof.play(2f);
+                    }
 
+                    player.setTexture(2);
+                    Gdx.input.vibrate(500);
+
+                    player.resetLifeTimer();
+                    player.lifeAnimation.update(dt);
+                    if (player.getLifeCount() <= 0) {
+                        death.play(0.2f);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                            Thread.currentThread().interrupt();
+                        }
+                        gsm.set(new GameOverState(gsm, (int) score));//if the player have no more lives, change the playState to a gameOverState
+                    }
+                }
+
+            }
         }
 
         if(boss2.getLifeCount() == 0){

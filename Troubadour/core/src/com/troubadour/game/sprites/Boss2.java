@@ -10,7 +10,7 @@ public class Boss2 {
     //boss du world 2
     public static final int HEIGHT = 60;
     public static final int WIDTH = 60;
-    public static final int MOVEMENT = 120;
+    public static final int MOVEMENT = 130;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -106,6 +106,11 @@ public class Boss2 {
     public int getLifeCount(){
         return lifeCount;
     }
+
+    public boolean collides(Rectangle ennemyHitBox){
+        return ennemyHitBox.overlaps(bounds);
+    }
+
 
     public void shotgun(){
 

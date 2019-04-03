@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector3;
 public class Background {
     private Vector3 position;
     private Texture texture;
-    private static final float MOVEMENT = 80;
 
     public Background(int x, int y, String image){
 

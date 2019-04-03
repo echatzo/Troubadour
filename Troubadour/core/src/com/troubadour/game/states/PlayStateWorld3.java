@@ -143,14 +143,14 @@ public class PlayStateWorld3 extends State {
         enemyAnimation.update(dt);
         cam.position.y= player.getPosition().y + 150;
 
+        player.incLifeTimer(dt);
         for(int i = 0; i < enemies.size; i++){
             Ghost ghost = enemies.get(i);
             ghost.update(dt);
             if(cam.position.y-(cam.viewportHeight/2) > ghost.getPosition().y + ghost.HEIGHT){
                 enemies.removeIndex(i);
             }
-            player.incLifeTimer(dt);
-            if(player.getLifeTimer()>5f) { //verifies whether the player is still invincible
+            if(player.getLifeTimer()>1f) { //verifies whether the player is still invincible
                 player.setTexture(1);//change the player texture back to normal
                 if (ghost.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();

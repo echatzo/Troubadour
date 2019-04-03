@@ -156,7 +156,7 @@ public class PlayStateWorld3Boss extends State {
 
         }
         player.incLifeTimer(dt);
-        if(player.getLifeTimer()>0.5f) {
+        if(player.getLifeTimer()>1f) {
             player.setTexture(1);
             if (boss2.collides(player.getBounds())) {
                 player.hurt();

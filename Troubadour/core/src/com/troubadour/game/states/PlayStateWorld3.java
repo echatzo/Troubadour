@@ -139,9 +139,9 @@ public class PlayStateWorld3 extends State {
                 enemies.add(new Ghost(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+Ghost.HEIGHT *2+cam.viewportHeight));
             }
         }
-        /*if(time>15){
-            gsm.set(new PlayStateWorld2Boss(gsm, player, score));
-        }*/
+        if(time>15) {
+            gsm.set(new PlayStateWorld3Boss(gsm, player.getLifeCount(), score));
+        }
 
         enemyAnimation.update(dt);
         cam.position.y= player.getPosition().y + 150;

@@ -29,7 +29,7 @@ public class ChooseWorldState extends State {
     private Texture background;
     private Stage stage;
     private Skin skin;
-    private TextButton world1, world2, world3, world4, music;
+    private TextButton world1, world2, world3, world4, music,reset;
     private BitmapFont font;
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
@@ -123,6 +123,20 @@ public class ChooseWorldState extends State {
             }
         });
         stage.addActor(music);
+
+        reset = new TextButton("Reset scores", skin);
+        reset.setSize(col_width*6/2,row_height*2/2);
+        reset.setPosition( col_width*2,row_height );
+        //music.getLabel().setFontScale(col_width/23,row_height/23);
+        reset.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Save.load();
+                Save.gd.resetScores();
+                Save.save();
+            }
+        });
+        stage.addActor(reset);
 
 
     }

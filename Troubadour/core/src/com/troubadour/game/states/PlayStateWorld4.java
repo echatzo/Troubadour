@@ -199,7 +199,7 @@ public class PlayStateWorld4 extends State {
                         {
                             Thread.currentThread().interrupt();
                         }
-                        gsm.set(new GameOverState(gsm, (int)score));//if the player have no more lives, change the playState to a gameOverState
+                        gsm.set(new GameOverState(gsm, (int)score,4));//if the player have no more lives, change the playState to a gameOverState
                     }
                 }
             }
@@ -257,7 +257,7 @@ public class PlayStateWorld4 extends State {
                         {
                             Thread.currentThread().interrupt();
                         }
-                        gsm.set(new GameOverState(gsm, (int)score));//if the player have no more lives, change the playState to a gameOverState
+                        gsm.set(new GameOverState(gsm, (int)score,4));//if the player have no more lives, change the playState to a gameOverState
                     }
                 }
             }

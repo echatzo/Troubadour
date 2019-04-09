@@ -149,7 +149,7 @@ public class PlayStateWorld3Boss extends State {
                     boss2.dispose();
                     score = score + 50;
                     yourScoreName = "score: " + (int) score;
-                    gsm.set(new WinState(gsm, (int)score));
+                    gsm.set(new WinState(gsm, (int)score,3));
                 }
 
             }
@@ -177,7 +177,7 @@ public class PlayStateWorld3Boss extends State {
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    gsm.set(new GameOverState(gsm, (int) score));//if the player have no more lives, change the playState to a gameOverState
+                    gsm.set(new GameOverState(gsm, (int) score,3));//if the player have no more lives, change the playState to a gameOverState
                 }
             }
             for (int j = 0; j < projectilesBoss.size; j++) {
@@ -205,7 +205,7 @@ public class PlayStateWorld3Boss extends State {
                         } catch (InterruptedException ex) {
                             Thread.currentThread().interrupt();
                         }
-                        gsm.set(new GameOverState(gsm, (int) score));//if the player have no more lives, change the playState to a gameOverState
+                        gsm.set(new GameOverState(gsm, (int) score,3));//if the player have no more lives, change the playState to a gameOverState
                     }
                 }
 
@@ -213,7 +213,7 @@ public class PlayStateWorld3Boss extends State {
         }
 
         if(boss2.getLifeCount() == 0){
-            gsm.set(new WinState(gsm, (int)score));
+            gsm.set(new WinState(gsm, (int)score,3));
         }
 
     }

@@ -10,12 +10,17 @@ public class GameOverState extends State {
     private Texture background;
     private Texture gameOver;
     private String yourScoreName;
+    private String bestScore;
     BitmapFont yourBitmapFontName;
 
-    public GameOverState(GameStateManager gsm, int score) {
+    public GameOverState(GameStateManager gsm, int score,int world) {
         super(gsm);
+        Save.load();
         yourBitmapFontName = new BitmapFont();
-        yourScoreName = "score: " + score;
+        yourScoreName = "Score: " + score;
+        Save.gd.addHighScore(score,world);
+        Save.save();
+        bestScore = "Best score: "+Save.gd.getHighScores(world);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
         gameOver = new Texture("GameOver.png");
@@ -43,6 +48,7 @@ public class GameOverState extends State {
         sb.draw(gameOver, cam.position.x-200/2, cam.position.y - 150/2, 200, 150);
         yourBitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         yourBitmapFontName.draw(sb, yourScoreName, 100, cam.position.y  - (100));
+        yourBitmapFontName.draw(sb, bestScore, 100, cam.position.y  - (150));
         sb.end();
     }
 

@@ -8,7 +8,7 @@ import com.troubadour.game.Troubadour;
 
 public class Boss1 {
     //boss du world 2
-    public static final int HEIGHT = 60;
+    public static final int HEIGHT = 80;
     public static final int WIDTH = 60;
     public static final int MOVEMENT = 60;
 
@@ -27,13 +27,13 @@ public class Boss1 {
 
     public Boss1(float x, float y){
 
-        lifeCount=10;
+        lifeCount=100;
 
         position = new Vector3(x, y, 0);
         velocity = new Vector3(MOVEMENT, 0, 0);
         texture = new Texture("Boss1.png");
         hitTexture = new Texture("Boss1_hit.png");
-        animationGood = new Animation(new TextureRegion(texture), 3, 0.2f);
+        animationGood = new Animation(new TextureRegion(texture), 3, 0.5f);
         animationHit = new Animation(new TextureRegion(hitTexture), 3, 0.1f);
         animation = animationGood;
         bounds = new Rectangle(position.x, position.y, WIDTH, HEIGHT);

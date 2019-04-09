@@ -67,7 +67,7 @@ public class PlayStateWorld2Boss  extends State {
 
         this.projectiles = new Array<Bullet>();
         this.projectilesBoss = new Array<BulletBoss1>();
-        this.background = new Background(0,0, "damier.png");
+        this.background = new Background(0,0, "background4.png");
 
         this.enemy = new Texture("enemyAnimation.png");
         this.enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
@@ -203,7 +203,7 @@ public class PlayStateWorld2Boss  extends State {
         for (int i=1; i<=player.getLifeCount(); i++) {
             sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
         }
-        yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
+        yourBitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);//score display (temporary)
         yourBitmapFontName.draw(sb, yourScoreName, 15, cam.position.y + cam.viewportHeight - (290));
         sb.end();
     }

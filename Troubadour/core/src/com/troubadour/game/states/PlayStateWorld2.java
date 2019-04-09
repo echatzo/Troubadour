@@ -39,6 +39,7 @@ public class PlayStateWorld2 extends State {
     private Player player;
     private Array<Background> backgrounds;
     private Texture enemy;
+    private Texture cadre;
     private Animation enemyAnimation;
 
     private int score;
@@ -67,11 +68,12 @@ public class PlayStateWorld2 extends State {
         //creates an array of two backgrounds in order to scroll them
         backgrounds = new Array<Background>();
         for(int i=0; i<=1; i++){
-            backgrounds.add(new Background(0,400*i, "damier.png"));
+            backgrounds.add(new Background(0,400*i, "background4.png"));
         }
 
         //creates the object for the frame above with the enemy's head
-        enemy = new Texture("enemyAnimation.png");
+        cadre = new Texture("cadregris.png");
+        enemy = new Texture("boss1.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         enemies = new Array<Skeleton>();
 
@@ -237,12 +239,14 @@ public class PlayStateWorld2 extends State {
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
-        sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
+
+        sb.draw(cadre, 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
+        sb.draw(enemyAnimation.getFrame(), 14, cam.position.y + (cam.viewportHeight/2)-70, enemy.getWidth()/2, enemy.getHeight()*3/2);
 
         for (int i=1; i<=player.getLifeCount(); i++) {
-            sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
+            sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (208+20*i));
         }
-        yourBitmapFontName.setColor(1.0f, 1.0f, 0f, 1.0f);//score display (temporary)
+        yourBitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);//score display (temporary)
         yourBitmapFontName.draw(sb, yourScoreName, 15, cam.position.y + cam.viewportHeight - (290));
         sb.end();
 

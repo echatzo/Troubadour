@@ -39,6 +39,7 @@ public class PlayStateWorld4 extends State {
     private Player player;
     private Array<Background> backgrounds;
     private Texture enemy;
+    private Texture cadre;
     private Texture frogBulletTexture;
     private Animation enemyAnimation;
 
@@ -71,7 +72,8 @@ public class PlayStateWorld4 extends State {
         for(int i=0; i<=1; i++){
             backgrounds.add(new Background(0,400*i, "background3.png"));
         }
-        enemy = new Texture("enemyAnimation.png");
+        cadre = new Texture("cadrevert.png");
+        enemy = new Texture("frog.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         enemies = new Array<Frog>();
         frogBulletTexture= new Texture("bubblesAnimation.png");
@@ -283,10 +285,11 @@ public class PlayStateWorld4 extends State {
             sb.draw(bullet.getTexture(),bullet.getPosition().x, bullet.getPosition().y, Bullet.BULLET_SIZE, Bullet.BULLET_SIZE);
         }
         sb.draw(player.getTexture(), player.getPosition().x, player.getPosition().y, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
-        sb.draw(enemyAnimation.getFrame(), 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
+        sb.draw(cadre, 0, cam.position.y + (cam.viewportHeight/2)-80, cam.viewportWidth, 80);
+        sb.draw(enemyAnimation.getFrame(), 14, cam.position.y + (cam.viewportHeight/2)-70, cadre.getHeight()*2/3, cadre.getHeight()*2/3);
 
         for (int i=1; i<=player.getLifeCount(); i++) {
-            sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (205+20*i));
+            sb.draw(player.lifeAnimation.getFrame(), cam.position.x + cam.viewportWidth - 150, cam.position.y + cam.viewportHeight - (208+20*i));
         }
         yourBitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);//score display (temporary)
         yourBitmapFontName.draw(sb, yourScoreName, 15, cam.position.y + cam.viewportHeight - (290));

@@ -38,6 +38,7 @@ public class ChooseWorldState extends State {
 
     public ChooseWorldState(final GameStateManager gsm){
         super(gsm);
+        Save.load();
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
 
@@ -64,44 +65,51 @@ public class ChooseWorldState extends State {
         });
         stage.addActor(world1);
 
-        world2 = new TextButton("World 2", skin);
-        world2.setSize(col_width*5,row_height*2);
-        world2.setPosition( col_width*6,row_height*8 );
-        world2.getLabel().setFontScale(col_width/23,row_height/23);
-        world2.setChecked(false);
-        world2.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new PlayStateWorld2(gsm));
-            }
-        });
-        stage.addActor(world2);
+        if(Save.gd.getHighScores(1)>25) {
+            world2 = new TextButton("World 2", skin);
+            world2.setSize(col_width * 5, row_height * 2);
+            world2.setPosition(col_width * 6, row_height * 8);
+            world2.getLabel().setFontScale(col_width / 23, row_height / 23);
+            world2.setChecked(false);
+            world2.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    gsm.set(new PlayStateWorld2(gsm));
+                }
+            });
+            stage.addActor(world2);
 
-        world3 = new TextButton("World 3", skin);
-        world3.setSize(col_width*5,row_height*2);
-        world3.setPosition( col_width*1,row_height*5 );
-        world3.getLabel().setFontScale(col_width/23,row_height/23);
-        world3.setChecked(false);
-        world3.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new PlayStateWorld3(gsm));
-            }
-        });
-        stage.addActor(world3);
+            if (Save.gd.getHighScores(2) > 49) {
+                world3 = new TextButton("World 3", skin);
+                world3.setSize(col_width * 5, row_height * 2);
+                world3.setPosition(col_width * 1, row_height * 5);
+                world3.getLabel().setFontScale(col_width / 23, row_height / 23);
+                world3.setChecked(false);
+                world3.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        gsm.set(new PlayStateWorld3(gsm));
+                    }
+                });
+                stage.addActor(world3);
 
-        world4 = new TextButton("World 4", skin);
-        world4.setSize(col_width*5,row_height*2);
-        world4.setPosition( col_width*6,row_height*5 );
-        world4.getLabel().setFontScale(col_width/23,row_height/23);
-        world4.setChecked(false);
-        world4.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                gsm.set(new PlayStateWorld4(gsm));
+                if (Save.gd.getHighScores(3) > 49) {
+                    world4 = new TextButton("World 4", skin);
+                    world4.setSize(col_width * 5, row_height * 2);
+                    world4.setPosition(col_width * 6, row_height * 5);
+                    world4.getLabel().setFontScale(col_width / 23, row_height / 23);
+                    world4.setChecked(false);
+                    world4.addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            gsm.set(new PlayStateWorld4(gsm));
+                        }
+                    });
+                    stage.addActor(world4);
+                }
             }
-        });
-        stage.addActor(world4);
+        }
+
 
         music = new TextButton("Mute Music", skin);
         music.setSize(col_width*6/2,row_height*2/2);
@@ -131,9 +139,9 @@ public class ChooseWorldState extends State {
         reset.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Save.load();
                 Save.gd.resetScores();
                 Save.save();
+                gsm.set(new MenuState(gsm));
             }
         });
         stage.addActor(reset);

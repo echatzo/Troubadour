@@ -2,6 +2,7 @@
 *.apk
 *.ap_
 Troubadour/android/assets/save.sav
+Troubadour\android\assets\save.sav
 
 # files for the dex VM
 *.dex

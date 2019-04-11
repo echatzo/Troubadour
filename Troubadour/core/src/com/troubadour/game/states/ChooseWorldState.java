@@ -80,6 +80,7 @@ public class ChooseWorldState extends State {
             stage.addActor(world2);
 
             if (Save.gd.getHighScores(2) > 49) {
+
                 world3 = new TextButton("World 3", skin);
                 world3.setSize(col_width * 5, row_height * 2);
                 world3.setPosition(col_width * 1, row_height * 5);

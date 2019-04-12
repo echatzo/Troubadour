@@ -77,7 +77,7 @@ public class ChooseWorldState extends State {
         textw2 = new Texture(Gdx.files.internal("levels_but/level 2.png"));
         textrw2 = new TextureRegion(textw2);
         textrdw2 = new TextureRegionDrawable(textrw2);
-        w2 = new ImageButton(textrdw1);
+        w2 = new ImageButton(textrdw2);
         w2.setSize(col_width*5,row_height*2);
         w2.setPosition(col_width*6,row_height*8);
         w2.setChecked(false);

@@ -169,7 +169,7 @@ public class PlayStateWorld4 extends State {
             frog.update(dt);
             if(time>nextFrogBullet&&rand.nextInt(10)==3) {
                 nextFrogBullet=time+0.3f;
-                frogProjectiles.add(new Bullet(frog.getPosition().x+frog.WIDTH/2-Bullet.BULLET_SIZE/2, frog.getPosition().y, -40, frogBulletTexture));
+                frogProjectiles.add(new Bullet(frog.getPosition().x+frog.WIDTH/2-Bullet.BULLET_SIZE/2, frog.getPosition().y, -70, frogBulletTexture));
             }
             if(cam.position.y-(cam.viewportHeight/2) > frog.getPosition().y + frog.HEIGHT){
                 enemies.removeIndex(i);

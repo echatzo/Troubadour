@@ -64,11 +64,11 @@ public class PlayStateWorld4Boss extends State {
 
         this.time = 0;
 
-        this.nextBossBullet = 1f;
+        this.nextBossBullet = 0.7f;
 
         this.projectiles = new Array<Bullet>();
         this.projectilesBoss = new Array<BulletBoss3>();
-        this.background = new Background(0,0, "background2.png");
+        this.background = new Background(0,0, "background3.png");
 
         this.enemy = new Texture("enemyAnimation.png");
         this.enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
@@ -126,7 +126,7 @@ public class PlayStateWorld4Boss extends State {
         }
 
         for (BulletBoss3 bulletBoss3 : projectilesBoss){
-            bulletBoss3.update(dt,player.getPosition().x);
+            bulletBoss3.update(dt,player.getPosition().x, player.getPosition().y);
         }
 
         for (Bullet bullet : projectiles){

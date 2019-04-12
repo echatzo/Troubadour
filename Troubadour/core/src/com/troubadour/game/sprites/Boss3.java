@@ -10,7 +10,7 @@ public class Boss3 {
     //boss du world 4
     public static final int HEIGHT = 60;
     public static final int WIDTH = 60;
-    public static final int MOVEMENT = 130;
+    public static final int MOVEMENT = 70;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -42,6 +42,23 @@ public class Boss3 {
 
     public void update(float dt){
         animation.update(dt);
+
+        position.add(velocity.x*dt, 0, 0);
+
+        if(position.x < 0){
+
+            position.x = 0;
+            velocity.x = MOVEMENT;
+
+        }
+
+        if(position.x > (Troubadour.WIDTH /2)-(WIDTH)){
+            position.x=(Troubadour.WIDTH /2)-(WIDTH);
+            velocity.x = - MOVEMENT;
+        }
+
+
+        bounds.setPosition(position.x, position.y);
 
     }
 

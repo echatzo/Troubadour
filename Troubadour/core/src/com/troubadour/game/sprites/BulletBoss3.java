@@ -9,8 +9,7 @@ public class BulletBoss3 {
 
     public static final int BULLET_LENGTH = 24;
     public static final int BULLET_WIDTH = 15;
-    public static final float SPEED_X = 100;
-    public static final float SPEED_Y = 100;
+    public static final float SPEED = 150;
     private float movement;
 
     private Vector3 position;
@@ -21,15 +20,25 @@ public class BulletBoss3 {
 
     public BulletBoss3(float x, float y, float x_target, float y_target){
         position = new Vector3(x, y, 0);
-        velocity = new Vector3(-((x-x_target)/Math.abs(x-x_target))*SPEED_X, -SPEED_Y, 0);
+        velocity = new Vector3(0, 0, 0);
         texture = new Texture("tadpod.png");
         bulletAnimation = new Animation(new TextureRegion(texture), 4, 0.3f);
         bounds = new Rectangle(x, y, BULLET_WIDTH, BULLET_LENGTH);
     }
 
-    public void update(float dt,float x_target){
+    public void update(float dt,float x_target, float y_target){
 
-        velocity.x = -((position.x-x_target)/Math.abs(position.x-x_target))*SPEED_X;
+        float R = (position.x-x_target)/(position.y-y_target);
+        float Vx = (float) (SPEED/Math.sqrt(1/Math.pow(R,2.0)+1));
+        if (position.x > x_target){
+            velocity.x = -Vx;
+        }
+        else {
+            velocity.x = Vx;
+        }
+        velocity.y = (float) -(SPEED/Math.sqrt(Math.pow(R,2.0)+1))-60;
+
+
 
         velocity.scl(dt);
 

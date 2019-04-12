@@ -8,16 +8,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.troubadour.game.Troubadour;
@@ -30,11 +33,15 @@ public class ChooseWorldState extends State {
     private Stage stage;
     private Skin skin;
     private TextButton world1, world2, world3, world4, music,reset;
+    private ImageButton w1, w2, w3, w4;
     private BitmapFont font;
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
 
     private FitViewport fitViewport;
+    private Texture textw1,textw2, textw3, textw4;
+    private TextureRegion textrw1,textrw2, textrw3, textrw4;
+    private TextureRegionDrawable textrdw1,textrdw2, textrdw3, textrdw4;
 
     public ChooseWorldState(final GameStateManager gsm){
         super(gsm);
@@ -43,18 +50,81 @@ public class ChooseWorldState extends State {
         background = new Texture("background.png");
 
         //fitViewport = new FitViewport(Troubadour.WIDTH, Troubadour.HEIGHT);
-
+        //playTexture = new Texture("play.png");
         //stage = new Stage(fitViewport);
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         font = new BitmapFont();
         skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
 
+
+        textw1 = new Texture(Gdx.files.internal("levels_but/level 1.png"));
+        textrw1 = new TextureRegion(textw1);
+        textrdw1 = new TextureRegionDrawable(textrw1);
+        w1 = new ImageButton(textrdw1);
+        w1.setSize(col_width*5,row_height*2);
+        w1.setPosition(col_width*1,row_height*8);
+        w1.setChecked(false);
+        w1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayState(gsm));
+            }
+        });
+        //w1.debug();
+        stage.addActor(w1);
+
+        textw2 = new Texture(Gdx.files.internal("levels_but/level 2.png"));
+        textrw2 = new TextureRegion(textw2);
+        textrdw2 = new TextureRegionDrawable(textrw2);
+        w2 = new ImageButton(textrdw1);
+        w2.setSize(col_width*5,row_height*2);
+        w2.setPosition(col_width*6,row_height*8);
+        w2.setChecked(false);
+        w2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayStateWorld2(gsm));
+            }
+        });
+        stage.addActor(w2);
+
+        textw3 = new Texture(Gdx.files.internal("levels_but/level 3.png"));
+        textrw3 = new TextureRegion(textw3);
+        textrdw3 = new TextureRegionDrawable(textrw3);
+        w3 = new ImageButton(textrdw3);
+        w3.setSize(col_width*5,row_height*2);
+        w3.setPosition(col_width*1,row_height*5);
+        w3.setChecked(false);
+        w3.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayStateWorld3(gsm));
+            }
+        });
+        stage.addActor(w3);
+
+        textw4 = new Texture(Gdx.files.internal("levels_but/level 4.png"));
+        textrw4 = new TextureRegion(textw4);
+        textrdw4 = new TextureRegionDrawable(textrw4);
+        w4 = new ImageButton(textrdw4);
+        w4.setSize(col_width*5,row_height*2);
+        w4.setPosition(col_width*6,row_height*5);
+        w4.setChecked(false);
+        w4.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gsm.set(new PlayStateWorld4(gsm));
+            }
+        });
+        //w4.getImage().setFillParent(true);
+        //w4.debug();
+        stage.addActor(w4);
+
+    /*
         world1 = new TextButton("World 1", skin);
         world1.setSize(col_width*5,row_height*2);
         world1.setPosition(col_width*1,row_height*8);
-        //world1.setTransform(true);
-        //world1.scaleBy(2f);
         world1.getLabel().setFontScale(col_width/23,row_height/23);
         world1.setChecked(false);
         world1.addListener(new ClickListener() {
@@ -110,7 +180,7 @@ public class ChooseWorldState extends State {
                 }
             }
         }
-
+    */
 
         music = new TextButton("Mute Music", skin);
         music.setSize(col_width*6/2,row_height*2/2);

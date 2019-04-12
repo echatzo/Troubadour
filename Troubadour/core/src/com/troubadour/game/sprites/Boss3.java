@@ -31,9 +31,9 @@ public class Boss3 {
 
         position = new Vector3(x, y, 0);
         velocity = new Vector3(MOVEMENT, MOVEMENT, 0);
-        texture = new Texture("ghostboss.png");
+        texture = new Texture("frogBoss.png");
         hitTexture = new Texture("Boss1_hit.png");
-        animationGood = new Animation(new TextureRegion(texture), 3, 0.5f);
+        animationGood = new Animation(new TextureRegion(texture), 3, 0.8f);
         animationHit = new Animation(new TextureRegion(hitTexture), 3, 0.1f);
         animation = animationGood;
         bounds = new Rectangle(position.x, position.y, WIDTH, HEIGHT);

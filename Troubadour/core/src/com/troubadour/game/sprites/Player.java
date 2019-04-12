@@ -113,7 +113,7 @@ public class Player {
 
     public void hurt(){
 
-        //this.lifeCount--;
+        this.lifeCount--;
         System.out.println(lifeCount);
     }
     public void incLifeCount(){

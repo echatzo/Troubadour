@@ -1,6 +1,8 @@
 package com.troubadour.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,10 +13,10 @@ public class Save {
     public static GameData gd;
 
     public static void save() {
+
         try {
-            ObjectOutputStream out = new ObjectOutputStream(
-                    new FileOutputStream("save.sav")
-            );
+            FileHandle file = Gdx.files.local("save.sav");
+            ObjectOutputStream out = new ObjectOutputStream(file.write(false));
             out.writeObject(gd);
             out.close();
         }

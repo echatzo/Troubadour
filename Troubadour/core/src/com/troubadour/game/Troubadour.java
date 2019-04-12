@@ -28,9 +28,9 @@ public class Troubadour extends ApplicationAdapter{
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
 		//music debut
-        music = Gdx.audio.newMusic((Gdx.files.internal("music.mp3")));
+        music = Gdx.audio.newMusic((Gdx.files.internal("VS_EVIL.mp3")));
         music.setLooping(true);
-        music.setVolume(0.2f);
+        music.setVolume(0.18f);
         music.play();
         //music fin
 		Gdx.gl.glClearColor(0, 0, 1, 1);

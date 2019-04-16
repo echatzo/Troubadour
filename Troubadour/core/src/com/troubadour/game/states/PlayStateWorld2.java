@@ -153,7 +153,7 @@ public class PlayStateWorld2 extends State {
                 enemies.add(new Skeleton(firstEnemyX+j*cam.viewportWidth/8,cam.position.y+ Skeleton.HEIGHT *2+cam.viewportHeight));
             }
         }
-        if(time>15){
+        if(time>40){
             gsm.set(new PlayStateWorld2Boss(gsm, player.getLifeCount(), score));
         }
 

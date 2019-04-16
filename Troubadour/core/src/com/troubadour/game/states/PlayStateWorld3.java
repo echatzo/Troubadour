@@ -138,7 +138,7 @@ public class PlayStateWorld3 extends State {
             enemies.add(new Ghost(firstEnemyX,cam.position.y+Ghost.HEIGHT *2+cam.viewportHeight));
 
         }
-        if(time>15) {
+        if(time>40) {
             gsm.set(new PlayStateWorld3Boss(gsm, player.getLifeCount(), score));
         }
 

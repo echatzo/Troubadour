@@ -156,7 +156,7 @@ public class PlayStateWorld4 extends State {
             float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-((1/8)+(Frog.WIDTH/cam.viewportWidth)));
             enemies.add(new Frog(firstEnemyX,cam.position.y+Frog.HEIGHT *2+cam.viewportHeight));
         }
-        if(time>10){
+        if(time>40){
             gsm.set(new PlayStateWorld4Boss(gsm, player.getLifeCount(), score));
         }
 

@@ -38,6 +38,8 @@ public class BulletBoss3 {
         }
         velocity.y = (float) -(SPEED/Math.sqrt(Math.pow(R,2.0)+1))-60;
 
+        //si proche de la cible continue tout droit
+        if(Math.abs(position.y - y_target)<10) velocity.x = 0;
 
 
         velocity.scl(dt);

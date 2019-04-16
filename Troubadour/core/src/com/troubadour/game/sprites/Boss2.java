@@ -10,7 +10,7 @@ public class Boss2 {
     //boss du world 2
     public static final int HEIGHT = 60;
     public static final int WIDTH = 60;
-    public static final int MOVEMENT = 130;
+    public static final int MOVEMENT = 115;
 
     private Vector3 position;
     private Vector3 velocity;

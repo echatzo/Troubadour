@@ -45,6 +45,7 @@ public class PlayStateWorld2Boss  extends State {
     private TextButton pauseButton;
     int row_height = Gdx.graphics.getHeight() / 12;
     int col_width = Gdx.graphics.getWidth() / 12;
+    float timebullet;
 
     public PlayStateWorld2Boss (final GameStateManager gsm, int lifeCount, int score){
         super(gsm);
@@ -63,7 +64,8 @@ public class PlayStateWorld2Boss  extends State {
 
         this.time = 0;
 
-        this.nextBossBullet = 1f;
+        timebullet = 0.5f;
+        this.nextBossBullet = timebullet;
 
         this.projectiles = new Array<Bullet>();
         this.projectilesBoss = new Array<BulletBoss1>();
@@ -119,7 +121,7 @@ public class PlayStateWorld2Boss  extends State {
         boss1.update(dt);
 
         if(time>nextBossBullet){
-            nextBossBullet=time+1f;
+            nextBossBullet=time+timebullet;
             projectilesBoss.add(new BulletBoss1(boss1.getPosition().x+(Boss1.WIDTH/2-BulletBoss1.BULLET_SIZE/2),boss1.getPosition().y,player.getPosition().x+(Player.PLAYER_WIDTH/2),player.getPosition().y));
         }
 

@@ -150,11 +150,17 @@ public class PlayStateWorld4 extends State {
         if (time>nextWave&&totalWaves<ENEMY_COUNT){
             totalWaves++;
             player.setMovement(100+time);
-            System.out.println(player.getMovement());
+            //System.out.println(player.getMovement());
             nextWave+=(50/player.getMovement());
 
-            float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(0.8f-((1/8)+(Frog.WIDTH/cam.viewportWidth)));
-            enemies.add(new Frog(firstEnemyX,cam.position.y+Frog.HEIGHT *2+cam.viewportHeight));
+
+
+
+           float firstEnemyX = rand.nextFloat()*cam.viewportWidth*(1f-((1/8)+(Frog.WIDTH/cam.viewportWidth)));
+
+           //System.out.println(rand.nextFloat()*(Troubadour.WIDTH-(Frog.WIDTH)));
+            //float firstEnemyX = rand.nextFloat()*(Troubadour.WIDTH-(Frog.WIDTH));
+            enemies.add(new Frog(firstEnemyX,cam.position.y+Frog.WIDTH *2+cam.viewportHeight));
         }
         if(time>40){
             gsm.set(new PlayStateWorld4Boss(gsm, player.getLifeCount(), score));

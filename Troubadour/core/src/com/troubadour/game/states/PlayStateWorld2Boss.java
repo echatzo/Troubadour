@@ -35,8 +35,6 @@ public class PlayStateWorld2Boss  extends State {
     private Texture enemy;
     private Animation enemyAnimation;
 
-    private Sound oof;
-    private Sound death;
     private Array<Bullet> projectiles;
     private Array<BulletBoss1> projectilesBoss;
 
@@ -78,7 +76,6 @@ public class PlayStateWorld2Boss  extends State {
         yourScoreName = "life: 100";
         yourBitmapFontName = new BitmapFont();
 
-        death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -167,8 +164,8 @@ public class PlayStateWorld2Boss  extends State {
                 bulletBoss1.dispose();
                 projectilesBoss.removeIndex(j);
                 player.hurt();
+                player.lifeAnimation.update(dt);
                 if (player.getLifeCount() <= 0) {
-                    death.play(0.2f);
                     try
                     {
                         Thread.sleep(1000);

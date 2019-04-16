@@ -35,8 +35,6 @@ public class PlayStateWorld3Boss extends State {
     private Texture enemy;
     private Animation enemyAnimation;
 
-    private Sound oof;
-    private Sound death;
     private Array<Bullet> projectiles;
     private Array<BulletBoss1> projectilesBoss;
 
@@ -76,8 +74,6 @@ public class PlayStateWorld3Boss extends State {
         yourScoreName = "life: 100";
         yourBitmapFontName = new BitmapFont();
 
-        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
-        death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -160,7 +156,8 @@ public class PlayStateWorld3Boss extends State {
             player.setTexture(1);
             if (boss2.collides(player.getBounds())) {
                 player.hurt();
-                if (player.getLifeCount() > 0) {
+
+                /*if (player.getLifeCount() > 0) {
                     oof.play(2f);
                 }
 
@@ -168,10 +165,9 @@ public class PlayStateWorld3Boss extends State {
                 player.setTexture(2);
                 Gdx.input.vibrate(500);
 
-                player.resetLifeTimer();
+                player.resetLifeTimer();*/
                 player.lifeAnimation.update(dt);
                 if (player.getLifeCount() <= 0) {
-                    death.play(0.2f);
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
@@ -189,17 +185,16 @@ public class PlayStateWorld3Boss extends State {
                     player.hurt();
                     bulletBoss1.dispose();
                     projectilesBoss.removeIndex(j);
-                    if (player.getLifeCount() > 0) {
+                   /* if (player.getLifeCount() > 0) {
                         oof.play(2f);
                     }
 
                     player.setTexture(2);
                     Gdx.input.vibrate(500);
 
-                    player.resetLifeTimer();
+                    player.resetLifeTimer();*/
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        death.play(0.2f);
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException ex) {

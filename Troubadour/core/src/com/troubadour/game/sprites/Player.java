@@ -1,6 +1,7 @@
 package com.troubadour.game.sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -25,6 +26,7 @@ public class Player {
 
     private Animation playerAnimation; //Current player animation
 
+    private Sound oof, death;
 
 
     //player life characteristics
@@ -49,6 +51,9 @@ public class Player {
         playerAnimationHit = new Animation(new TextureRegion(hitTexture), 3, 0.1f);
         playerAnimation=playerAnimationGood;
         bounds = new Rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT-10);
+
+        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
+        death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
     }
 
@@ -101,6 +106,8 @@ public class Player {
     public void dispose(){
         texture.dispose();
         life.dispose();
+        oof.dispose();
+        death.dispose();
     }
 
     public Rectangle getBounds(){
@@ -114,7 +121,13 @@ public class Player {
     public void hurt(){
 
         this.lifeCount--;
-        System.out.println(lifeCount);
+        if(lifeCount >0) oof.play(2f);
+        this.setTexture(2);
+        Gdx.input.vibrate(500);
+        this.resetLifeTimer();
+        if(lifeCount == 0 ) death.play(0.2f);
+        lifeTimer = 0f;
+        //System.out.println(lifeCount);
     }
     public void incLifeCount(){
         this.lifeCount++;

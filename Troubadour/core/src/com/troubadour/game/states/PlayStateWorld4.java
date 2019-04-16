@@ -52,8 +52,6 @@ public class PlayStateWorld4 extends State {
     private String yourScoreName;
     BitmapFont yourBitmapFontName;
 
-    private Sound oof;
-    private Sound death;
     private Random rand;
 
 
@@ -77,8 +75,6 @@ public class PlayStateWorld4 extends State {
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         enemies = new Array<Frog>();
         frogBulletTexture= new Texture("bubblesAnimation.png");
-        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
-        death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
         rand = new Random();
 /*
         for(int i = 1; i <= ENEMY_COUNT; i ++){
@@ -186,7 +182,7 @@ public class PlayStateWorld4 extends State {
                 if (frog.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();
 
-                    //son collision
+                    /*//son collision
                     if (player.getLifeCount() > 0) {
                         oof.play(2f);
                     }
@@ -195,10 +191,9 @@ public class PlayStateWorld4 extends State {
                     player.setTexture(2);
                     Gdx.input.vibrate(500);
 
-                    player.resetLifeTimer();
+                    player.resetLifeTimer();*/
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        death.play(0.2f);
                         try
                         {
                             Thread.sleep(1000);
@@ -244,7 +239,7 @@ public class PlayStateWorld4 extends State {
                 if (frogBullet.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();
                     frogProjectiles.removeIndex(i);
-                    //son collision
+                   /* //son collision
                     if (player.getLifeCount() > 0) {
                         oof.play(2f);
                     }
@@ -253,10 +248,9 @@ public class PlayStateWorld4 extends State {
                     player.setTexture(2);
                     Gdx.input.vibrate(500);
 
-                    player.resetLifeTimer();
+                    player.resetLifeTimer();*/
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        death.play(0.2f);
                         try
                         {
                             Thread.sleep(1000);
@@ -312,8 +306,6 @@ public class PlayStateWorld4 extends State {
             background.dispose();
         }
         player.dispose();
-        oof.dispose();
-        death.dispose();
         for(Frog frog : enemies){
             frog.dispose();
         }

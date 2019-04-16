@@ -50,8 +50,6 @@ public class PlayStateWorld2 extends State {
     private String yourScoreName;
     BitmapFont yourBitmapFontName;
 
-    private Sound oof;
-    private Sound death;
 
 
 
@@ -78,8 +76,6 @@ public class PlayStateWorld2 extends State {
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         enemies = new Array<Skeleton>();
 
-        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
-        death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
         projectiles=new Array<Bullet>(); //create an empty array of bullets
 
@@ -173,18 +169,18 @@ public class PlayStateWorld2 extends State {
                     player.hurt();
 
                     //son collision
-                    if (player.getLifeCount() > 0) {
+                  /*  if (player.getLifeCount() > 0) {
                         oof.play(2f);
                     }
 
 
                     player.setTexture(2);
-                    Gdx.input.vibrate(500);
+                    Gdx.input.vibrate(500);*/
 
-                    player.resetLifeTimer();
+                    //player.resetLifeTimer();
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        death.play(0.2f);
+                        //death.play(0.2f);
                         try
                         {
                             Thread.sleep(1000);
@@ -262,8 +258,6 @@ public class PlayStateWorld2 extends State {
             background.dispose();
         }
         player.dispose();
-        oof.dispose();
-        death.dispose();
         for(Skeleton skeleton : enemies){
             skeleton.dispose();
         }

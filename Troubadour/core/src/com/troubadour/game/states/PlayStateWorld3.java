@@ -50,8 +50,6 @@ public class PlayStateWorld3 extends State {
     private String yourScoreName;
     BitmapFont yourBitmapFontName;
 
-    private Sound oof;
-    private Sound death;
 
     private Array<Ghost> enemies;
     private Array<Bullet> projectiles;
@@ -69,9 +67,6 @@ public class PlayStateWorld3 extends State {
         enemy = new Texture("ghostboss.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 0.8f);
         enemies = new Array<Ghost>();
-
-        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
-        death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
         projectiles=new Array<Bullet>();
         score = 0;
@@ -158,7 +153,7 @@ public class PlayStateWorld3 extends State {
                 if (ghost.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();
 
-                    //son collision
+                    /*//son collision
                     if (player.getLifeCount() > 0) {
                         oof.play(2f);
                     }
@@ -167,10 +162,9 @@ public class PlayStateWorld3 extends State {
                     player.setTexture(2);
                     Gdx.input.vibrate(500);
 
-                    player.resetLifeTimer();
+                    player.resetLifeTimer();*/
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        death.play(0.2f);
                         try
                         {
                             Thread.sleep(1000);
@@ -247,8 +241,6 @@ public class PlayStateWorld3 extends State {
             background.dispose();
         }
         player.dispose();
-        oof.dispose();
-        death.dispose();
         for(Ghost ghost : enemies){
             ghost.dispose();
         }

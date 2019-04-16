@@ -41,8 +41,6 @@ public class PlayState extends State {
     private String yourScoreName;
     BitmapFont yourBitmapFontName;
 
-    private Sound oof;
-    private Sound death;
 
 
 
@@ -61,8 +59,6 @@ public class PlayState extends State {
         enemy = new Texture("enemyAnimation.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         walls = new Array<Wall>();
-        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
-        death = Gdx.audio.newSound(Gdx.files.internal("death.mp3"));
 
         for(int i = 1; i <= WALL_COUNT; i ++){
             walls.add(new Wall(cam.viewportHeight+i*(WALL_SPACING + Wall.WALL_THICK)));
@@ -132,7 +128,7 @@ public class PlayState extends State {
                 if (wall.collides(player.getBounds())){ //if the player hitBox touches the wall hitBox, the player is hit
                     player.hurt();
 
-                    //son collision
+                    /*
                     if (player.getLifeCount() > 0) {
                         oof.play(2f);
                     }
@@ -141,10 +137,9 @@ public class PlayState extends State {
                     player.setTexture(2);
                     Gdx.input.vibrate(500);
 
-                    player.resetLifeTimer();
+                    player.resetLifeTimer();*/
                     player.lifeAnimation.update(dt);
                     if (player.getLifeCount() <= 0) {
-                        death.play(0.2f);
                         try
                         {
                             Thread.sleep(1000);
@@ -196,8 +191,6 @@ public class PlayState extends State {
             background.dispose();
         }
         player.dispose();
-        oof.dispose();
-        death.dispose();
         for(Wall wall : walls){
             wall.dispose();
         }

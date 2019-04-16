@@ -62,8 +62,11 @@ public class ChooseWorldState extends State {
         textrw1 = new TextureRegion(textw1);
         textrdw1 = new TextureRegionDrawable(textrw1);
         w1 = new ImageButton(textrdw1);
-        w1.setSize(col_width*5,row_height*2);
-        w1.setPosition(col_width*1,row_height*8);
+        //w1.setTransform(true);
+        //w1.setScale(2f);
+        w1.setSize(col_width*3,row_height*1);
+        w1.getImage().setFillParent(true);
+        w1.setPosition(col_width*1 ,row_height*8);
         w1.setChecked(false);
         w1.addListener(new ClickListener() {
             @Override
@@ -78,7 +81,7 @@ public class ChooseWorldState extends State {
         textrw2 = new TextureRegion(textw2);
         textrdw2 = new TextureRegionDrawable(textrw2);
         w2 = new ImageButton(textrdw2);
-        w2.setSize(col_width*5,row_height*2);
+        w2.setSize(col_width*3,row_height*1);
         w2.setPosition(col_width*6,row_height*8);
         w2.setChecked(false);
         w2.addListener(new ClickListener() {
@@ -87,13 +90,15 @@ public class ChooseWorldState extends State {
                 gsm.set(new PlayStateWorld2(gsm));
             }
         });
+        //w2.debug();
+        w2.getImage().setFillParent(true);
         stage.addActor(w2);
 
         textw3 = new Texture(Gdx.files.internal("levels_but/level 3.png"));
         textrw3 = new TextureRegion(textw3);
         textrdw3 = new TextureRegionDrawable(textrw3);
         w3 = new ImageButton(textrdw3);
-        w3.setSize(col_width*5,row_height*2);
+        w3.setSize(col_width*3,row_height*1);
         w3.setPosition(col_width*1,row_height*5);
         w3.setChecked(false);
         w3.addListener(new ClickListener() {
@@ -102,13 +107,15 @@ public class ChooseWorldState extends State {
                 gsm.set(new PlayStateWorld3(gsm));
             }
         });
+        w3.getImage().setFillParent(true);
+        //w3.debug();
         stage.addActor(w3);
 
         textw4 = new Texture(Gdx.files.internal("levels_but/level 4.png"));
         textrw4 = new TextureRegion(textw4);
         textrdw4 = new TextureRegionDrawable(textrw4);
         w4 = new ImageButton(textrdw4);
-        w4.setSize(col_width*5,row_height*2);
+        w4.setSize(col_width*3,row_height*1);
         w4.setPosition(col_width*6,row_height*5);
         w4.setChecked(false);
         w4.addListener(new ClickListener() {
@@ -117,7 +124,7 @@ public class ChooseWorldState extends State {
                 gsm.set(new PlayStateWorld4(gsm));
             }
         });
-        //w4.getImage().setFillParent(true);
+        w4.getImage().setFillParent(true);
         //w4.debug();
         stage.addActor(w4);
 

@@ -73,7 +73,8 @@ public class PlayStateWorld2 extends State {
 
         //creates the object for the frame above with the enemy's head
         cadre = new Texture("cadregris.png");
-        enemy = new Texture("boss1.png");
+        enemy = new Texture("Boss1.png");
+        //enemy = new Texture("ghostboss.png");
         enemyAnimation = new Animation(new TextureRegion(enemy), 3, 2f);
         enemies = new Array<Skeleton>();
 

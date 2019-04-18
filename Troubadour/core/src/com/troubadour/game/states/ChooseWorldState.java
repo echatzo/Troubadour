@@ -46,7 +46,7 @@ public class ChooseWorldState extends State {
     public ChooseWorldState(final GameStateManager gsm){
         super(gsm);
         Save.load();
-        cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
+        cam.setToOrtho(false, Troubadour.WIDTH , Troubadour.HEIGHT );
         background = new Texture("background.png");
 
         //fitViewport = new FitViewport(Troubadour.WIDTH, Troubadour.HEIGHT);
@@ -58,15 +58,15 @@ public class ChooseWorldState extends State {
         skin = new Skin(Gdx.files.internal("button/star-soldier/skin/star-soldier-ui.json"));
 
 
-        textw1 = new Texture(Gdx.files.internal("levels_but/level 1.png"));
+        textw1 = new Texture(Gdx.files.internal("levels_but/level1rezize.png"));
         textrw1 = new TextureRegion(textw1);
         textrdw1 = new TextureRegionDrawable(textrw1);
         w1 = new ImageButton(textrdw1);
         //w1.setTransform(true);
         //w1.setScale(2f);
         w1.setSize(col_width*3,row_height*1);
-        w1.getImage().setFillParent(true);
-        w1.setPosition(col_width*1 ,row_height*8);
+        //w1.getImage().setFillParent(true);
+        w1.setPosition(col_width*2 ,row_height*8);
         w1.setChecked(false);
         w1.addListener(new ClickListener() {
             @Override
@@ -74,15 +74,15 @@ public class ChooseWorldState extends State {
                 gsm.set(new PlayState(gsm));
             }
         });
-        //w1.debug();
+       // w1.debug();
         stage.addActor(w1);
 
-        textw2 = new Texture(Gdx.files.internal("levels_but/level 2.png"));
+        textw2 = new Texture(Gdx.files.internal("levels_but/level2rezize.png"));
         textrw2 = new TextureRegion(textw2);
         textrdw2 = new TextureRegionDrawable(textrw2);
         w2 = new ImageButton(textrdw2);
         w2.setSize(col_width*3,row_height*1);
-        w2.setPosition(col_width*6,row_height*8);
+        w2.setPosition(col_width*7,row_height*8);
         w2.setChecked(false);
         w2.addListener(new ClickListener() {
             @Override
@@ -91,15 +91,15 @@ public class ChooseWorldState extends State {
             }
         });
         //w2.debug();
-        w2.getImage().setFillParent(true);
+       // w2.getImage().setFillParent(true);
         stage.addActor(w2);
 
-        textw3 = new Texture(Gdx.files.internal("levels_but/level 3.png"));
+        textw3 = new Texture(Gdx.files.internal("levels_but/level3rezize.png"));
         textrw3 = new TextureRegion(textw3);
         textrdw3 = new TextureRegionDrawable(textrw3);
         w3 = new ImageButton(textrdw3);
         w3.setSize(col_width*3,row_height*1);
-        w3.setPosition(col_width*1,row_height*5);
+        w3.setPosition(col_width*2,row_height*5);
         w3.setChecked(false);
         w3.addListener(new ClickListener() {
             @Override
@@ -107,16 +107,16 @@ public class ChooseWorldState extends State {
                 gsm.set(new PlayStateWorld3(gsm));
             }
         });
-        w3.getImage().setFillParent(true);
+        //w3.getImage().setFillParent(true);
         //w3.debug();
         stage.addActor(w3);
 
-        textw4 = new Texture(Gdx.files.internal("levels_but/level 4.png"));
+        textw4 = new Texture(Gdx.files.internal("levels_but/level4rezize.png"));
         textrw4 = new TextureRegion(textw4);
         textrdw4 = new TextureRegionDrawable(textrw4);
         w4 = new ImageButton(textrdw4);
         w4.setSize(col_width*3,row_height*1);
-        w4.setPosition(col_width*6,row_height*5);
+        w4.setPosition(col_width*7,row_height*5);
         w4.setChecked(false);
         w4.addListener(new ClickListener() {
             @Override
@@ -124,7 +124,7 @@ public class ChooseWorldState extends State {
                 gsm.set(new PlayStateWorld4(gsm));
             }
         });
-        w4.getImage().setFillParent(true);
+        //w4.getImage().setFillParent(true);
         //w4.debug();
         stage.addActor(w4);
 
@@ -255,6 +255,7 @@ public class ChooseWorldState extends State {
 
         stage.act();
         stage.draw();
+
     }
 
 

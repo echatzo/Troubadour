@@ -47,7 +47,7 @@ public class WinState extends State {
         sb.draw(gameOver, cam.position.x-200/2, cam.position.y - 150/2, 200, 150);
         yourBitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         yourBitmapFontName.draw(sb, yourScoreName, 100, cam.position.y  - (100));
-        yourBitmapFontName.draw(sb, bestScore, 100, cam.position.y  - (150));
+        yourBitmapFontName.draw(sb, bestScore, 100 , cam.position.y  - (150));
         sb.end();
     }
 

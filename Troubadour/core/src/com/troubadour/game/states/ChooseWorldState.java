@@ -75,11 +75,12 @@ public class ChooseWorldState extends State {
                 gsm.set(new PlayState(gsm));
             }
         });
-        w1.debug();
+        //w1.debug();
         stage.addActor(w1);
         score1= Save.gd.getHighScores(1);
         if(score1<25) {
             starW1 = new Texture("star0.png");
+
         }
         else if (score1<35){
             starW1 = new Texture("star.png");
@@ -91,7 +92,27 @@ public class ChooseWorldState extends State {
             starW1 = new Texture("star3.png");
         }
 
-        textw2 = new Texture(Gdx.files.internal("levels_but/level2rezize.png"));
+        score2= Save.gd.getHighScores(2);
+        if(score1<25) {
+            starW2 = new Texture("void.png");
+            textw2 = new Texture(Gdx.files.internal("levels_but/level2nop.png"));
+        }
+        else if(score2<50) {
+            starW2 = new Texture("star0.png");
+            textw2 = new Texture(Gdx.files.internal("levels_but/level2rezize.png"));
+        }
+        else if (score2<60){
+            starW2 = new Texture("star.png");
+            textw2 = new Texture(Gdx.files.internal("levels_but/level2rezize.png"));
+        }
+        else if (score2<75){
+            starW2 = new Texture("star2.png");
+            textw2 = new Texture(Gdx.files.internal("levels_but/level2rezize.png"));
+        }
+        else{
+            starW2 = new Texture("star3.png");
+            textw2 = new Texture(Gdx.files.internal("levels_but/level2rezize.png"));
+        }
         textrw2 = new TextureRegion(textw2);
         textrdw2 = new TextureRegionDrawable(textrw2);
         w2 = new ImageButton(textrdw2);
@@ -101,7 +122,7 @@ public class ChooseWorldState extends State {
         w2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(score1>25) {
+                if(score1>=25) {
                     gsm.set(new PlayStateWorld2(gsm));
                 }
             }
@@ -109,24 +130,28 @@ public class ChooseWorldState extends State {
         //w2.debug();
         //w2.getImage().setFillParent(true);
         stage.addActor(w2);
-        score2= Save.gd.getHighScores(2);
-        if(score1<25) {
-            starW2 = new Texture("lock.png");
+
+        score3= Save.gd.getHighScores(3);
+        if(score2<50) {
+            starW3 = new Texture("void.png");
+            textw3 = new Texture(Gdx.files.internal("levels_but/level3nop.png"));
         }
-        else if(score2<50) {
-            starW2 = new Texture("star0.png");
+        else if (score3<50) {
+            starW3 = new Texture("star0.png");
+            textw3 = new Texture(Gdx.files.internal("levels_but/level3rezize.png"));
         }
-        else if (score2<60){
-            starW2 = new Texture("star.png");
+        else if (score3<60){
+            starW3 = new Texture("star.png");
+            textw3 = new Texture(Gdx.files.internal("levels_but/level3rezize.png"));
         }
-        else if (score2<75){
-            starW2 = new Texture("star2.png");
+        else if (score3<75){
+            starW3 = new Texture("star2.png");
+            textw3 = new Texture(Gdx.files.internal("levels_but/level3rezize.png"));
         }
         else{
-            starW2 = new Texture("star3.png");
+            starW3 = new Texture("star3.png");
+            textw3 = new Texture(Gdx.files.internal("levels_but/level3rezize.png"));
         }
-
-        textw3 = new Texture(Gdx.files.internal("levels_but/level3rezize.png"));
         textrw3 = new TextureRegion(textw3);
         textrdw3 = new TextureRegionDrawable(textrw3);
         w3 = new ImageButton(textrdw3);
@@ -136,7 +161,7 @@ public class ChooseWorldState extends State {
         w3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(score2>50) {
+                if(score2>=50) {
                     gsm.set(new PlayStateWorld3(gsm));
                 }
             }
@@ -144,24 +169,28 @@ public class ChooseWorldState extends State {
         //w3.getImage().setFillParent(true);
         //w3.debug();
         stage.addActor(w3);
-        score3= Save.gd.getHighScores(3);
-        if(score2<50) {
-            starW3 = new Texture("lock.png");
+
+        score4= Save.gd.getHighScores(4);
+        if(score3<50) {
+            starW4 = new Texture("void.png");
+            textw4 = new Texture(Gdx.files.internal("levels_but/level4nop.png"));
         }
-        else if (score3<50) {
-            starW3 = new Texture("star0.png");
+        else if (score4<50) {
+            starW4 = new Texture("star0.png");
+            textw4 = new Texture(Gdx.files.internal("levels_but/level4rezize.png"));
         }
-        else if (score3<60){
-            starW3 = new Texture("star.png");
+        else if (score4<60){
+            starW4 = new Texture("star.png");
+            textw4 = new Texture(Gdx.files.internal("levels_but/level4rezize.png"));
         }
-        else if (score3<75){
-            starW3 = new Texture("star2.png");
+        else if (score4<75){
+            starW4 = new Texture("star2.png");
+            textw4 = new Texture(Gdx.files.internal("levels_but/level4rezize.png"));
         }
         else{
-            starW3 = new Texture("star3.png");
+            starW4 = new Texture("star3.png");
+            textw4 = new Texture(Gdx.files.internal("levels_but/level4rezize.png"));
         }
-
-        textw4 = new Texture(Gdx.files.internal("levels_but/level4rezize.png"));
         textrw4 = new TextureRegion(textw4);
         textrdw4 = new TextureRegionDrawable(textrw4);
         w4 = new ImageButton(textrdw4);
@@ -171,30 +200,15 @@ public class ChooseWorldState extends State {
         w4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(score3>50) {
+                if(score3>=50) {
                     gsm.set(new PlayStateWorld4(gsm));
                 }
             }
         });
+        System.out.println(score4);
         //w4.getImage().setFillParent(true);
         //w4.debug();
         stage.addActor(w4);
-        score4= Save.gd.getHighScores(4);
-        if(score3<50) {
-            starW4 = new Texture("lock.png");
-        }
-        else if (score4<50) {
-            starW4 = new Texture("star0.png");
-        }
-        else if (score4<60){
-            starW4 = new Texture("star.png");
-        }
-        else if (score4<75){
-            starW4 = new Texture("star2.png");
-        }
-        else{
-            starW4 = new Texture("star3.png");
-        }
 
         music = new TextButton("Mute Music", skin);
         music.setSize(col_width*6/2,row_height*2/2);
@@ -258,16 +272,16 @@ public class ChooseWorldState extends State {
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0, 0, cam.viewportWidth, cam.viewportHeight);
-        //System.out.println(col_width+", X: "+w1.getX()+"  "+w1.getWidth()+", Y: "+w1.getY()+"  "+(w1.getHeight()-starW1.getHeight())/2+", Width: "+starW1.getWidth()+", Height: "+starW1.getHeight());
+        //System.out.println("Y1: "+w1.getY()+"  "+w2.getY()+", Y3: "+w3.getY()+"  "+w4.getY()+starW2.getHeight());
         sb.end();
 
         stage.act();
         stage.draw();
         sb.begin();
-        sb.draw(starW1,w1.getX()+(w1.getWidth()-starW1.getWidth())/2,w1.getY()+w1.getHeight(),starW1.getWidth(),starW1.getHeight());
-        sb.draw(starW2,w2.getX()+(w2.getWidth()-starW2.getWidth())/2,w2.getY()+w2.getHeight(),starW2.getWidth(),starW2.getHeight());
-        sb.draw(starW3,w3.getX()+(w3.getWidth()-starW3.getWidth())/2,w3.getY()+w3.getHeight(),starW3.getWidth(),starW3.getHeight());
-        sb.draw(starW4,w4.getX()+(w4.getWidth()-starW4.getWidth())/2,w4.getY()+w4.getHeight(),starW4.getWidth(),starW4.getHeight());
+        sb.draw(starW1,w1.getX()+(w1.getWidth()-starW1.getWidth())/2,w1.getY()+45,starW1.getWidth(),starW1.getHeight());
+        sb.draw(starW2,w2.getX()+(w2.getWidth()-starW2.getWidth())/2,w2.getY()+45,starW2.getWidth(),starW2.getHeight());
+        sb.draw(starW3,w3.getX()+(w3.getWidth()-starW3.getWidth())/2,w3.getY()+30,starW3.getWidth(),starW3.getHeight());
+        sb.draw(starW4,w4.getX()+(w4.getWidth()-starW4.getWidth())/2,w4.getY()+30,starW4.getWidth(),starW4.getHeight());
         sb.end();
     }
 

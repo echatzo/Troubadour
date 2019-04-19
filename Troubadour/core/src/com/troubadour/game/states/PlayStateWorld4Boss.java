@@ -146,7 +146,7 @@ public class PlayStateWorld4Boss extends State {
                     boss3.dispose();
                     score = score + 50;
                     yourScoreName = "score: " + (int) score;
-                    gsm.set(new WinState(gsm, (int)score,3));
+                    gsm.set(new WinState(gsm, (int)score,4));
                 }
 
             }

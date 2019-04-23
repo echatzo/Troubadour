@@ -37,7 +37,7 @@ public class Skeleton extends Mob{
         }
         position = new Vector3(x, y, 0);
         animation = new Animation(new TextureRegion(texture), 3, 0.5f);
-        bounds = new Rectangle(position.x+5, y, WIDTH, HEIGHT);
+        bounds = new Rectangle(position.x, y, WIDTH, HEIGHT);
 
     }
 

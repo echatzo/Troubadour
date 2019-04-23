@@ -20,7 +20,7 @@ public abstract class Mob {
         position = new Vector3(x, y, 0);
         texture = new Texture("squeleton.png");
         animation = new Animation(new TextureRegion(texture), 3, 0.5f);
-        bounds = new Rectangle(position.x+5, y, WIDTH, HEIGHT);
+        bounds = new Rectangle(position.x, y, WIDTH, HEIGHT);
     }
 
     public void update(float dt) {

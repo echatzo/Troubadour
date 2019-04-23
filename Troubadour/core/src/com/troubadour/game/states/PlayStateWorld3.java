@@ -28,7 +28,7 @@ public class PlayStateWorld3 extends State {
 
 
     private static final int ENEMY_SPACING = 50;
-    private static final int ENEMY_COUNT = 100;
+    private static final int ENEMY_COUNT = 150;
 
     private Stage stage;
     private Skin skin;
@@ -190,9 +190,6 @@ public class PlayStateWorld3 extends State {
                     ghost.hurt();
                     if(ghost.getLifeCount()<=0) {
                         ghost.dispose();
-                        if(ghost.isDark()){
-                            score+=4;
-                        }
                         enemies.removeIndex(i);
                         score++;
                         yourScoreName = "score: " + (int) score;

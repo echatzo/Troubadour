@@ -46,7 +46,12 @@ public class ChooseWorldState extends State {
 
     public ChooseWorldState(final GameStateManager gsm){
         super(gsm);
-        Save.load();
+        //System.out.println(Save.saveFileExists());
+        //System.out.println("Choose avant load: "+Save.gd.getHighScores(1)+" "+Save.gd.getHighScores(2)+" "+Save.gd.getHighScores(3)+" "+Save.gd.getHighScores(4));
+        //Save.load();
+        //System.out.println(Save.saveFileExists());
+        //System.out.print("wtfff   ");
+        //System.out.println("Choose après load: "+Save.gd.getHighScores(1)+" "+Save.gd.getHighScores(2)+" "+Save.gd.getHighScores(3)+" "+Save.gd.getHighScores(4));
         cam.setToOrtho(false, Troubadour.WIDTH , Troubadour.HEIGHT );
         background = new Texture("background.png");
 
@@ -77,7 +82,7 @@ public class ChooseWorldState extends State {
         });
         //w1.debug();
         stage.addActor(w1);
-        score1= Save.gd.getHighScores(1);
+        score1= Save.getHighScores(1);
         if(score1<25) {
             starW1 = new Texture("star0.png");
 
@@ -92,7 +97,7 @@ public class ChooseWorldState extends State {
             starW1 = new Texture("star3.png");
         }
 
-        score2= Save.gd.getHighScores(2);
+        score2= Save.getHighScores(2);
         if(score1<25) {
             starW2 = new Texture("void.png");
             textw2 = new Texture(Gdx.files.internal("levels_but/level2nop.png"));
@@ -131,7 +136,7 @@ public class ChooseWorldState extends State {
         //w2.getImage().setFillParent(true);
         stage.addActor(w2);
 
-        score3= Save.gd.getHighScores(3);
+        score3= Save.getHighScores(3);
         if(score2<50) {
             starW3 = new Texture("void.png");
             textw3 = new Texture(Gdx.files.internal("levels_but/level3nop.png"));
@@ -170,7 +175,7 @@ public class ChooseWorldState extends State {
         //w3.debug();
         stage.addActor(w3);
 
-        score4= Save.gd.getHighScores(4);
+        score4= Save.getHighScores(4);
         if(score3<50) {
             starW4 = new Texture("void.png");
             textw4 = new Texture(Gdx.files.internal("levels_but/level4nop.png"));
@@ -238,12 +243,13 @@ public class ChooseWorldState extends State {
         reset.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Save.gd.resetScores();
+                Save.resetScores();
                 Save.save();
                 gsm.set(new MenuState(gsm));
             }
         });
         stage.addActor(reset);
+        //System.out.println(score1+ " "+score2+ " "+score3+ " "+score4);
 
 
     }

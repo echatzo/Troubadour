@@ -15,15 +15,15 @@ public class GameOverState extends State {
 
     public GameOverState(GameStateManager gsm, int score,int world) {
         super(gsm);
-        Save.load();
         yourBitmapFontName = new BitmapFont();
         yourScoreName = "Score: " + score;
-        Save.gd.addHighScore(score,world);
+        Save.addHighScore(score,world);
         Save.save();
-        bestScore = "Best score: "+Save.gd.getHighScores(world);
+        bestScore = "Best score: "+Save.getHighScores(world);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
         gameOver = new Texture("GameOver.png");
+        //System.out.println("Fin game over: "+Save.gd.getHighScores(1)+" "+Save.gd.getHighScores(2)+" "+Save.gd.getHighScores(3)+" "+Save.gd.getHighScores(4));
     }
 
     @Override

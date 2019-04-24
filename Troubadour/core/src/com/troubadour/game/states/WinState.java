@@ -15,12 +15,11 @@ public class WinState extends State {
 
     public WinState(GameStateManager gsm, int score,int world) {
         super(gsm);
-        Save.load();
         yourBitmapFontName = new BitmapFont();
         yourScoreName = "score: " + score;
-        Save.gd.addHighScore(score,world);
+        Save.addHighScore(score,world);
         Save.save();
-        bestScore = "Best score: "+Save.gd.getHighScores(world);
+        bestScore = "Best score: "+Save.getHighScores(world);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
         background = new Texture("background.png");
         gameOver = new Texture("Victory.png");

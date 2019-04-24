@@ -175,7 +175,7 @@ public class PlayStateWorld4Boss extends State {
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                    gsm.set(new GameOverState(gsm, (int) score,3));//if the player have no more lives, change the playState to a gameOverState
+                    gsm.set(new GameOverState(gsm, (int) score,4));//if the player have no more lives, change the playState to a gameOverState
                 }
             }
             for (int j = 0; j < projectilesBoss.size; j++) {
@@ -202,7 +202,7 @@ public class PlayStateWorld4Boss extends State {
                         } catch (InterruptedException ex) {
                             Thread.currentThread().interrupt();
                         }
-                        gsm.set(new GameOverState(gsm, (int) score,3));//if the player have no more lives, change the playState to a gameOverState
+                        gsm.set(new GameOverState(gsm, (int) score,4));//if the player have no more lives, change the playState to a gameOverState
                     }
                 }
 
@@ -210,7 +210,7 @@ public class PlayStateWorld4Boss extends State {
         }
 
         if(boss3.getLifeCount() == 0){
-            gsm.set(new WinState(gsm, (int)score,3));
+            gsm.set(new WinState(gsm, (int)score,4));
         }
 
     }

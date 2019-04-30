@@ -210,7 +210,7 @@ public class PlayStateWorld4Boss extends State {
         }
 
         if(boss3.getLifeCount() == 0){
-            gsm.set(new WinState(gsm, (int)score,4));
+            gsm.set(new EndGameState(gsm));
         }
 
     }

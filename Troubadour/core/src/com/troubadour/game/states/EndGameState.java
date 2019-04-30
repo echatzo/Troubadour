@@ -13,8 +13,7 @@ public class EndGameState extends State {
     public EndGameState(GameStateManager gsm){
         super(gsm);
         cam.setToOrtho(false, Troubadour.WIDTH /2, Troubadour.HEIGHT /2);
-        background = new Texture("background.png");
-        playTexture = new Texture("play.png");
+        background = new Texture("Victorybackground.png");
     }
 
     @Override
@@ -40,7 +39,6 @@ public class EndGameState extends State {
         sb.begin();
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0, 0, cam.viewportWidth, cam.viewportHeight);
-        sb.draw(playTexture, cam.position.x-60/2, cam.position.y - 40/2, 60, 40);
         sb.end();
     }
 

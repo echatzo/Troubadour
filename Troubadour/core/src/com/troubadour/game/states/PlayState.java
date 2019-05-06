@@ -148,7 +148,8 @@ public class PlayState extends State {
                         {
                             Thread.currentThread().interrupt();
                         }
-                        gsm.set(new GameOverState(gsm, (int)score,1));//if the player have no more lives, change the playState to a gameOverState
+                        if (score >= 25) gsm.set(new WinState(gsm, (int) score, 1));
+                        else gsm.set(new GameOverState(gsm, (int)score,1));//if the player have no more lives, change the playState to a gameOverState
                     }
                 }
             }

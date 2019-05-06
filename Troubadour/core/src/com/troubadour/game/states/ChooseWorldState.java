@@ -283,12 +283,6 @@ public class ChooseWorldState extends State {
 
         stage.act();
         stage.draw();
-        sb.begin();
-        sb.draw(starW1,w1.getX()+(w1.getWidth()-starW1.getWidth())/2,w1.getY()+45,starW1.getWidth(),starW1.getHeight());
-        sb.draw(starW2,w2.getX()+(w2.getWidth()-starW2.getWidth())/2,w2.getY()+45,starW2.getWidth(),starW2.getHeight());
-        sb.draw(starW3,w3.getX()+(w3.getWidth()-starW3.getWidth())/2,w3.getY()+30,starW3.getWidth(),starW3.getHeight());
-        sb.draw(starW4,w4.getX()+(w4.getWidth()-starW4.getWidth())/2,w4.getY()+30,starW4.getWidth(),starW4.getHeight());
-        sb.end();
     }
 
 

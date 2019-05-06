@@ -68,7 +68,7 @@ public class Boss2 {
             velocity.y = - MOVEMENT;
         }
 
-        int toss = (int)(Math.random()*100);
+        int toss = (int)(Math.random()*200);
 
         if (toss == 1){
             velocity.x = -velocity.x;

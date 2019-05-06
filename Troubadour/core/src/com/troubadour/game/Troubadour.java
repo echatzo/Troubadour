@@ -56,9 +56,6 @@ public class Troubadour extends ApplicationAdapter{
 	}
     public static void playMusic(){
         //music debut
-        music = Gdx.audio.newMusic((Gdx.files.internal("VS_EVIL.mp3")));
-        music.setLooping(true);
-        music.setVolume(0.18f);
         music.play();
         //music fin
     }
